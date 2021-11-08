@@ -4,12 +4,12 @@ import spacy
 import pandas as pd
 import numpy as np
 import json
-from sklearn.model_selection import train_test_split
+# from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 # from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import GridSearchCV
-from sklearn.model_selection import KFold
+# from sklearn.model_selection import GridSearchCV
+# from sklearn.model_selection import KFold
 
 class nlp:
     def __init__(self, articles: list):
@@ -18,19 +18,21 @@ class nlp:
         self.keywords = []
         self.categories = []
 
-    # extract list of keywords from string
+    # Extract keywords from list of articles
+    # OUTPUT: list of lists of keywords as string
     def extract_keywords(self) -> list:
         # lemmatize using spacy
         articles = [" ".join([token.lemma_ for token in self.en_core_web_sm(article)]) for article in self.articles]
 
-        # remove stop words
+        # remove stop words using gensim
         articles = [utils.simple_preprocess(article) for article in articles]
         wordsToRemove = ['pron', '']
         self.keywords = [[remove_stopwords(word) for word in article if remove_stopwords(word) not in wordsToRemove] for article in articles]
 
         return self.keywords
 
-    # predict news category from string, using trained model
+    # Predict news category from string, using trained model
+    # OUTPUT: list of categories as string
     def predict_categories(self) -> list:
         pass
 
