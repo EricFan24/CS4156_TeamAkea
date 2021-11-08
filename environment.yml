@@ -152,4 +152,6 @@ dependencies:
   - zipp=3.6.0
   - zlib=1.2.11
   - zstd=1.4.9
+  - pip:
+    - en-core-web-sm==2.3.1
 prefix: C:\Users\fanxi\anaconda3\envs\akea
