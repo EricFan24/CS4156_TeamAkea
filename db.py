@@ -21,7 +21,7 @@ def init_db():
             conn.close()
 
 
-def add_tag(tag):  # will take in a tuple
+def add_row(tag):  # will take in a tuple
 
     conn = None
     try:
@@ -37,6 +37,40 @@ def add_tag(tag):  # will take in a tuple
             conn.close()
 
 
+def get_tags(user_id, url):
+    '''
+    Get all tags of an article
+    '''
+    conn = None
+    try: 
+        conn = sqlite3.connect('sqlite_db')
+        cur = conn.cursor()
+        cur.execute("SELECT tag FROM TAGS WHERE user_id  = ? AND url = ?", (user_id, url))
+        match = cur.fetchone()
+    except Error as e:
+        print(e)
+    finally:
+        if conn:
+            conn.close()
+        return match
+
+
+def modify_tags(user_id, url, new_tags):
+    '''
+    Generalized method for editing/adding/removing certain tags of an article
+    new_tags will be a tuple
+    '''
+    conn = None
+    try: 
+        conn = sqlite3.connect('sqlite_db')
+        cur = conn.cursor()
+        cur.execute("Update TAGS set tag = ? where user_id = ? AND url = ?", (new_tags, user_id, url))
+        conn.commit()
+    except Error as e:
+        print(e)
+    finally:
+        if conn:
+            conn.close()
 
 
 '''
