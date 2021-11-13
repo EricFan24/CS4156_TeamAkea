@@ -11,7 +11,7 @@ def init_db():
     conn = None
     try:
         conn = sqlite3.connect('sqlite_db')
-        conn.execute('CREATE TABLE TAGS(user_id TEXT, url TEXT, tag TEXT')
+        conn.execute('CREATE TABLE TAGS (user_id TEXT, url TEXT, tag TEXT)')
         print('Database Online, table created')
     except Error as e:
         print(e)
@@ -36,6 +36,27 @@ def add_row(tag):  # will take in a tuple
         if conn:
             conn.close()
 
+
+def get_urls(user_id, tag):
+    '''
+    Get all tags of an article
+    '''
+    print(user_id, tag)
+    conn = None
+    try: 
+        conn = sqlite3.connect('sqlite_db')
+        print("Connected")
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM TAGS WHERE user_id= '" + user_id + "'and tag = '" + tag + "'")
+        print("Command executed")
+        match = cur.fetchall()
+        return match
+    except Error as e:
+        print(e)
+    finally:
+        if conn:
+            conn.close()
+        
 
 def get_tags(user_id, url):
     '''

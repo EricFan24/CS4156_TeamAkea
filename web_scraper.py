@@ -66,6 +66,6 @@ class Scraper:
         self.create_dict(heading, subheading, description)
 
 
-s = Scraper('https://www.nbcnews.com/news/us-news/ability-force-recalls-fda-can-only-warn-consumers-benzene-hand'
-            '-sanitiz-rcna4585')
-print(s.parsing)
+#s = Scraper('https://www.nbcnews.com/news/us-news/ability-force-recalls-fda-can-only-warn-consumers-benzene-hand'
+#            '-sanitiz-rcna4585')
+#print(s.parsing)
