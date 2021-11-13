@@ -30,4 +30,6 @@ The project is implemented with Windows OS and Python3.
 
 ## How to run the service
 
+    python3 main_api.py
+
 ## How to test the service
