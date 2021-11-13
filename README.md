@@ -33,3 +33,11 @@ The project is implemented with Windows OS and Python3.
     python3 main_api.py
 
 ## How to test the service
+
+Unit Testing:
+
+The command coverage run -m unittest discover, runs all tests and figures out the coverage.
+Next, we run coverage html to generate a folder called htmlcov which contains descriptive information regarding the lines covered for each of the python classes under test. 
+The coverage report stands at 97%.
+
+The coverage report for NLP.py stands at 85% and that for web_scraper.py is at 100%.
