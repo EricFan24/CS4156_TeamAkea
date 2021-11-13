@@ -19,33 +19,46 @@ class NLP:
         self.keywords = []
         self.categories = []
 
-    # Extract keywords from list of articles
-    # OUTPUT: list of lists of keywords as string
+    # Extract keywords from list of articles as dicts
+    # OUTPUT: list of sets of keywords as string
     def get_keywords(self) -> list:
         if len(self.keywords) > 0:
             return self.keywords
         else:
+            pos_tag = ['PROPN', 'ADJ', 'NOUN']
+            ent_label = ['PERSON', 'ORG', 'GPE', 'GEO']
             for article in self.articles:
-                keywords = []
-                words = []
-                entities = []
-                # lemmatize using spacy
-                doc = self.en_core_web_sm(article.lower())
-                # remove stop words
-                words = ([token.lemma_ for token in doc if not (token.is_stop or token.is_punct)])
-                # extract entities
-                if doc.ents:
-                    for ent in doc.ents:
-                        entities.append(ent.text)
-                keywords.append(words)
-                keywords.append(entities)
-                self.keywords.append(keywords)
+                # process heading
+                doc_heading = self.en_core_web_sm(
+                    article['heading'].lower()
+                )
+                words_heading = [
+                    token.lemma_ for token in doc_heading 
+                    if not (token.is_stop or token.is_punct)
+                ]
+                # process description
+                doc_description = self.en_core_web_sm(
+                    article['description'].lower()
+                )
+                words_description = [
+                    token.lemma_ for token in doc_description
+                    if token.pos_ in pos_tag and
+                    not (token.is_stop or token.is_punct)
+                ]
+                # extract only entities if description too long
+                if len(words_description) > 10:
+                    if doc_description.ents:
+                        words_description = []
+                        for ent in doc_description.ents:
+                            if ent.label_ in ent_label:
+                                words_description.append(ent.text)
+                self.keywords.append(set(words_heading + words_description))
             return self.keywords
 
     # Predict news category from string, using trained model
     # OUTPUT: list of categories as string
-    def get_categories(self) -> list:
-        if len(self.categories) > 0:
-            return self.categories
-        else:
-            pass
+    # def get_categories(self) -> list:
+    #     if len(self.categories) > 0:
+    #         return self.categories
+    #     else:
+    #         pass
