@@ -28,16 +28,33 @@ The project is implemented with Windows OS and Python3.
 
 ## How to build the service
 
+- Flask: https://flask.palletsprojects.com/en/2.0.x/installation/
+
+        pip install Flask
+
+- spaCy: https://spacy.io/usage
+
+        pip install -U pip setuptools wheel
+        pip install -U spacy
+        python -m spacy download en_core_web_sm
+
+- BeautifulSoup4: https://pypi.org/project/beautifulsoup4/
+
+        pip install beautifulsoup4
+
+
 ## How to run the service
 
     python3 main_api.py
 
 ## How to test the service
 
-Unit Testing:
+### Unit test
 
-The command coverage run -m unittest discover, runs all tests and figures out the coverage.
-Next, we run coverage html to generate a folder called htmlcov which contains descriptive information regarding the lines covered for each of the python classes under test. 
-The coverage report stands at 97%.
+First, run command `coverage run -m unittest discover`. This will execute all tests and figures out the coverage.
 
-The coverage report for NLP.py stands at 85% and that for web_scraper.py is at 100%.
+Next, run `coverage html` to generate the folder `htmlcov` which contains descriptive information regarding the lines covered for each of the python classes under test.
+
+For the first iteration, the test coverage for `NLP.py` stands at 85% and that for `web_scraper.py` is at 100%. Overall, the coverage report stands at 97%.
+
+### Integration test
