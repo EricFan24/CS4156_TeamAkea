@@ -51,10 +51,10 @@ The project is implemented with Windows OS and Python3.
 
 ### Unit test
 
-First, run command `coverage run -m unittest discover`. This will execute all tests and figures out the coverage.
+First, run command `coverage run -m unittest discover -s unit_test/`. This will execute all unit tests and figures out the coverage.
 
 Next, run `coverage html` to generate the folder `htmlcov` which contains descriptive information regarding the lines covered for each of the python classes under test.
 
-For the first iteration, the test coverage for `NLP.py` stands at 85% and that for `web_scraper.py` is at 100%. Overall, the coverage report stands at 97%.
+For the first iteration, the test coverage for `NLP.py` stands at 96% and that for `web_scraper.py` is at 100%. Overall, the coverage report stands at 99%.
 
 ### Integration test
