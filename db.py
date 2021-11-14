@@ -27,7 +27,7 @@ def add_row(tag):  # will take in a tuple
     try:
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
-        cur.execute("INSERT INTO TAGS VALUES (?, ?, ?)", tag)
+        cur.execute("INSERT INTO TAGS (user_id, url, tag) VALUES (?, ?, ?)", tag)
         conn.commit()
         print('Database Online, tag added')
     except Error as e:
@@ -39,7 +39,7 @@ def add_row(tag):  # will take in a tuple
 
 def get_urls(user_id, tag):
     '''
-    Get all tags of an article
+    Get all articles that have the 'tag' keyword
     '''
     print(user_id, tag)
     conn = None
@@ -47,15 +47,15 @@ def get_urls(user_id, tag):
         conn = sqlite3.connect('sqlite_db')
         print("Connected")
         cur = conn.cursor()
-        cur.execute("SELECT * FROM TAGS WHERE user_id= '" + user_id + "'and tag = '" + tag + "'")
+        cur.execute("SELECT url FROM TAGS WHERE user_id= '" + user_id + "'and tag = '" + tag + "'")
         print("Command executed")
         match = cur.fetchall()
-        return match
     except Error as e:
         print(e)
     finally:
         if conn:
             conn.close()
+        return match
         
 
 def get_tags(user_id, url):
@@ -67,7 +67,7 @@ def get_tags(user_id, url):
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
         cur.execute("SELECT tag FROM TAGS WHERE user_id  = ? AND url = ?", (user_id, url))
-        match = cur.fetchone()
+        match = cur.fetchall()
     except Error as e:
         print(e)
     finally:
@@ -76,17 +76,81 @@ def get_tags(user_id, url):
         return match
 
 
-def modify_tags(user_id, url, new_tags):
-    '''
-    Generalized method for editing/adding/removing certain tags of an article
-    new_tags will be a tuple
-    '''
+def add_tag(user_id, url, new_tag):
+    """
+    Add a user-defined tag for a news article
+    If the tag is already associated with the article, do nothing
+    """
     conn = None
     try: 
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
-        cur.execute("Update TAGS set tag = ? where user_id = ? AND url = ?", (new_tags, user_id, url))
-        conn.commit()
+        cur.execute("SELECT * FROM TAGS WHERE user_id = ? AND url = ? AND tag = ?", (user_id, url, new_tag))
+        match = cur.fetchall()
+
+        if not match:
+            cur.execute("INSERT INTO TAGS (user_id, url, tag) VALUES (?, ?, ?)", (user_id, url, new_tag))
+            conn.commit()
+            print('new tag added for the article')
+        else:
+            print('the tag is already associated with the article')
+
+    except Error as e:
+        print(e)
+    finally:
+        if conn:
+            conn.close()
+
+
+def delete_tag(user_id, url, tag_to_remove):
+    """
+    Delete a specific tag from a news article
+    If the tag does not exist for this article, do nothing
+    """
+    conn = None
+    try: 
+        conn = sqlite3.connect('sqlite_db')
+        cur = conn.cursor()
+
+        cur.execute("SELECT * FROM TAGS WHERE user_id = ? AND url = ? AND tag = ?", (user_id, url, tag_to_remove))
+        match = cur.fetchall()
+
+        if match:
+            cur.execute("DELETE FROM TAGS WHERE user_id = ? AND url = ? AND tag = ?", (user_id, url, tag_to_remove))
+            conn.commit()
+            print('tag deleted for the article')
+        else:
+            print('the tag does not exist for this article')
+        
+    except Error as e:
+        print(e)
+    finally:
+        if conn:
+            conn.close()
+
+
+def update_tag(user_id, url, old_tag_text, new_tag_text):
+    """
+    Update the tag text for an article
+    If the old_tag_text does not exist for this article, 
+    add new_tag_text as a new entry
+    """
+    conn = None
+    try: 
+        conn = sqlite3.connect('sqlite_db')
+        cur = conn.cursor()
+
+        cur.execute("SELECT * FROM TAGS WHERE user_id = ? AND url = ? AND tag = ?", (user_id, url, old_tag_text))
+        match = cur.fetchall()
+
+        if match:
+            cur.execute("UPDATE TAGS set tag = ? WHERE user_id = ? AND url = ?", (new_tag_text, user_id, url))
+            conn.commit()
+            print('removed tag for the article')
+        else:
+            print('can\'t find the entry to update, inserting a new entry')
+            add_tag(user_id, url, new_tag_text)
+        
     except Error as e:
         print(e)
     finally:
