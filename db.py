@@ -27,7 +27,7 @@ def add_row(tag):  # will take in a tuple
     try:
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
-        cur.execute("INSERT INTO TAGS (user_id, url, tag) VALUES (?, ?, ?)", tag)
+        cur.execute("INSERT INTO TAGS VALUES (?, ?, ?)", tag)
         conn.commit()
         print('Database Online, tag added')
     except Error as e:
@@ -47,15 +47,15 @@ def get_urls(user_id, tag):
         conn = sqlite3.connect('sqlite_db')
         print("Connected")
         cur = conn.cursor()
-        cur.execute("SELECT url FROM TAGS WHERE user_id= '" + user_id + "'and tag = '" + tag + "'")
+        cur.execute("SELECT * FROM TAGS WHERE user_id= '" + user_id + "'and tag = '" + tag + "'")
         print("Command executed")
         match = cur.fetchall()
+        return match
     except Error as e:
         print(e)
     finally:
         if conn:
             conn.close()
-        return match
         
 
 def get_tags(user_id, url):
