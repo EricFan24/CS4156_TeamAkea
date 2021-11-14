@@ -69,7 +69,8 @@ class Scraper:
         self.create_dict(url, heading, subheading, description)
 
 
-
+'''
 s = Scraper(['https://www.nbcnews.com/news/us-news/ability-force-recalls-fda-can-only-warn-consumers-benzene-hand'
             '-sanitiz-rcna4585', "https://www.usatoday.com/story/news/nation/2021/11/10/atmospheric-river-wallop-pacific-northwest/6370849001/"])
-print(s.parsing)
+print(s.parsing[0].keys())
+'''
