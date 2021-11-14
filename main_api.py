@@ -20,7 +20,7 @@ class BookmarkTagger(Resource):
         url_lists=[]
 
         for t in tags:
-            data_for_tag = db.get_urls("user_1", t)
+            data_for_tag = db.get_urls("user_1", t.lower())
             urls_for_tag = []
             for d in data_for_tag:
                 urls_for_tag.append(d[1])
@@ -35,26 +35,18 @@ class BookmarkTagger(Resource):
         '''
         Handles tagging and adding a new bookmark to database
         '''
-        print("Here")
         
         request_data = request.get_json()
-        url = request_data['url']
-        #print(url)
+        urls = request_data['urls']
         
-        scrapper = Scraper(url)
-        text = ""
-        for t in scrapper.parsing:
-            text += scrapper.parsing[t] + " "
-
-        print("article generated: ", text)
-        data = [text]
-        print("Length of data is: ", len(data))
-        keywords = NLP(data).get_keywords()
+        scrapper = Scraper(urls)
+        keywords = NLP(scrapper.parsing).get_keywords()
         
-        tags = ["Biden", "China", "USA", "coal"]
+        keywords = [list(i) for i in keywords]
 
-        for t in tags:
-            db.add_row(("user_1", url, t))
+        for i, url in enumerate(urls):
+            for tag in keywords[i]:
+                db.add_row(("user_1", url, tag))
 
         print("Keywords extracted: ", keywords)
         
