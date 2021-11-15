@@ -28,7 +28,7 @@ The project is implemented with Windows OS and Python3.
 
 ## Style checking
 
-### FLake8
+### FLake8: https://flake8.pycqa.org/en/latest/
 
 First, install `flake8`:
 
@@ -40,11 +40,15 @@ Next, run `flake8` and direct the output to `bugs.txt`:
 
 Then, open `bugs.txt` file to check if there're any style errors.
 
-### Pylint: 
+### Pylint: https://pylint.org/
 
 First, install `pylint`:
 
         pip install pylint
+
+Next, run 'pylint' and direct the output to 'mymodule-bugs.txt':
+
+        pylint mymodule.py > mymodule-bugs.txt
 
 ## How to build the service
 
