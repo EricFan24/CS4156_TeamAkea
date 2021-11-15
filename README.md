@@ -29,18 +29,20 @@ The project is implemented with Windows OS and Python3.
 The API has one endpoint "/tags" which offers two functionalities:
 - POST request which sends a list of URLs to be tagged. Sample POST request json:
 
-      {
+```json
+{
       "urls": ["https://www.usatoday.com/story/news/nation/2021/11/10/atmospheric-river-wallop-pacific-northwest/6370849001/",
     "https://www.nbcnews.com/news/us-news/ability-force-recalls-fda-can-only-warn-consumers-benzene-hand-sanitiz-rcna4585",
     "https://www.nytimes.com/2021/11/10/climate/climate-cop26-glasgow.html"]
-      }
-
+}
+```
 - GET request which sends a list of tags and gets back the URLs corresonding to all specified tags. Sample GET request json: 
 
-      {
+```json
+{
     "tags" : ["washington"]
-      }
-
+}
+```
 ## Bug & Style checking
 
 - FLake8: https://flake8.pycqa.org/en/latest/
