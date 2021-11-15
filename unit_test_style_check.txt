@@ -1,0 +1,22 @@
+************* Module unit_test.test_db
+unit_test\test_db.py:9:0: E0401: Unable to import 'db' (import-error)
+************* Module unit_test.test_NLP
+unit_test\test_NLP.py:10:0: C0301: Line too long (134/100) (line-too-long)
+unit_test\test_NLP.py:12:0: C0301: Line too long (503/100) (line-too-long)
+unit_test\test_NLP.py:15:0: C0301: Line too long (142/100) (line-too-long)
+unit_test\test_NLP.py:16:0: C0301: Line too long (124/100) (line-too-long)
+unit_test\test_NLP.py:17:0: C0301: Line too long (2559/100) (line-too-long)
+unit_test\test_NLP.py:22:0: C0301: Line too long (3251/100) (line-too-long)
+unit_test\test_NLP.py:1:0: C0103: Module name "test_NLP" doesn't conform to snake_case naming style (invalid-name)
+unit_test\test_NLP.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+unit_test\test_NLP.py:2:0: E0401: Unable to import 'nlp' (import-error)
+unit_test\test_NLP.py:5:0: C0103: Class name "Test_TestNLP" doesn't conform to PascalCase naming style (invalid-name)
+unit_test\test_NLP.py:5:0: C0115: Missing class docstring (missing-class-docstring)
+unit_test\test_NLP.py:7:4: C0116: Missing function or method docstring (missing-function-docstring)
+unit_test\test_NLP.py:3:0: C0411: standard import "from pprint import pprint" should be placed before "from nlp import NLP" (wrong-import-order)
+************* Module unit_test.test_web_scraper
+unit_test\test_web_scraper.py:6:0: E0401: Unable to import 'web_scraper' (import-error)
+
+------------------------------------------------------------------
+Your code has been rated at 7.24/10 (previous run: 7.24/10, +0.00)
+
