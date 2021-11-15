@@ -5,7 +5,7 @@ from urllib.parse import urlparse
 
 class Scraper:
 
-    def __init__(self, url_list:list):
+    def __init__(self, url_list: list):
         self.url_list = url_list
         self.parsing = []
         self.host_name = []
@@ -26,15 +26,15 @@ class Scraper:
             elif host_name == "www.nbcnews.com":
                 self.parse_nbc_news(url)
 
-    def get_content(self, url):
+    @staticmethod
+    def get_content(url):
         response = requests.get(url)
         soup = BeautifulSoup(response.content, 'html.parser')
         return soup
 
     def create_dict(self, url, heading, subheading, descr):
 
-        parse_dict = {}
-        parse_dict["url"] = url
+        parse_dict = {"url": url}
         str_descr = []
         for h1 in heading:
             parse_dict["heading"] = h1.get_text()
@@ -67,10 +67,3 @@ class Scraper:
         subheading = soup.find_all('div', class_='article-dek')
         description = soup.find_all('p', class_='')
         self.create_dict(url, heading, subheading, description)
-
-
-'''
-s = Scraper(['https://www.nbcnews.com/news/us-news/ability-force-recalls-fda-can-only-warn-consumers-benzene-hand'
-            '-sanitiz-rcna4585', "https://www.usatoday.com/story/news/nation/2021/11/10/atmospheric-river-wallop-pacific-northwest/6370849001/"])
-print(s.parsing[0].keys())
-'''
