@@ -26,11 +26,41 @@ The project is implemented with Windows OS and Python3.
 
 ## Operational entry points to the service (API documentation)
 
+## Bug & Style checking
+
+- FLake8: https://flake8.pycqa.org/en/latest/
+
+  First, install `flake8`:
+
+        python -m pip install flake8
+
+  Next, run `flake8` and direct the output to `bugs.txt`:
+
+        flake8 > bugs.txt
+
+  Then, open `bugs.txt` file to check if there're any style errors.
+  
+  
+We're following the Google Style Guide for Python - https://google.github.io/styleguide/pyguide.html
+
+- Pylint: https://pylint.org/
+
+  First, install `pylint`:
+
+        pip install pylint
+
+  Next, run 'pylint' and direct the output to 'mymodule-bugs.txt':
+
+        pylint mymodule.py > mymodule-bugs.txt
+        
+  Then, open `mymodule-bugs.txt` file to check if there're any style errors.
+
 ## How to build the service
 
 - Flask: https://flask.palletsprojects.com/en/2.0.x/installation/
 
         pip install Flask
+        pip install flask-restful
 
 - spaCy: https://spacy.io/usage
 
@@ -55,6 +85,12 @@ First, run command `coverage run -m unittest discover -s unit_test/`. This will 
 
 Next, run `coverage html` to generate the folder `htmlcov` which contains descriptive information regarding the lines covered for each of the python classes under test.
 
-For the first iteration, the test coverage for `NLP.py` stands at 96% and that for `web_scraper.py` is at 100%. Overall, the coverage report stands at 99%.
+For the first iteration, the test coverage for `NLP.py` stands at 96%, the coverage for `web_scraper.py` is at 100%, and that for `db.py` is at 55%. Overall, the coverage report stands at 88%.
 
 ### Integration test
+
+First, open a terminal and run `python3 main_api.py` to host the service on [local host](http://127.0.0.1:5000/).
+
+Next, open a new terminal and run `coverage run -m unittest discover -s integration_test/`. This will POST mock data to the API and execute the whole workflow, and make sure the data is stored inside the database.
+
+Finally, run `coverage html` to generate the folder `htmlcov` and visualize coverage.

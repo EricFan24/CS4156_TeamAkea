@@ -1,0 +1,13 @@
+************* Module NLP
+NLP.py:36:57: C0303: Trailing whitespace (trailing-whitespace)
+NLP.py:1:0: C0103: Module name "NLP" doesn't conform to snake_case naming style (invalid-name)
+NLP.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+NLP.py:15:0: C0115: Missing class docstring (missing-class-docstring)
+NLP.py:24:4: C0116: Missing function or method docstring (missing-function-docstring)
+NLP.py:25:8: R1705: Unnecessary "else" after "return" (no-else-return)
+NLP.py:25:8: R1702: Too many nested blocks (6/5) (too-many-nested-blocks)
+NLP.py:15:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+
+-----------------------------------
+Your code has been rated at 6.80/10
+
