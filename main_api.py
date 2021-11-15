@@ -1,3 +1,7 @@
+'''
+This module handles the incoming requests to the Bookmark tagging service.
+'''
+
 from flask import Flask, request
 from flask_restful import Resource, Api
 
@@ -11,20 +15,26 @@ api = Api(app)
 
 class BookmarkTagger(Resource):
 
+    '''
+    Handles get and post requests to the /tags endpoint.
+    '''
+    def __init__(self):
+        db.init_db()
+
     def get(self):
         '''
-        Search bookmarks using tags. Not implemente for first iteration.
+        Search bookmarks using tags.
         '''
         request_data = request.get_json()
         tags = request_data['tags']
 
         url_lists = []
 
-        for t in tags:
-            data_for_tag = db.get_urls("user_1", t.lower())
+        for tag in tags:
+            data_for_tag = db.get_urls("user_1", tag.lower())
             urls_for_tag = []
-            for d in data_for_tag:
-                urls_for_tag.append(d[1])
+            for datum in data_for_tag:
+                urls_for_tag.append(datum[1])
             url_lists.append(urls_for_tag)
 
         common_urls = list(set(url_lists[0]).intersection(*url_lists))
@@ -33,7 +43,7 @@ class BookmarkTagger(Resource):
 
     def post(self):
         '''
-        Handles tagging and adding a new bookmark to database
+        Handles tagging and adding a new bookmark to the database.
         '''
 
         request_data = request.get_json()
@@ -53,7 +63,7 @@ class BookmarkTagger(Resource):
         return {'tags': keywords}, 200  # return data with 200 OK
 
 
-api.add_resource(BookmarkTagger, '/')  # add endpoint
+api.add_resource(BookmarkTagger, '/tags')  # add endpoint
 
 if __name__ == '__main__':
     app.run()

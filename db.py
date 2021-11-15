@@ -1,20 +1,24 @@
+'''
+This module defines functions for database operations.
+'''
+
 import sqlite3
 from sqlite3 import Error
 
-'''
-Initializes the Table TAGS
-'''
-
 
 def init_db():
+
+    '''
+    Initializes the Table TAGS
+    '''
     # creates Table
     conn = None
     try:
         conn = sqlite3.connect('sqlite_db')
         conn.execute('CREATE TABLE TAGS (user_id TEXT, url TEXT, tag TEXT)')
         print('Database Online, table created')
-    except Error as e:
-        print(e)
+    except Error as err:
+        print(err)
 
     finally:
         if conn:
@@ -23,6 +27,9 @@ def init_db():
 
 def add_row(tag):  # will take in a tuple
 
+    '''
+    Adds the url and tag to the databse
+    '''
     conn = None
     try:
         conn = sqlite3.connect('sqlite_db')
@@ -30,8 +37,8 @@ def add_row(tag):  # will take in a tuple
         cur.execute("INSERT INTO TAGS VALUES (?, ?, ?)", tag)
         conn.commit()
         print('Database Online, tag added')
-    except Error as e:
-        print(e)
+    except Error as err:
+        print(err)
     finally:
         if conn:
             conn.close()
@@ -43,6 +50,7 @@ def get_urls(user_id, tag):
     '''
     print(user_id, tag)
     conn = None
+    match = None
     try:
         conn = sqlite3.connect('sqlite_db')
         print("Connected")
@@ -51,13 +59,13 @@ def get_urls(user_id, tag):
         print("Command executed")
         match = cur.fetchall()
         return match
-    except Error as e:
-        print(e)
+    except Error as err:
+        print(err)
     finally:
         if conn:
             conn.close()
 
-   
+
 """
 def get_tags(user_id, url):
     '''
@@ -166,13 +174,18 @@ Do not modify
 
 
 def clear():
+
+    '''
+    Clears the table TAGS
+    '''
+
     conn = None
     try:
         conn = sqlite3.connect('sqlite_db')
         conn.execute("DROP TABLE TAGS")
         print('Database Cleared')
-    except Error as e:
-        print(e)
+    except Error as err:
+        print(err)
 
     finally:
         if conn:
