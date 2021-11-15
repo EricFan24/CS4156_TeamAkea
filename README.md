@@ -61,6 +61,9 @@ Then, open `bugs.txt` file to check if there're any style errors.
     python3 main_api.py
 
 ## How to test the service
+### Bug test
+
+We use flake8 to check for bugs. The command `flake8 > bugs.txt` this will run flake8 on all python files and then output the results into a txt called bugs.txt.
 
 ### Unit test
 
