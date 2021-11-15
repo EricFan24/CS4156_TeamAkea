@@ -52,8 +52,8 @@ class BookmarkTagger(Resource):
 
         return {'tags': keywords}, 200  # return data with 200 OK
 
-
 api.add_resource(BookmarkTagger, '/')  # add endpoint
 
 if __name__ == '__main__':
     app.run()
+
