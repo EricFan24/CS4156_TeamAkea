@@ -30,7 +30,6 @@ class BookmarkTagger(Resource):
 
         return {'urls': common_urls}, 200  # return data with 200 OK
 
-    
     def post(self):
         '''
         Handles tagging and adding a new bookmark to database
@@ -51,9 +50,8 @@ class BookmarkTagger(Resource):
         print("Keywords extracted: ", keywords)
         
         return {'tags': keywords}, 200  # return data with 200 OK
-
-                    
+     
 api.add_resource(BookmarkTagger, '/')  # add endpoint
 
 if __name__ == '__main__':
-    app.run()  
+    app.run()

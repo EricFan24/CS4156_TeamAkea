@@ -1,7 +1,6 @@
 import unittest
-from NLP import NLP
+from nlp import NLP
 from pprint import pprint
-
 
 class Test_TestNLP(unittest.TestCase):
     # test get_keywords
