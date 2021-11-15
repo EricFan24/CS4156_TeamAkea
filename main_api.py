@@ -6,7 +6,7 @@ from flask import Flask, request
 from flask_restful import Resource, Api
 
 from web_scraper import Scraper
-from NLP import NLP
+from nlp import NLP
 import db
 
 app = Flask(__name__)
@@ -33,9 +33,10 @@ class BookmarkTagger(Resource):
         for tag in tags:
             data_for_tag = db.get_urls("user_1", tag.lower())
             urls_for_tag = []
-            for datum in data_for_tag:
-                urls_for_tag.append(datum[1])
-            url_lists.append(urls_for_tag)
+            if data_for_tag is not None:
+                for datum in data_for_tag:
+                    urls_for_tag.append(datum[1])
+                url_lists.append(urls_for_tag)
 
         common_urls = list(set(url_lists[0]).intersection(*url_lists))
 
