@@ -1,0 +1,52 @@
+.\db.py:46:9: W291 trailing whitespace
+.\db.py:50:80: E501 line too long (97 > 79 characters)
+.\db.py:59:1: W293 blank line contains whitespace
+.\db.py:66:9: W291 trailing whitespace
+.\db.py:69:80: E501 line too long (90 > 79 characters)
+.\db.py:85:9: W291 trailing whitespace
+.\db.py:88:80: E501 line too long (108 > 79 characters)
+.\db.py:92:80: E501 line too long (105 > 79 characters)
+.\db.py:111:9: W291 trailing whitespace
+.\db.py:115:80: E501 line too long (114 > 79 characters)
+.\db.py:119:80: E501 line too long (116 > 79 characters)
+.\db.py:124:1: W293 blank line contains whitespace
+.\db.py:135:57: W291 trailing whitespace
+.\db.py:139:9: W291 trailing whitespace
+.\db.py:143:80: E501 line too long (113 > 79 characters)
+.\db.py:147:80: E501 line too long (110 > 79 characters)
+.\db.py:153:1: W293 blank line contains whitespace
+.\db.py:178:25: W292 no newline at end of file
+.\main_api.py:2:1: F401 'flask_restful.reqparse' imported but unused
+.\main_api.py:11:1: E302 expected 2 blank lines, found 1
+.\main_api.py:20:18: E225 missing whitespace around operator
+.\main_api.py:33:1: W293 blank line contains whitespace
+.\main_api.py:34:5: E303 too many blank lines (2)
+.\main_api.py:38:1: W293 blank line contains whitespace
+.\main_api.py:41:1: W293 blank line contains whitespace
+.\main_api.py:44:1: W293 blank line contains whitespace
+.\main_api.py:52:1: W293 blank line contains whitespace
+.\main_api.py:55:1: W293 blank line contains whitespace
+.\main_api.py:59:14: W291 trailing whitespace
+.\main_api.py:59:16: W292 no newline at end of file
+.\NLP.py:36:58: W291 trailing whitespace
+.\integration_test\test_integration.py:2:1: F401 'NLP.NLP' imported but unused
+.\integration_test\test_integration.py:3:1: F401 'web_scraper.Scraper' imported but unused
+.\integration_test\test_integration.py:4:1: F401 'main_api.BookmarkTagger' imported but unused
+.\integration_test\test_integration.py:5:1: F401 'db' imported but unused
+.\integration_test\test_integration.py:7:1: E302 expected 2 blank lines, found 1
+.\integration_test\test_integration.py:8:3: E111 indentation is not a multiple of 4
+.\integration_test\test_integration.py:10:1: E302 expected 2 blank lines, found 1
+.\integration_test\test_integration.py:11:3: E111 indentation is not a multiple of 4
+.\integration_test\test_integration.py:13:1: E305 expected 2 blank lines after class or function definition, found 1
+.\integration_test\test_integration.py:14:20: W292 no newline at end of file
+.\unit_test\test_db.py:14:80: E501 line too long (80 > 79 characters)
+.\unit_test\test_db.py:22:1: W293 blank line contains whitespace
+.\unit_test\test_db.py:27:1: W293 blank line contains whitespace
+.\unit_test\test_NLP.py:11:80: E501 line too long (134 > 79 characters)
+.\unit_test\test_NLP.py:13:80: E501 line too long (503 > 79 characters)
+.\unit_test\test_NLP.py:16:80: E501 line too long (142 > 79 characters)
+.\unit_test\test_NLP.py:17:80: E501 line too long (124 > 79 characters)
+.\unit_test\test_NLP.py:18:80: E501 line too long (2559 > 79 characters)
+.\unit_test\test_NLP.py:21:80: E501 line too long (95 > 79 characters)
+.\unit_test\test_NLP.py:22:80: E501 line too long (88 > 79 characters)
+.\unit_test\test_NLP.py:23:80: E501 line too long (3251 > 79 characters)
