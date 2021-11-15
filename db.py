@@ -43,11 +43,11 @@ def get_urls(user_id, tag):
     '''
     print(user_id, tag)
     conn = None
-    try: 
+    try:
         conn = sqlite3.connect('sqlite_db')
         print("Connected")
         cur = conn.cursor()
-        cur.execute("SELECT * FROM TAGS WHERE user_id= '" + user_id + "'and tag = '" + tag + "'")
+        cur.execute("SELECT * FROM TAGS WHERE user_id='" + user_id + "'and tag ='" + tag + "'")
         print("Command executed")
         match = cur.fetchall()
         return match
@@ -56,14 +56,15 @@ def get_urls(user_id, tag):
     finally:
         if conn:
             conn.close()
-        
 
+   
+"""
 def get_tags(user_id, url):
     '''
     Get all tags of an article
     '''
     conn = None
-    try: 
+    try:
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
         cur.execute("SELECT tag FROM TAGS WHERE user_id  = ? AND url = ?", (user_id, url))
@@ -77,10 +78,10 @@ def get_tags(user_id, url):
 
 
 def add_tag(user_id, url, new_tag):
-    """
+    '''
     Add a user-defined tag for a news article
     If the tag is already associated with the article, do nothing
-    """
+    '''
     conn = None
     try: 
         conn = sqlite3.connect('sqlite_db')
@@ -103,10 +104,10 @@ def add_tag(user_id, url, new_tag):
 
 
 def delete_tag(user_id, url, tag_to_remove):
-    """
+    '''
     Delete a specific tag from a news article
     If the tag does not exist for this article, do nothing
-    """
+    '''
     conn = None
     try: 
         conn = sqlite3.connect('sqlite_db')
@@ -130,11 +131,11 @@ def delete_tag(user_id, url, tag_to_remove):
 
 
 def update_tag(user_id, url, old_tag_text, new_tag_text):
-    """
+    '''
     Update the tag text for an article
     If the old_tag_text does not exist for this article, 
     add new_tag_text as a new entry
-    """
+    '''
     conn = None
     try: 
         conn = sqlite3.connect('sqlite_db')
@@ -156,7 +157,7 @@ def update_tag(user_id, url, old_tag_text, new_tag_text):
     finally:
         if conn:
             conn.close()
-
+"""
 
 '''
 Clears the Table TAGS
