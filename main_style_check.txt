@@ -1,0 +1,20 @@
+************* Module CS4156_TeamAkea
+CS4156_TeamAkea\__init__.py:1:0: C0103: Module name "CS4156_TeamAkea" doesn't conform to snake_case naming style (invalid-name)
+************* Module CS4156_TeamAkea.db
+CS4156_TeamAkea\db.py:47:0: R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements)
+CS4156_TeamAkea\db.py:69:0: W0105: String statement has no effect (pointless-string-statement)
+CS4156_TeamAkea\db.py:170:0: W0105: String statement has no effect (pointless-string-statement)
+************* Module CS4156_TeamAkea.main_api
+CS4156_TeamAkea\main_api.py:70:0: C0305: Trailing newlines (trailing-newlines)
+CS4156_TeamAkea\main_api.py:6:0: E0401: Unable to import 'flask_restful' (import-error)
+CS4156_TeamAkea\main_api.py:8:0: E0401: Unable to import 'web_scraper' (import-error)
+CS4156_TeamAkea\main_api.py:9:0: E0401: Unable to import 'NLP' (import-error)
+CS4156_TeamAkea\main_api.py:10:0: E0401: Unable to import 'db' (import-error)
+CS4156_TeamAkea\main_api.py:24:4: R0201: Method could be a function (no-self-use)
+CS4156_TeamAkea\main_api.py:44:4: R0201: Method could be a function (no-self-use)
+************* Module CS4156_TeamAkea.NLP
+CS4156_TeamAkea\NLP.py:1:0: C0103: Module name "NLP" doesn't conform to snake_case naming style (invalid-name)
+
+------------------------------------------------------------------
+Your code has been rated at 8.39/10 (previous run: 8.39/10, +0.00)
+

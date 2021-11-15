@@ -97,7 +97,8 @@ class Scraper:
 
     def parse_ny_times(self, url):
         """
-        Extract heading, sub heading and description from NY Times news articles
+        Extract heading, sub heading and description from
+        NY Times news articles
         :param url: website URL
         :return: -NA-
         """
