@@ -72,5 +72,5 @@ class Test_TestNLP(unittest.TestCase):
         ]
         keywords = NLP(data).get_keywords()
         print("keywords:")
-        pprint(keywords)
+        # pprint(keywords)
         self.assertEqual(keywords, expected_keywords)
