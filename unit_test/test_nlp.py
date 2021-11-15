@@ -2,7 +2,7 @@ import unittest
 from nlp import NLP
 # from pprint import pprint
 
-class Test_TestNLP(unittest.TestCase):
+class TestTestNLP(unittest.TestCase):
     """unit tests for nlp.py"""
     def test_get_keywords(self):
         """test get_keywords"""
