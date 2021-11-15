@@ -66,11 +66,22 @@ We're following the Google Style Guide for Python - https://google.github.io/sty
 
         pip install pylint
 
-  Next, run 'pylint' and direct the output to 'mymodule-bugs.txt':
+  Next,  
+  We run 'pylint' on the main directory and direct the output to 'main_style_check.txt':
 
-        pylint mymodule.py > mymodule-bugs.txt
+        pylint ./CS4156_TeamAkea > main_style_check.txt
         
-  Then, open `mymodule-bugs.txt` file to check if there're any style errors.
+  Next, we run 'pylint' on the unit test directory and direct the output to 'unit_test_style_check.txt':
+
+        cd CS4156_TeamAkea
+        pylint ./unit_test > unit_test_style_check.txt
+        
+  Next, we run 'pylint' on the integration test directory and direct the output to 'integration_test_style_check.txt':
+
+        pylint ./integration_test > integration_test_style_check.txt
+        
+    
+  Then, open the respective .txt file to check if there're any style errors.
 
 ## How to build the service
 
