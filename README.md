@@ -28,6 +28,8 @@ The project is implemented with Windows OS and Python3.
 
 ## Style checking
 
+### FLake8
+
 First, install `flake8`:
 
         python -m pip install flake8
@@ -37,6 +39,12 @@ Next, run `flake8` and direct the output to `bugs.txt`:
         flake8 > bugs.txt
 
 Then, open `bugs.txt` file to check if there're any style errors.
+
+### Pylint: 
+
+First, install `pylint`:
+
+        pip install pylint
 
 ## How to build the service
 
