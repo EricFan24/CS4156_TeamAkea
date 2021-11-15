@@ -31,6 +31,7 @@ The project is implemented with Windows OS and Python3.
 - Flask: https://flask.palletsprojects.com/en/2.0.x/installation/
 
         pip install Flask
+        pip install flask-restful
 
 - spaCy: https://spacy.io/usage
 
@@ -58,3 +59,9 @@ Next, run `coverage html` to generate the folder `htmlcov` which contains descri
 For the first iteration, the test coverage for `NLP.py` stands at 96% and that for `web_scraper.py` is at 100%. Overall, the coverage report stands at 99%.
 
 ### Integration test
+
+First, open a terminal and run `python3 main_api.py` to host the service on [local host](http://127.0.0.1:5000/).
+
+Next, open a new terminal and run `coverage run -m unittest discover -s integration_test/`. This will POST mock data to the API and execute the whole workflow, and make sure the data is stored inside the database.
+
+Finally, run `coverage html` to generate the folder `htmlcov` and visualize coverage.
