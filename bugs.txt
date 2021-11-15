@@ -1,22 +1,6 @@
-.\db.py:58:80: E501 line too long (95 > 79 characters)
-.\db.py:78:80: E501 line too long (90 > 79 characters)
-.\db.py:94:9: W291 trailing whitespace
-.\db.py:97:80: E501 line too long (108 > 79 characters)
-.\db.py:101:80: E501 line too long (105 > 79 characters)
-.\db.py:120:9: W291 trailing whitespace
-.\db.py:124:80: E501 line too long (114 > 79 characters)
-.\db.py:128:80: E501 line too long (116 > 79 characters)
-.\db.py:133:1: W293 blank line contains whitespace
-.\db.py:144:57: W291 trailing whitespace
-.\db.py:148:9: W291 trailing whitespace
-.\db.py:152:80: E501 line too long (113 > 79 characters)
-.\db.py:156:80: E501 line too long (110 > 79 characters)
-.\db.py:162:1: W293 blank line contains whitespace
 .\main_api.py:70:1: W391 blank line at end of file
 .\nlp.py:15:1: E302 expected 2 blank lines, found 1
 .\web_scraper.py:100:80: E501 line too long (80 > 79 characters)
-.\integration_test\test_integration.py:21:69: W291 trailing whitespace
-.\integration_test\test_integration.py:24:73: W291 trailing whitespace
 .\unit_test\test_nlp.py:5:1: E302 expected 2 blank lines, found 1
 .\unit_test\test_nlp.py:11:80: E501 line too long (134 > 79 characters)
 .\unit_test\test_nlp.py:13:80: E501 line too long (503 > 79 characters)
