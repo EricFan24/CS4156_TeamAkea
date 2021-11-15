@@ -56,7 +56,7 @@ First, run command `coverage run -m unittest discover -s unit_test/`. This will 
 
 Next, run `coverage html` to generate the folder `htmlcov` which contains descriptive information regarding the lines covered for each of the python classes under test.
 
-For the first iteration, the test coverage for `NLP.py` stands at 96% and that for `web_scraper.py` is at 100%. Overall, the coverage report stands at 99%.
+For the first iteration, the test coverage for `NLP.py` stands at 96%, the coverage for `web_scraper.py` is at 100%, and that for `db.py` is at 55%. Overall, the coverage report stands at 88%.
 
 ### Integration test
 

@@ -57,7 +57,7 @@ def get_urls(user_id, tag):
         if conn:
             conn.close()
         
-
+"""
 def get_tags(user_id, url):
     '''
     Get all tags of an article
@@ -77,10 +77,10 @@ def get_tags(user_id, url):
 
 
 def add_tag(user_id, url, new_tag):
-    """
+    '''
     Add a user-defined tag for a news article
     If the tag is already associated with the article, do nothing
-    """
+    '''
     conn = None
     try: 
         conn = sqlite3.connect('sqlite_db')
@@ -103,10 +103,10 @@ def add_tag(user_id, url, new_tag):
 
 
 def delete_tag(user_id, url, tag_to_remove):
-    """
+    '''
     Delete a specific tag from a news article
     If the tag does not exist for this article, do nothing
-    """
+    '''
     conn = None
     try: 
         conn = sqlite3.connect('sqlite_db')
@@ -130,11 +130,11 @@ def delete_tag(user_id, url, tag_to_remove):
 
 
 def update_tag(user_id, url, old_tag_text, new_tag_text):
-    """
+    '''
     Update the tag text for an article
     If the old_tag_text does not exist for this article, 
     add new_tag_text as a new entry
-    """
+    '''
     conn = None
     try: 
         conn = sqlite3.connect('sqlite_db')
@@ -156,7 +156,7 @@ def update_tag(user_id, url, old_tag_text, new_tag_text):
     finally:
         if conn:
             conn.close()
-
+"""
 
 '''
 Clears the Table TAGS
