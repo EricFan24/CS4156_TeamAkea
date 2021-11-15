@@ -43,11 +43,11 @@ def get_urls(user_id, tag):
     '''
     print(user_id, tag)
     conn = None
-    try: 
+    try:
         conn = sqlite3.connect('sqlite_db')
         print("Connected")
         cur = conn.cursor()
-        cur.execute("SELECT * FROM TAGS WHERE user_id= '" + user_id + "'and tag = '" + tag + "'")
+        cur.execute("SELECT * FROM TAGS WHERE user_id='" + user_id + "'and tag ='" + tag + "'")
         print("Command executed")
         match = cur.fetchall()
         return match
@@ -56,14 +56,13 @@ def get_urls(user_id, tag):
     finally:
         if conn:
             conn.close()
-        
 
 def get_tags(user_id, url):
     '''
     Get all tags of an article
     '''
     conn = None
-    try: 
+    try:
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
         cur.execute("SELECT tag FROM TAGS WHERE user_id  = ? AND url = ?", (user_id, url))

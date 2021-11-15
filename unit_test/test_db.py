@@ -11,7 +11,7 @@ class Test_DB(unittest.TestCase):
         conn = None
         try:
             conn = sqlite3.connect('sqlite_db')
-            conn.execute('CREATE TABLE TAGS (user_id TEXT, url TEXT, tag TEXT)')
+            conn.execute('CREATE TABLE TAGS(user_id TEXT, url TEXT, tag TEXT)')
             print('Database Online, table created')
         except Error as e:
             print(e)
@@ -19,12 +19,12 @@ class Test_DB(unittest.TestCase):
         finally:
             if conn:
                 conn.close()
-        
+
     def test_add_row(self):
         # Checks if add_move works correctly
         tag = ("user_1", "www.abc.com", "India")
         db.add_row(tag)
-        
+
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
         cur.execute('SELECT * FROM TAGS')
