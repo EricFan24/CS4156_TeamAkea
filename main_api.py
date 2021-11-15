@@ -6,7 +6,7 @@ from flask import Flask, request
 from flask_restful import Resource, Api
 
 from web_scraper import Scraper
-from NLP import NLP
+from nlp import NLP
 import db
 
 app = Flask(__name__)
