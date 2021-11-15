@@ -1,10 +1,11 @@
 import unittest
 from nlp import NLP
-from pprint import pprint
+# from pprint import pprint
 
 class Test_TestNLP(unittest.TestCase):
-    # test get_keywords
+    """unit tests for nlp.py"""
     def test_get_keywords(self):
+        """test get_keywords"""
         data = [
             {
                 'url': 'https://www.usatoday.com/story/news/nation/2021/11/10/atmospheric-river-wallop-pacific-northwest/6370849001/',
@@ -71,5 +72,5 @@ class Test_TestNLP(unittest.TestCase):
         ]
         keywords = NLP(data).get_keywords()
         print("keywords:")
-        pprint(keywords)
+        # pprint(keywords)
         self.assertEqual(keywords, expected_keywords)
