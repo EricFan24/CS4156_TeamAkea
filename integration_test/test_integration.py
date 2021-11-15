@@ -17,12 +17,14 @@ class Test_endpoint_post(unittest.TestCase):
         Test database table creation and deletion,
         the API response and returned keywords of main_api
         """
-        usa_today = "https://www.usatoday.com/story/news/nation/2021/11 \
-                    /10/atmospheric-river-wallop-pacific-northwest/6370849001/"
-        nbc_news = "https://www.nbcnews.com/news/us-news/ability-force-recalls \
-                    -fda-can-only-warn-consumers-benzene-hand-sanitiz-rcna4585"
-        ny_times = "https://www.nytimes.com/2021/11/10/climate \
-                    /climate-cop26-glasgow.html"
+        usa_today = ''.join(["https://www.usatoday.com/story/news/nation",
+                             "/2021/11/10/atmospheric-river-wallop",
+                             "-pacific-northwest/6370849001/"])
+        nbc_news = ''.join(["https://www.nbcnews.com/news/us-news",
+                            "/ability-force-recalls-fda-can-only-warn-",
+                            "consumers-benzene-hand-sanitiz-rcna4585"])
+        ny_times = ''.join(["https://www.nytimes.com/2021/11/10/climate/",
+                           "climate-cop26-glasgow.html"])
 
         """
         expected_keywords = [['oregon', 'wallop', 'pacific', 'river',
@@ -52,7 +54,7 @@ class Test_endpoint_post(unittest.TestCase):
         self.assertTrue(table_tags)
 
         # check the POST function works
-        for endpoint in ('/',):
+        for endpoint in ('/tags',):
             with self.subTest(path=endpoint):
                 url = HOST + endpoint
                 post_data = {'urls': [usa_today,
