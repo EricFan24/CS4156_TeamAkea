@@ -39,6 +39,9 @@ The project is implemented with Windows OS and Python3.
         flake8 > bugs.txt
 
   Then, open `bugs.txt` file to check if there're any style errors.
+  
+  
+We're following the Google Style Guide for Python - https://google.github.io/styleguide/pyguide.html
 
 - Pylint: https://pylint.org/
 
