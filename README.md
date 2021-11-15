@@ -26,7 +26,7 @@ The project is implemented with Windows OS and Python3.
 
 ## Operational entry points to the service (API documentation)
 
-## Style checking
+## Bug & Style checking
 
 ### FLake8: https://flake8.pycqa.org/en/latest/
 
