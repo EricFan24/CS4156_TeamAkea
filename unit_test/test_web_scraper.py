@@ -34,7 +34,6 @@ class Test_webScraper(unittest.TestCase):
         scraper = Scraper(url)
 
         self.assertNotEqual(scraper.parsing[0]["url"], "")
-
         self.assertNotEqual(scraper.parsing[0]["heading"], "")
         self.assertNotEqual(scraper.parsing[0]["description"], "")
 
