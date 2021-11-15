@@ -85,7 +85,8 @@ class Scraper:
 
     def parse_usa_today(self, url):
         """
-        Extract heading, sub heading and description from USA news articles
+        Extract heading, sub heading and description
+        from USA news articles
         :param url: website URL
         :return: -NA-
         """
@@ -99,6 +100,7 @@ class Scraper:
         """
         Extract heading, sub heading and description from
         NY Times news articles
+
         :param url: website URL
         :return: -NA-
         """
@@ -110,7 +112,8 @@ class Scraper:
 
     def parse_nbc_news(self, url):
         """
-        Extract heading, sub heading and description from NBC news articles
+        Extract heading, sub heading and description
+        from NBC news articles
         :param url: website URL
         :return: -NA-
         """
