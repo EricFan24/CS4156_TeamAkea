@@ -1,0 +1,13 @@
+************* Module integration_test.test_integration
+integration_test\test_integration.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+integration_test\test_integration.py:3:0: E0401: Unable to import 'db' (import-error)
+integration_test\test_integration.py:13:0: C0103: Class name "Test_endpoint_post" doesn't conform to PascalCase naming style (invalid-name)
+integration_test\test_integration.py:13:0: C0115: Missing class docstring (missing-class-docstring)
+integration_test\test_integration.py:29:8: W0105: String statement has no effect (pointless-string-statement)
+integration_test\test_integration.py:65:55: E1101: Instance of 'LookupDict' has no 'ok' member (no-member)
+integration_test\test_integration.py:4:0: C0411: standard import "import sqlite3" should be placed before "import requests" (wrong-import-order)
+integration_test\test_integration.py:5:0: C0411: standard import "import os" should be placed before "import requests" (wrong-import-order)
+
+-----------------------------------
+Your code has been rated at 5.15/10
+
