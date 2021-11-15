@@ -67,4 +67,3 @@ api.add_resource(BookmarkTagger, '/tags')  # add endpoint
 
 if __name__ == '__main__':
     app.run()
-

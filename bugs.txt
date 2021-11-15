@@ -1,6 +1,4 @@
-.\main_api.py:70:1: W391 blank line at end of file
 .\nlp.py:15:1: E302 expected 2 blank lines, found 1
-.\web_scraper.py:100:80: E501 line too long (80 > 79 characters)
 .\unit_test\test_nlp.py:5:1: E302 expected 2 blank lines, found 1
 .\unit_test\test_nlp.py:11:80: E501 line too long (134 > 79 characters)
 .\unit_test\test_nlp.py:13:80: E501 line too long (503 > 79 characters)
