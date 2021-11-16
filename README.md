@@ -20,9 +20,10 @@ The project is implemented with Windows OS and Python3.
 ## Features implemented in first iteration
 
 - Parse news articles from [USA Today](https://www.usatoday.com/), [NY Times](https://www.nytimes.com/), and [NBC News](https://www.nbcnews.com/).
-- Extract keywords from article titles and generate a list of tags for the article.
-- Predict category of an article with trained NLP model.
-- Store the bookmark url and tags under unique user IDs.
+- Automatically extract keywords from article titles and generate a list of tags for the article.
+- Query articles with one or multiple keywords.
+
+## Demo
 - First iteration demo: https://youtu.be/QXQI32gLffQ
 
 ## Operational entry points to the service (API documentation)
