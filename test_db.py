@@ -5,7 +5,6 @@ Unit tests for db.py
 import unittest
 import sqlite3
 from sqlite3 import Error
-
 import db
 
 
@@ -31,40 +30,32 @@ class TestDb(unittest.TestCase):
         '''
         Checks if add_move works correctly
         '''
-        tag = ("user_1", "www.abc.com", "India")
+        tag = ("test_user", "www.abc.com", "India")
         db.add_row(tag)
 
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
-        cur.execute('SELECT * FROM TAGS')
+        cur.execute('SELECT * FROM TAGS WHERE user_id = "test_user"')
         output = cur.fetchone()
+        cur.execute('DELETE FROM TAGS WHERE user_id = "test_user"')
+        conn.commit()
         conn.close()
         self.assertEqual(tag, output)
 
-    def test_get_move(self):
+
+    def test_get_urls(self):
         '''
         Checks if get_move works correctly
         '''
-        user_id = "user_1"
+        user_id = "test_user"
         tag = "India"
-        row = ("user_1", "www.abc.com", "India")
+        row = ("test_user", "www.abc.com", "India")
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
         cur.execute("INSERT INTO TAGS VALUES (?, ?, ?)", row)
         conn.commit()
-        conn.close()
         output = db.get_urls(user_id, tag)
+        cur.execute('DELETE FROM TAGS WHERE user_id = "test_user"')
+        conn.commit()
+        conn.close()
         self.assertEqual([row], output)
-
-    def tearDown(self):
-        conn = None
-        try:
-            conn = sqlite3.connect('sqlite_db')
-            conn.execute("DROP TABLE TAGS")
-            print('Database Cleared')
-        except Error as err:
-            print(err)
-
-        finally:
-            if conn:
-                conn.close()

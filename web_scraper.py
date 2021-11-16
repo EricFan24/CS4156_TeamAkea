@@ -105,9 +105,9 @@ class Scraper:
         :return: -NA-
         """
         soup = self.get_content(url)
-        heading = soup.find_all('h1', class_='css-rsa88z e1h9rw200')
+        heading = soup.find_all('h1', class_='e1h9rw200')
         subheading = soup.find_all('p', id='article-summary')
-        description = soup.find_all('p', class_='css-axufdj evys1bk0')
+        description = soup.find_all('p', class_='evys1bk0')
         self.create_dict(url, heading, subheading, description)
 
     def parse_nbc_news(self, url):

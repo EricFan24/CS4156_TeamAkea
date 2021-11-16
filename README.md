@@ -27,7 +27,7 @@ The project is implemented with Windows OS and Python3.
 ## Operational entry points to the service (API documentation)
 
 The API has one endpoint "/tags" which offers two functionalities:
-- POST request which sends a list of URLs to be tagged. Sample POST request json:
+- POST request which sends a list of URLs (must begin with "http") to be tagged. Sample POST request json:
 
 ```json
 {
@@ -46,18 +46,6 @@ The API has one endpoint "/tags" which offers two functionalities:
 ## Bug & Style checking
 
 We're following the Google Style Guide for Python - https://google.github.io/styleguide/pyguide.html
-
-- FLake8: https://flake8.pycqa.org/en/latest/
-
-  First, install `flake8`:
-
-        python -m pip install flake8
-
-  Next, run `flake8` and direct the output to `bugs.txt`:
-
-        flake8 > bugs.txt
-
-  Then, open `bugs.txt` file to check if there're any style errors.
 
 - Pylint: https://pylint.org/
 
@@ -111,7 +99,7 @@ First, run command `coverage run -m unittest discover -s unit_test/`. This will 
 
 Next, run `coverage html` to generate the folder `htmlcov` which contains descriptive information regarding the lines covered for each of the python classes under test.
 
-For the first iteration, the test coverage for `NLP.py` stands at 96%, the coverage for `web_scraper.py` is at 100%, and that for `db.py` is at 55%. Overall, the coverage report stands at 88%.
+For the first iteration, the test coverage for `NLP.py` stands at 93%, the coverage for `web_scraper.py` is at 100%, and that for `db.py` is at 56% (init and clear are not tested). All tests have coverage of 100%. Overall, the coverage report stands at 89%.
 
 ### Integration test
 
