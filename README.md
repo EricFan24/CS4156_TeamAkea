@@ -23,6 +23,7 @@ The project is implemented with Windows OS and Python3.
 - Extract keywords from article titles and generate a list of tags for the article.
 - Predict category of an article with trained NLP model.
 - Store the bookmark url and tags under unique user IDs.
+- First iteration demo: https://youtu.be/QXQI32gLffQ
 
 ## Operational entry points to the service (API documentation)
 
