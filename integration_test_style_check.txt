@@ -1,6 +1,0 @@
-************* Module integration_test.test_integration
-integration_test\test_integration.py:7:0: E0401: Unable to import 'db' (import-error)
-
-------------------------------------------------------------------
-Your code has been rated at 9.26/10 (previous run: 9.26/10, +0.00)
-

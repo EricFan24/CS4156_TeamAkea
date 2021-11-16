@@ -15,7 +15,9 @@ def init_db():
     conn = None
     try:
         conn = sqlite3.connect('sqlite_db')
-        conn.execute('CREATE TABLE TAGS (user_id TEXT, url TEXT, tag TEXT)')
+        conn.execute(
+            'CREATE TABLE TAGS (user_id TEXT, url TEXT, tag TEXT, PRIMARY KEY (user_id, url, tag))'
+            )
         print('Database Online, table created')
     except Error as err:
         print(err)

@@ -12,7 +12,6 @@ import db
 app = Flask(__name__)
 api = Api(app)
 
-
 class BookmarkTagger(Resource):
 
     '''
@@ -37,8 +36,9 @@ class BookmarkTagger(Resource):
                 for datum in data_for_tag:
                     urls_for_tag.append(datum[1])
                 url_lists.append(urls_for_tag)
-
-        common_urls = list(set(url_lists[0]).intersection(*url_lists))
+        common_urls = []
+        if len(url_lists) > 0:
+            common_urls = list(set(url_lists[0]).intersection(*url_lists))
 
         return {'urls': common_urls}, 200  # return data with 200 OK
 
@@ -49,9 +49,20 @@ class BookmarkTagger(Resource):
 
         request_data = request.get_json()
         urls = request_data['urls']
-
+        urls = [url for url in urls if url.startswith('http')]
+        if len(urls) == 0:
+            return {'message': 'No valid urls found'}, 400
         scrapper = Scraper(urls)
-        keywords = NLP(scrapper.parsing).get_keywords()
+        parsing_results = scrapper.parsing
+        for result in parsing_results:
+            if "heading" not in result:
+                result["heading"] = ""
+            if "description" not in result:
+                result["description"] = ""
+            if "subheading" not in result:
+                result["subheading"] = ""
+        # print(parsingResults)
+        keywords = NLP(parsing_results).get_keywords()
 
         keywords = [list(i) for i in keywords]
 

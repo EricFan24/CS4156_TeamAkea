@@ -32,6 +32,8 @@ class NLP:
         """
         if len(self.keywords) > 0:
             return self.keywords
+        if self.articles is None or len(self.articles) == 0:
+            return None
         pos_tag = ['PROPN', 'ADJ', 'NOUN']
         ent_label = ['PERSON', 'ORG', 'GPE', 'GEO']
         for article in self.articles:
