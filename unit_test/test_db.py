@@ -1,3 +1,7 @@
+'''
+Unit tests for db.py
+'''
+
 import unittest
 import sqlite3
 from sqlite3 import Error
@@ -5,23 +9,28 @@ from sqlite3 import Error
 import db
 
 
-class Test_DB(unittest.TestCase):
+class TestDb(unittest.TestCase):
 
+    '''
+    Class Test_DB contains unit tests for db.py
+    '''
     def setUp(self):
         conn = None
         try:
             conn = sqlite3.connect('sqlite_db')
             conn.execute('CREATE TABLE TAGS(user_id TEXT, url TEXT, tag TEXT)')
             print('Database Online, table created')
-        except Error as e:
-            print(e)
+        except Error as err:
+            print(err)
 
         finally:
             if conn:
                 conn.close()
 
     def test_add_row(self):
-        # Checks if add_move works correctly
+        '''
+        Checks if add_move works correctly
+        '''
         tag = ("user_1", "www.abc.com", "India")
         db.add_row(tag)
 
@@ -33,7 +42,9 @@ class Test_DB(unittest.TestCase):
         self.assertEqual(tag, output)
 
     def test_get_move(self):
-        # Checks if get_move works correctly
+        '''
+        Checks if get_move works correctly
+        '''
         user_id = "user_1"
         tag = "India"
         row = ("user_1", "www.abc.com", "India")
@@ -51,8 +62,8 @@ class Test_DB(unittest.TestCase):
             conn = sqlite3.connect('sqlite_db')
             conn.execute("DROP TABLE TAGS")
             print('Database Cleared')
-        except Error as e:
-            print(e)
+        except Error as err:
+            print(err)
 
         finally:
             if conn:

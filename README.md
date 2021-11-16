@@ -26,7 +26,26 @@ The project is implemented with Windows OS and Python3.
 
 ## Operational entry points to the service (API documentation)
 
+The API has one endpoint "/tags" which offers two functionalities:
+- POST request which sends a list of URLs to be tagged. Sample POST request json:
+
+```json
+{
+      "urls": ["https://www.usatoday.com/story/news/nation/2021/11/10/atmospheric-river-wallop-pacific-northwest/6370849001/",
+    "https://www.nbcnews.com/news/us-news/ability-force-recalls-fda-can-only-warn-consumers-benzene-hand-sanitiz-rcna4585",
+    "https://www.nytimes.com/2021/11/10/climate/climate-cop26-glasgow.html"]
+}
+```
+- GET request which sends a list of tags and gets back the URLs corresonding to all specified tags. Sample GET request json: 
+
+```json
+{
+    "tags" : ["washington"]
+}
+```
 ## Bug & Style checking
+
+We're following the Google Style Guide for Python - https://google.github.io/styleguide/pyguide.html
 
 - FLake8: https://flake8.pycqa.org/en/latest/
 
@@ -39,9 +58,6 @@ The project is implemented with Windows OS and Python3.
         flake8 > bugs.txt
 
   Then, open `bugs.txt` file to check if there're any style errors.
-  
-  
-We're following the Google Style Guide for Python - https://google.github.io/styleguide/pyguide.html
 
 - Pylint: https://pylint.org/
 
@@ -49,11 +65,21 @@ We're following the Google Style Guide for Python - https://google.github.io/sty
 
         pip install pylint
 
-  Next, run 'pylint' and direct the output to 'mymodule-bugs.txt':
+  Next, run `pylint` on the main directory and direct the output to `main_style_check.txt`:
 
-        pylint mymodule.py > mymodule-bugs.txt
+        pylint ./CS4156_TeamAkea > main_style_check.txt
         
-  Then, open `mymodule-bugs.txt` file to check if there're any style errors.
+  Then, run `pylint` on the unit test directory and direct the output to `unit_test_style_check.txt`:
+
+        cd CS4156_TeamAkea
+        pylint ./unit_test > unit_test_style_check.txt
+        
+  After that, run `pylint` on the integration test directory and direct the output to `integration_test_style_check.txt`:
+
+        pylint ./integration_test > integration_test_style_check.txt
+        
+    
+  Finally, open the respective `.txt` file to check if there're any style errors.
 
 ## How to build the service
 
