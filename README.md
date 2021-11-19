@@ -26,6 +26,11 @@ The project is implemented with Windows OS and Python3.
 ## Demo
 - First iteration demo: https://youtu.be/QXQI32gLffQ
 
+## How to use the API
+
+* Our service is hosted at: https://akea.herokuapp.com/
+* Run locally: python3 main_api.py
+* 
 ## Operational entry points to the service (API documentation)
 
 The API has one endpoint "/tags" which offers two functionalities:
@@ -75,12 +80,6 @@ We're following the Google Style Guide for Python - https://google.github.io/sty
 - BeautifulSoup4: https://pypi.org/project/beautifulsoup4/
 
         pip install beautifulsoup4
-
-
-## How to run the service
-
-* Our service is hosted at: https://akea.herokuapp.com/
-* Run locally: python3 main_api.py
 
 ## How to test the service
 
