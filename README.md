@@ -83,18 +83,16 @@ We're following the Google Style Guide for Python - https://google.github.io/sty
 
 ## How to test the service
 
-### Unit test
+### Unit tests
 
-First, run command `coverage run -m unittest discover -s unit_test/`. This will execute all unit tests and figures out the coverage.
+First, run command `coverage run -m unittest discover`. This will execute all unit tests and figures out the coverage.
 
 Next, run `coverage html` to generate the folder `htmlcov` which contains descriptive information regarding the lines covered for each of the python classes under test.
 
 For the first iteration, the test coverage for `NLP.py` stands at 93%, the coverage for `web_scraper.py` is at 100%, and that for `db.py` is at 56% (init and clear are not tested). All tests have coverage of 100%. Overall, the coverage report stands at 89%.
 
-### Integration test
+### Postman test
 
-First, open a terminal and run `python3 main_api.py` to host the service on [local host](http://127.0.0.1:5000/).
+First, run the service locally or use the hosted version on Heroku (https://akea.herokuapp.com/).
 
-Next, open a new terminal and run `coverage run -m unittest discover -s integration_test/`. This will POST mock data to the API and execute the whole workflow, and make sure the data is stored inside the database.
-
-Finally, run `coverage html` to generate the folder `htmlcov` and visualize coverage.
+Then, you can use one of tests in our AKEA collection or create a new one. To create a new test, please select `Body` > `raw` > `JSON` to format your input.
