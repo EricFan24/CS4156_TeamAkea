@@ -31,8 +31,9 @@ The project is implemented with Windows OS and Python3.
 
 ## Operational entry points (first iteration)
 
-The API has one endpoint "/tags" which offers two functionalities:
-- POST request which sends a list of URLs (must begin with "http") to be tagged. We currently support USA Today, The New York Times, and NBC News. Sample POST request json:
+The API has one endpoint "/tags" which offers two functionalities. We use JSON for input and output.
+
+- POST request which sends a list of URLs (must begin with "http") to be tagged. We currently support USA Today, The New York Times, and NBC News. Sample POST request JSON:
 
 ```json
 {
