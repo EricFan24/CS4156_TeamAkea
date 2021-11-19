@@ -30,7 +30,7 @@ The project is implemented with Windows OS and Python3.
 
 * Our service is hosted at: https://akea.herokuapp.com/
 * Run locally: python3 main_api.py
-* 
+
 ## Operational entry points to the service (API documentation)
 
 The API has one endpoint "/tags" which offers two functionalities:
