@@ -79,7 +79,8 @@ We're following the Google Style Guide for Python - https://google.github.io/sty
 
 ## How to run the service
 
-    python3 main_api.py
+* Our service is hosted at: https://akea.herokuapp.com/
+* Run locally: python3 main_api.py
 
 ## How to test the service
 
