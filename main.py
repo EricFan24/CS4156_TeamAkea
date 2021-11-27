@@ -1,8 +1,8 @@
-'''
+"""
 This module handles the incoming requests to the Bookmark tagging service.
-'''
+"""
 
-from flask import Flask, request
+from flask import Flask, request, render_template
 from flask_restful import Resource, Api
 
 from web_scraper import Scraper
@@ -12,11 +12,17 @@ import db
 app = Flask(__name__)
 api = Api(app)
 
-class BookmarkTagger(Resource):
 
-    '''
+@app.route('/', methods=['GET'])
+def connect():
+    return render_template("index.html")
+
+
+class BookmarkTagger(Resource):
+    """
     Handles get and post requests to the /tags endpoint.
-    '''
+    """
+
     def __init__(self):
         db.init_db()
 
@@ -24,6 +30,7 @@ class BookmarkTagger(Resource):
         '''
         Search bookmarks using tags.
         '''
+
         request_data = request.get_json()
         tags = request_data['tags']
 

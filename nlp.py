@@ -2,6 +2,8 @@
 # from gensim import utils
 # from gensim.parsing.preprocessing import remove_stopwords
 import spacy
+
+
 # import pandas as pd
 # import numpy as np
 # import json
@@ -14,6 +16,7 @@ import spacy
 
 class NLP:
     """Takes in a list of articles and returns relevant extractions."""
+
     def __init__(self, articles: list):
         self.articles = articles
         self.en_core_web_sm = spacy.load('en_core_web_sm')
@@ -51,8 +54,8 @@ class NLP:
             )
             words_description = [
                 token.lemma_ for token in doc_description
-                if token.pos_ in pos_tag and
-                not (token.is_stop or token.is_punct)
+                if token.pos_ in pos_tag
+                and not (token.is_stop or token.is_punct)
             ]
             # extract only entities if description too long
             if len(words_description) > 10:
