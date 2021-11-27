@@ -41,6 +41,7 @@ class TestDb(unittest.TestCase):
         conn.commit()
         conn.close()
         self.assertEqual(tag, output)
+
     def test_get_urls(self):
         """
         Checks if get_move works correctly
