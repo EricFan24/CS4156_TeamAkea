@@ -14,13 +14,17 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.90
-    - name: Add conda to system path
+        
+    - name: Initialize Conda for Powershell
       run: |
-        # $CONDA is an environment variable pointing to the root of the miniconda directory
-        echo $CONDA/bin >> $GITHUB_PATH
-    - name: Install dependencies
+        (Get-Command python).Path
+        C:\Miniconda/condabin/conda.bat update -n base -c defaults conda
+        C:\Miniconda/condabin/conda.bat init powershell
+    - name: Update and Start Conda Env
       run: |
-        conda env update --file environment.yml --name base
+        C:\Miniconda/condabin/conda.bat env update --file environment.yml --name base
+        C:\Miniconda/condabin/conda.bat activate base
+   
     - name: Lint with flake8
       run: |
         conda install flake8
