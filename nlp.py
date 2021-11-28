@@ -2,11 +2,11 @@
 # from gensim import utils
 # from gensim.parsing.preprocessing import remove_stopwords
 import spacy
-
+from joblib import dump, load
 
 # import pandas as pd
-# import numpy as np
-# import json
+import numpy as np
+import json
 # from sklearn.model_selection import train_test_split
 # from sklearn.feature_extraction.text import TfidfVectorizer
 # from sklearn.ensemble import RandomForestClassifier
@@ -62,7 +62,7 @@ class NLP:
                 if doc_description.ents:
                     words_description = []
                     for ent in doc_description.ents:
-                        if ent.label_ in ent_label:
+                        if ent.label_ in ent_label and len(words_description) < 20:
                             words_description.append(ent.text)
             self.keywords.append(set(words_heading + words_description))
         return self.keywords
@@ -77,5 +77,28 @@ class NLP:
             self.categories if already exists
             otherwise returns list of sets of categories from extration
         """
-        # if len(self.categories) > 0:
-        #     return self.categories
+        if len(self.categories) > 0:
+            return self.categories
+        # import trained model
+        vectorizer = load('models/tfidf_v1.joblib')
+        model = load('models/model_logistic_v1.joblib')
+        for article in self.articles:
+            # process text
+            text = article['heading'] + ' ' + article['description']
+            doc = self.en_core_web_sm(text.lower())
+            text_clean = " ".join([
+                token.lemma_ for token in doc
+                if not (token.is_stop or token.is_punct)
+            ])
+            # predict top 5 categories
+            mat = vectorizer.transform([text_clean])
+            prediction_proba = model.predict_proba(mat)[0]
+            ind = np.argpartition(prediction_proba, -5)[-5:]
+            ind_sorted = ind[np.argsort(-prediction_proba[ind])]
+            # match categories with prediction and sort categories by probability
+            with open('models/categories.json') as input_file:
+                categories_dict = json.load(input_file)
+            categories_sorted = [categories_dict[str(key)] for key in ind_sorted]
+            # append categories to list
+            self.categories.append(categories_sorted)
+        return self.categories
