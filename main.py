@@ -46,6 +46,8 @@ class BookmarkTagger(Resource):
         common_urls = []
         if len(url_lists) > 0:
             common_urls = list(set(url_lists[0]).intersection(*url_lists))
+        print("A OK")
+        # return render_template('tags.html', tags=common_urls)
 
         return {'urls': common_urls}, 200  # return data with 200 OK
 
