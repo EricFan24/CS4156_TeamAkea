@@ -1,0 +1,38 @@
+************* Module CS4156_TeamAkea
+__init__.py:1:0: C0103: Module name "CS4156_TeamAkea" doesn't conform to snake_case naming style (invalid-name)
+************* Module main
+main.py:8:0: E0401: Unable to import 'web_scraper' (import-error)
+main.py:9:0: E0401: Unable to import 'nlp' (import-error)
+main.py:17:0: C0116: Missing function or method docstring (missing-function-docstring)
+main.py:29:4: R0201: Method could be a function (no-self-use)
+main.py:52:4: R0201: Method could be a function (no-self-use)
+************* Module test_nlp
+test_nlp.py:6:5: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+************* Module test_web_scraper
+test_web_scraper.py:6:0: E0401: Unable to import 'web_scraper' (import-error)
+************* Module web_scraper
+web_scraper.py:1:0: R0801: Similar lines in 2 files
+==db:[21:30]
+==test_db:[20:28]
+            print('Database Online, table created')
+        except Error as err:
+            print(err)
+
+        finally:
+            if conn:
+                conn.close()
+ (duplicate-code)
+web_scraper.py:1:0: R0801: Similar lines in 2 files
+==db:[42:49]
+==test_db:[21:28]
+        except Error as err:
+            print(err)
+
+        finally:
+            if conn:
+                conn.close()
+ (duplicate-code)
+
+------------------------------------------------------------------
+Your code has been rated at 9.37/10 (previous run: 9.37/10, +0.00)
+
