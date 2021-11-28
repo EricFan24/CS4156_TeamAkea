@@ -1,6 +1,6 @@
-'''
+"""
 Unit tests for db.py
-'''
+"""
 
 import unittest
 import sqlite3
@@ -9,10 +9,10 @@ import db
 
 
 class TestDb(unittest.TestCase):
-
-    '''
+    """
     Class Test_DB contains unit tests for db.py
-    '''
+    """
+
     def setUp(self):
         conn = None
         try:
@@ -27,9 +27,9 @@ class TestDb(unittest.TestCase):
                 conn.close()
 
     def test_add_row(self):
-        '''
+        """
         Checks if add_move works correctly
-        '''
+        """
         tag = ("test_user", "www.abc.com", "India")
         db.add_row(tag)
 
@@ -42,11 +42,10 @@ class TestDb(unittest.TestCase):
         conn.close()
         self.assertEqual(tag, output)
 
-
     def test_get_urls(self):
-        '''
+        """
         Checks if get_move works correctly
-        '''
+        """
         user_id = "test_user"
         tag = "India"
         row = ("test_user", "www.abc.com", "India")

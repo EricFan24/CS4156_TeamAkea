@@ -1,6 +1,6 @@
-'''
+"""
 This module defines functions for database operations.
-'''
+"""
 
 import sqlite3
 from sqlite3 import Error
@@ -8,15 +8,16 @@ from sqlite3 import Error
 
 def init_db():
 
-    '''
+    """
     Initializes the Table TAGS
-    '''
+    """
     # creates Table
     conn = None
     try:
         conn = sqlite3.connect('sqlite_db')
         conn.execute(
-            'CREATE TABLE TAGS (user_id TEXT, url TEXT, tag TEXT, PRIMARY KEY (user_id, url, tag))'
+            'CREATE TABLE TAGS (user_id TEXT, url TEXT, tag TEXT, '
+            'PRIMARY KEY (user_id, url, tag))'
             )
         print('Database Online, table created')
     except Error as err:
@@ -29,9 +30,9 @@ def init_db():
 
 def add_row(tag):  # will take in a tuple
 
-    '''
-    Adds the url and tag to the databse
-    '''
+    """
+    Adds the url and tag to the database
+    """
     conn = None
     try:
         conn = sqlite3.connect('sqlite_db')
@@ -47,9 +48,9 @@ def add_row(tag):  # will take in a tuple
 
 
 def get_urls(user_id, tag):
-    '''
+    """
     Get all articles that have the 'tag' keyword
-    '''
+    """
     print(user_id, tag)
     conn = None
     match = None
@@ -184,10 +185,10 @@ def get_urls(user_id, tag):
 
 def clear():
 
-    '''
+    """
     Clears the table TAGS
     DO NOT MODIFY
-    '''
+    """
 
     conn = None
     try:
