@@ -68,14 +68,25 @@ class NLP:
         return self.keywords
 
     def get_categories(self) -> list:
-        """Extract categories from list of articles
+        """Predict top 5 categories from list of articles
 
         Stores:
             categories in self.categories
 
         Returns:
             self.categories if already exists
-            otherwise returns list of sets of categories from extration
+            otherwise returns list of ranked list of categories from prediction
+
+        This uses a TFIDF vectorizer and a logistic model to predict the top 5 most likely topics.
+        The method returns ranked lists of 5 categories.
+        For example, it should return:
+        ['ENVIRONMENT', 'TRAVEL', 'WELLNESS & LIVING', 'WORLD', 'POLITICS']
+        for this article: https://www.usatoday.com/story/news/nation/2021/
+        11/10/atmospheric-river-wallop-pacific-northwest/6370849001/.
+        Note that the first prediction is usually the "actual" prediction with >50% probability
+        and the rest usually have <10% probabilities.
+        This is because my training dataset had only one label for each article,
+        so the model is trying to predict one category for each article, not multiple.
         """
         if len(self.categories) > 0:
             return self.categories
