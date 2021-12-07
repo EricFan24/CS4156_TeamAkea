@@ -4,10 +4,14 @@ from functools import wraps
 
 from flask import Flask, request, jsonify, _request_ctx_stack
 from jose import jwt
+import http.client
+import db
 
 AUTH0_DOMAIN = 'dev-2ajo016m.us.auth0.com'
 API_AUDIENCE = 'https://smart_bookmarks/api'
 ALGORITHMS = ["RS256"]
+CLIENT_ID = 'vlKnFcLWHhA16V6DUZbcOzXyGlfVuXN0'
+CLIENT_SECRET = '9zgdj5UoxvbcySR1Z0bVvOGOGEjQAIfc57h3LrsSGDxmROTkOJ_oJU_jqZuf7_tJ'
 
 # Error handler
 class AuthError(Exception):
@@ -108,3 +112,44 @@ def requires_scope(required_scope):
                 if token_scope == required_scope:
                     return True
     return False
+
+
+def validate_user(user_id, password):
+    """
+    check if user is valid
+    return access token as an object if user is valid
+    raise auth error otherwise
+    """
+
+    user_is_valid = db.is_valid_user(user_id, password)
+
+    print("is user valid? - ", user_is_valid)
+
+    if(user_is_valid):
+        try:
+            import http.client
+
+            conn = http.client.HTTPSConnection("dev-2ajo016m.us.auth0.com")
+            payload = "{\"client_id\":\"vlKnFcLWHhA16V6DUZbcOzXyGlfVuXN0\",\"client_secret\":\"9zgdj5UoxvbcySR1Z0bVvOGOGEjQAIfc57h3LrsSGDxmROTkOJ_oJU_jqZuf7_tJ\",\"audience\":\"https://smart_bookmarks/api\",\"grant_type\":\"client_credentials\"}"
+
+            headers = { 'content-type': "application/json" }
+            conn.request("POST", "/oauth/token", payload, headers)
+
+            # If all goes well, you'll receive an HTTP 200 response 
+            # with a payload containing access_token, token_type, 
+            # and expires_in values:
+            # {
+            # "access_token":"eyJz93a...k4laUWw",
+            # "token_type":"Bearer",
+            # "expires_in":86400
+            # }
+            res = conn.getresponse()
+            data = res.read().decode("utf-8")
+            return data
+        except Exception:
+            raise AuthError({"code": "HTTP_request_error",
+                            "description":
+                                "Unable to get response from domain"}, 401)
+
+    raise AuthError({"code": "invalid_user",
+                    "description": "Invalid user_id and password combination"}, 401)
