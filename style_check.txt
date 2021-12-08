@@ -25,14 +25,14 @@ web_scraper.py:1:0: R0801: Similar lines in 2 files
 web_scraper.py:1:0: R0801: Similar lines in 2 files
 ==db:[42:49]
 ==test_db:[21:28]
-    except Error as err:
-        print(err)
-    finally:
-        if conn:
-            conn.close()
+        except Error as err:
+            print(err)
 
+        finally:
+            if conn:
+                conn.close()
  (duplicate-code)
 
 ------------------------------------------------------------------
-Your code has been rated at 9.37/10 (previous run: 9.34/10, +0.03)
+Your code has been rated at 9.37/10 (previous run: 9.37/10, +0.00)
 

@@ -20,6 +20,7 @@ jobs:
         (Get-Command python).Path
         C:\Miniconda/condabin/conda.bat update -n base -c defaults conda
         C:\Miniconda/condabin/conda.bat init powershell
+        
     - name: Update and Start Conda Env
       run: |
         C:\Miniconda/condabin/conda.bat env update --file environment.yml --name base
@@ -33,9 +34,14 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
         
-     
-        
     - name: Run Unit tests
       run: |
         python -m unittest discover 
+        
+    - name: Test coverage
+      run: |
+        pip3 install pytest
+        coverage run -m pytest
+        coverage report
+
         
