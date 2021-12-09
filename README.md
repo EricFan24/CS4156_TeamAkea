@@ -69,7 +69,7 @@ The API has one endpoint "/tags" which offers two functionalities. We use JSON f
 
 ## Logistic model for topic prediction
 
-We trained a logistic model using tf-idf vectorizer to predict the top 5 most likely topics for each input article. When the user post a url for automatic parsing, we save as tags the predicted topics together with keywords extracted from the article itself.
+We trained a logistic model using tf-idf vectors to predict the top 5 most likely topics for each input article. When the user post a url for automatic parsing, we save as tags the predicted topics together with keywords extracted from the article itself.
 
 For example, for this [USA Today article](https://www.usatoday.com/story/news/nation/2021/11/10/atmospheric-river-wallop-pacific-northwest/6370849001/), our model predicts the following topics :
 ['ENVIRONMENT', 'TRAVEL', 'WELLNESS & LIVING', 'WORLD', 'POLITICS']
