@@ -1,0 +1,43 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>BOOKMARK TAGGER</h1>
+
+
+<div> Tag Bookmarks </div>
+
+<div>
+  <form method="GET" action="/tag_urls">
+      <input type="text" placeholder="Enter URLs" name="urls">
+      <input type="text" placeholder="Custom tags to add" name="tags">
+      <input type="submit" value="Tag URLs">
+  </form>
+</div>
+
+
+<div> Search Bookmarks </div>
+
+<div>
+  <form method="GET" action="/search_urls">
+      <input type="text" placeholder="Enter tags" name="tags">
+      <input type="submit" value="Search URLs">
+  </form>
+</div>
+
+<div> Modify Tags </div>
+
+<div>
+  <form method="GET" action="/modify_tags">
+    <input type="text" placeholder="Enter URL" name="url">
+    <input type="text" placeholder="Enter tags to add" name="tags_to_add">
+    <input type="text" placeholder="Enter tags to remove" name="tags_to_remove">
+    <input type="submit" value="Modify Tags">
+  </form>
+</div>

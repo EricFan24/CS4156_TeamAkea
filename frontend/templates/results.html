@@ -1,0 +1,23 @@
+<html>
+    <style>
+    body{ 
+        font-size: 15pt;
+        font-family: arial;
+    }
+    </style>
+
+
+    <body>
+    <h1>{{stream}}</h1>
+    <div>Retrieved {{stream}}</div>
+    <div>
+        {% for n in data %}
+        <div>{{n}}</div>
+        {% endfor %}
+    </div>
+
+    <a href="/redirect">
+        <input type="button" value="Done" />
+     </a>
+    </body>
+</html>
