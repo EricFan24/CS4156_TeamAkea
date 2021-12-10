@@ -1,4 +1,4 @@
-Database Online, table created
+table TAGS already exists
 Database Online, tag added
 table TAGS already exists
 test_user India
