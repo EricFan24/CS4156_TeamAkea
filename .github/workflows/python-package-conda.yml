@@ -30,23 +30,28 @@ jobs:
       run: |
         conda install flake8
         # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics > flake8-style-check.txt
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
         
     - name: Run Unit tests
       run: |
-        python -m unittest discover 
+        python -m unittest discover >unit-test-report.txt
         
     - name: Test coverage
       run: |
         pip3 install pytest
         coverage run -m pytest
         coverage report > coverage-report.txt
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v2
+ 
+    - name: Commit files
+      run: |
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
+        git commit -m "Automated report" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
       with:
-       name: coverage-report.txt
-       path: CS4156_TeamAkea/
-
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
         
