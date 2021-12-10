@@ -1,0 +1,6 @@
+Database Online, table created
+Database Online, tag added
+table TAGS already exists
+test_user India
+Connected
+Command executed
