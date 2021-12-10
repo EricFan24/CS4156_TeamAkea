@@ -18,6 +18,13 @@ app = Flask(__name__)
 api = Api(app)
 
 
+def flatten_list(list):
+    """
+    turn a list of list into one-dimensional list
+    """
+    return [item for sublist in list for item in sublist]
+
+
 @app.route('/', methods=['GET'])
 def connect():
     return render_template("index.html")
@@ -27,7 +34,7 @@ def connect():
 # simply send a GET request to the route to test access
 @app.route("/user-check", methods=['GET'])
 @cross_origin(headers=["Content-Type", "Authorization"])
-def public():
+def check_user():
     request_data = request.get_json()
     user_id = request_data['user_id']
     password = request_data['password']
@@ -36,6 +43,77 @@ def public():
     response = authcheck.validate_user(user_id, password)
 
     return json.loads(response)
+
+
+@app.route("/edit-tags", methods=['POST'])
+@authcheck.requires_auth
+@cross_origin(headers=["Content-Type", "Authorization"])
+def edit_tags():
+    request_data = request.get_json()
+    user_id = request_data['user_id']
+    url = request_data['url']
+    action = request_data['action']
+    old_tags = db.get_tags(user_id, url)
+    msg = ""
+    new_tags = []
+
+    if(old_tags):
+        if(action == 'add'):
+            tag = request_data['tag']
+            msg = db.add_tag(user_id, url, tag)
+        elif(action == 'remove'):
+            tag = request_data['tag']
+            msg = db.delete_tag(user_id, url, tag)
+        elif(action == 'update'):
+            old_tag = request_data['old-tag']
+            new_tag = request_data['new-tag']
+            msg = db.update_tag(user_id, url, old_tag, new_tag)
+        else:
+            return {
+                "message": "this endpoint does not support the requested action"
+            }, 400  # bad request
+        
+        old_tags = flatten_list(old_tags)
+        new_tags = flatten_list(db.get_tags(user_id, url))
+    else:
+        return {
+            "message": "The requested url is not bookmarked. Please create a bookmark before editing the tags."
+        }, 400 # bad request
+    
+    return {
+            "message": msg,
+            "tags before action": old_tags,
+            "tags after action": new_tags
+        }, 200  # return data with 200 OK
+
+
+@app.route("/get-tags", methods=['GET'])
+@authcheck.requires_auth
+@cross_origin(headers=["Content-Type", "Authorization"])
+def get_tags():
+    """
+    Get tags for given urls
+    """
+    request_data = request.get_json()
+    user_id = request_data['user_id']
+    # remove duplicates in urls
+    urls = list(set(request_data['urls']))
+    tags_in_urls = {}
+    
+    for url in urls:
+        tags = db.get_tags(user_id, url)
+        if tags:
+            # tags is a list of list, for better visualization,
+            # we flatten the list before returning
+            tags_in_urls[url] = flatten_list(tags)
+        else:
+            tags_in_urls[url] = "No tags found for this url. " \
+                + "Either the user did not bookmark it, or " \
+                + "all the existing tags have been removed."
+    return {
+            "message": "User: " + user_id + " has the following tags for the urls",
+            'tags': tags_in_urls
+        }, 200  # return data with 200 OK
 
 
 class BookmarkTagger(Resource):
@@ -117,7 +195,7 @@ class BookmarkTagger(Resource):
         print("Keywords extracted: ", keywords)
 
         return {
-            'message': "the following tags are created for user: " + user_id,
+            'message': "the following tags are created for the user",
             'tags': keywords
             }, 200  # return data with 200 OK
 

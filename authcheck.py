@@ -10,8 +10,6 @@ import db
 AUTH0_DOMAIN = 'dev-2ajo016m.us.auth0.com'
 API_AUDIENCE = 'https://smart_bookmarks/api'
 ALGORITHMS = ["RS256"]
-CLIENT_ID = 'vlKnFcLWHhA16V6DUZbcOzXyGlfVuXN0'
-CLIENT_SECRET = '9zgdj5UoxvbcySR1Z0bVvOGOGEjQAIfc57h3LrsSGDxmROTkOJ_oJU_jqZuf7_tJ'
 
 # Error handler
 class AuthError(Exception):
@@ -78,6 +76,7 @@ def requires_auth(f):
                     audience=API_AUDIENCE,
                     issuer="https://"+AUTH0_DOMAIN+"/"
                 )
+                print(payload)
             except jwt.ExpiredSignatureError:
                 raise AuthError({"code": "token_expired",
                                 "description": "token is expired"}, 401)
