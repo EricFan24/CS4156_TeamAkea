@@ -42,6 +42,11 @@ jobs:
       run: |
         pip3 install pytest
         coverage run -m pytest
-        coverage report
+        coverage report > coverage-report.txt
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+       name: coverage-report.txt
+       path: CS4156_TeamAkea/coverage-report.txt
 
         
