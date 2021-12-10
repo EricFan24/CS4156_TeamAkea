@@ -201,7 +201,8 @@ class BookmarkTagger(Resource):
                 result["subheading"] = ""
         # print(parsingResults)
         keywords = NLP(parsing_results).get_keywords()
-
+        categories = NLP(parsing_results).get_categories()
+        keywords = keywords + categories
         keywords = [list(i) for i in keywords]
 
         for i, url in enumerate(urls):
