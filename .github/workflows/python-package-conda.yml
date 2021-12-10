@@ -25,12 +25,7 @@ jobs:
       run: |
         C:\Miniconda/condabin/conda.bat env update --file environment.yml --name base
         C:\Miniconda/condabin/conda.bat activate base
-   
-    - name: Test with flake8 (Bug Testing)
-      run: |
-        conda install flake8
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . 
+     
         
     - name: flake8 Lint
       uses: py-actions/flake8@v1
