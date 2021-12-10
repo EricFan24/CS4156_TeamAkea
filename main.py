@@ -174,6 +174,11 @@ class BookmarkTagger(Resource):
         user_id = request_data['user_id']
         if len(urls) == 0:
             return {'message': 'No valid urls found'}, 400
+        
+        custom_tags = []
+        if 'tags' in request_data:
+            custom_tags = request_data['tags']
+        
         scrapper = Scraper(urls)
         parsing_results = scrapper.parsing
         for result in parsing_results:
@@ -189,7 +194,7 @@ class BookmarkTagger(Resource):
         keywords = [list(i) for i in keywords]
 
         for i, url in enumerate(urls):
-            for tag in keywords[i]:
+            for tag in keywords[i] + custom_tags:
                 db.add_row((user_id, url, tag))
 
         print("Keywords extracted: ", keywords)

@@ -67,6 +67,15 @@ The API has one endpoint "/tags" which offers two functionalities. We use JSON f
 
         pip install beautifulsoup4
 
+## Logistic model for topic prediction
+
+We trained a logistic model using tf-idf vectors to predict the top 5 most likely topics for each input article. When the user post a url for automatic parsing, we save as tags the predicted topics together with keywords extracted from the article itself.
+
+For example, for this [USA Today article](https://www.usatoday.com/story/news/nation/2021/11/10/atmospheric-river-wallop-pacific-northwest/6370849001/), our model predicts the following topics :
+['ENVIRONMENT', 'TRAVEL', 'WELLNESS & LIVING', 'WORLD', 'POLITICS']
+
+For training, we used the [News Categories Dataset](https://www.kaggle.com/rmisra/news-category-dataset), a collection of about 200k news headlines and short descriptions from the year 2012 to 2018 from HuffPost. Each article was labeled one of 31 topics ranging from science and politics to food and art. We randomly split the dataset into a training set and a testing set with a 4-1 ratio. Our logistic model has a 74% rate of predicting the correct category on the training set, and a 66% correct prediction rate on the testing set. In our API implementation, we select the top 5 topics according to predicted probabilities. Based on real-world testings, we are fairly confident that our model can reliably generate meaningful topic tags that help our users search for relevent articles.
+
 ## How to test the service
 
 ### Unit tests
