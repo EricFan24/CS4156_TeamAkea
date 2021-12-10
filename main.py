@@ -35,6 +35,10 @@ def connect():
 @app.route("/user-check", methods=['GET'])
 @cross_origin(headers=["Content-Type", "Authorization"])
 def check_user():
+    """
+    check if user id match with password
+    return access token if passes authentication
+    """
     request_data = request.get_json()
     user_id = request_data['user_id']
     password = request_data['password']
@@ -49,6 +53,11 @@ def check_user():
 @authcheck.requires_auth
 @cross_origin(headers=["Content-Type", "Authorization"])
 def edit_tags():
+    """
+    endpoint for adding, removing, or updating tags
+    for a given url
+    accepts one tag per request
+    """
     request_data = request.get_json()
     user_id = request_data['user_id']
     url = request_data['url']
@@ -77,7 +86,8 @@ def edit_tags():
         new_tags = flatten_list(db.get_tags(user_id, url))
     else:
         return {
-            "message": "The requested url is not bookmarked. Please create a bookmark before editing the tags."
+            "message": "The requested url is not bookmarked." \
+                "Please create a bookmark before editing the tags."
         }, 400 # bad request
     
     return {
@@ -92,7 +102,8 @@ def edit_tags():
 @cross_origin(headers=["Content-Type", "Authorization"])
 def get_tags():
     """
-    Get tags for given urls
+    endpoint for getting tags from given urls
+    accepts a list of urls
     """
     request_data = request.get_json()
     user_id = request_data['user_id']
@@ -216,6 +227,7 @@ def handle_auth_error(ex):
     response = jsonify(ex.error)
     response.status_code = ex.status_code
     return response
+
 
 if __name__ == '__main__':
     app.run()
