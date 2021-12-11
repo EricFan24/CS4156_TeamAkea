@@ -1,7 +1,7 @@
 """unit tests for nlp.py"""
 import unittest
 import json
-from nlp import NLP
+from nlp import NLP # pylint: disable=import-error
 
 with open('data.json') as f:
     test_data = json.load(f)

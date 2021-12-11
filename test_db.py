@@ -5,7 +5,7 @@ Unit tests for db.py
 import unittest
 import sqlite3
 from sqlite3 import Error
-import db
+import db # pylint: disable=import-error
 
 
 class TestDb(unittest.TestCase):
