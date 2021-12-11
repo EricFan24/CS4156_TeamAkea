@@ -84,7 +84,7 @@ class Scraper:
             authors.add(txt.get_text())
 
         size = int(0.25 * len(str_descr))
-        parse_dict["author"] = ', '.join(authors)
+        parse_dict["author"] = authors
         parse_dict["description"] = ' '.join(str_descr[:size])
         self.parsing.append(parse_dict)
 
@@ -131,3 +131,9 @@ class Scraper:
         description = soup.find_all('p', class_='')
         author = soup.find_all('span', class_="byline-name")
         self.create_dict(url, heading, subheading, description, author)
+
+# scraper = Scraper(["https://www.nbcnews.com/politics/supreme-court/supreme-court-says-challenge-texas-near-total-ban-abortion-can-n1285732",
+#                    "https://www.nytimes.com/2021/11/07/us/politics/afghanistan-war-marines.html"])
+# parsing_results = scraper.parsing
+# authors = [list(result["author"]) for result in parsing_results]
+# print(authors)
