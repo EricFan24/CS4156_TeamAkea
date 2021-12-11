@@ -191,7 +191,7 @@ class TestDb(unittest.TestCase):
         row = ("test_user", "test_pass")
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
-        cur.execute("INSERT INTO USERS VALUES (?, ?)", row)
+        cur.execute("INSERT INTO USERS VALUES (?, ?, NULL)", row)
         conn.commit()
 
         actual = cur.execute("SELECT * FROM USERS").fetchall()
@@ -214,7 +214,7 @@ class TestDb(unittest.TestCase):
         row = ("test_user", "test_pass")
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
-        cur.execute("INSERT INTO USERS VALUES (?, ?)", row)
+        cur.execute("INSERT INTO USERS VALUES (?, ?, NULL)", row)
         conn.commit()
 
         output1 = db.is_valid_user("test_user", "test_pass")
