@@ -2,12 +2,9 @@
 This module handles the incoming requests to the Bookmark tagging service.
 """
 
-from flask import Flask, json, request, render_template, jsonify
-from flask.wrappers import Response
+from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 from flask_cors import cross_origin
-from jose import jwt
-from werkzeug.wrappers import response
 
 from web_scraper import Scraper # pylint: disable=import-error
 from nlp import NLP # pylint: disable=import-error
@@ -18,11 +15,33 @@ app = Flask(__name__)
 api = Api(app)
 
 
-def flatten_list(list):
+def to_one_dimension(list):
     """
     turn a list of list into one-dimensional list
     """
     return [item for sublist in list for item in sublist]
+
+
+@app.route("/add-user", methods=['POST'])
+@cross_origin(headers=["Content-Type", "Authorization"])
+def add_user():
+    """
+    add user to database
+    """
+    request_data = request.get_json()
+    user_id = request_data['user_id']
+    password = request_data['password']
+
+    db.init_db()
+    res = db.add_user(user_id, password)
+
+    if res:
+        return {
+            "message": "User successfully added."
+        }, 200
+    return {
+        "message": "Fail to add user. User may already be in database."
+    }, 400
 
 
 # This doesn't need authentication
@@ -41,7 +60,7 @@ def check_user():
     db.init_db()
     res = authcheck.validate_user(user_id, password)
 
-    return json.loads(res)
+    return res
 
 
 @app.route("/edit-tags", methods=['POST'])
@@ -49,34 +68,28 @@ def check_user():
 @cross_origin(headers=["Content-Type", "Authorization"])
 def edit_tags():
     """
-    endpoint for adding, removing, or updating tags
+    endpoint for adding, removing tags
     for a given url
-    accepts one tag per request
+    accepts a list of tags
     """
     request_data = request.get_json()
     user_id = request_data['user_id']
     url = request_data['url']
-    #action = request_data['action']
     tags_to_add = request_data['tags_to_add']
     tags_to_remove = request_data['tags_to_remove']
-    
+
     old_tags = db.get_tags(user_id, url)
-    msg = ""
     new_tags = []
 
     print("Old tags found: ", old_tags)
-    if(old_tags):
-        #if(action == 'add'):
-        
+    if old_tags:
         for tag in tags_to_add:
-            #tag = request_data['tag']
-            msg = db.add_tag(user_id, url, tag)
-        #elif(action == 'remove'):
+            db.add_tag(user_id, url, tag)
         for tag in tags_to_remove:
-            msg = db.delete_tag(user_id, url, tag)
-        
-        old_tags = flatten_list(old_tags)
-        new_tags = flatten_list(db.get_tags(user_id, url))
+            db.delete_tag(user_id, url, tag)
+
+        old_tags = to_one_dimension(old_tags)
+        new_tags = to_one_dimension(db.get_tags(user_id, url))
     else:
         return {
             "message": "The requested url is not bookmarked." \
@@ -91,12 +104,13 @@ def edit_tags():
 
 @app.route("/get-tags", methods=['GET'])
 @authcheck.requires_auth
-@cross_origin(headers=["Content-Type", "Authorization"])
+@cross_origin()
 def get_tags():
     """
     endpoint for getting tags from given urls
     accepts a list of urls
     """
+
     request_data = request.get_json()
     user_id = request_data['user_id']
     # remove duplicates in urls
@@ -108,7 +122,7 @@ def get_tags():
         if tags:
             # tags is a list of list, for better visualization,
             # we flatten the list before returning
-            tags_in_urls[url] = flatten_list(tags)
+            tags_in_urls[url] = to_one_dimension(tags)
         else:
             tags_in_urls[url] = "No tags found for this url. " \
                 + "Either the user did not bookmark it, or " \
@@ -117,6 +131,7 @@ def get_tags():
             "message": "User: " + user_id + " has the following tags for the urls",
             'tags': tags_in_urls
         }, 200  # return data with 200 OK
+
 
 @app.route("/similar_urls", methods=['GET'])
 @authcheck.requires_auth
@@ -139,29 +154,28 @@ def similar_urls():
     if tags:
         # tags is a list of list, for better visualization,
         # we flatten the list before returning
-        tags = flatten_list(tags)
+        tags = to_one_dimension(tags)
         print(tags)
         #tags = [tag[0] for tag in tags]
-        all_urls = flatten_list(db.get_user_urls(user_id))
+        all_urls = to_one_dimension(db.get_user_urls(user_id))
         print("All URLS ##########")
         print(all_urls)
         for u in all_urls:
             if u == url:
                 print("Continuing for: ", u)
                 continue
-            url_tags = flatten_list(db.get_tags(user_id, u))
+            url_tags = to_one_dimension(db.get_tags(user_id, u))
             print(u, url_tags)
             if len(set(tags) & set(url_tags))>=3:
                 similar_url_list.append(u)
 
     else:
         similar_url_list = "No tags found for this url. " \
-            + "Therefore, it has no similar URLs " 
+            + "Therefore, it has no similar URLs "
     return {
             "message": "User: " + user_id + " has the following tags for the urls",
             'urls': similar_url_list
         }, 200  # return data with 200 OK
-
 
 
 class BookmarkTagger(Resource):
@@ -251,7 +265,6 @@ class BookmarkTagger(Resource):
         keywords = [keywords[i] + custom_tags + categories[i] + authors[i] for i in range(len(urls))]
         
 
-
         for i, url in enumerate(urls):
             for tag in keywords[i]: #[i] + custom_tags + categories[i] + authors[i]:
                 db.add_row((user_id, url, tag.lower()))
@@ -265,16 +278,6 @@ class BookmarkTagger(Resource):
 
 
 api.add_resource(BookmarkTagger, '/tags')  # add endpoint
-
-
-@app.errorhandler(authcheck.AuthError)
-def handle_auth_error(ex):
-    """
-    Handles authorization related errors
-    """
-    res = jsonify(ex.error)
-    res.status_code = ex.status_code
-    return res
 
 
 if __name__ == '__main__':

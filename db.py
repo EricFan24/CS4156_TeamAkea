@@ -20,12 +20,10 @@ def init_db():
             'PRIMARY KEY (user_id, url, tag))'
             )
         conn.execute(
-            'CREATE TABLE IF NOT EXISTS USERS (user_id TEXT, password TEXT, '
+            'CREATE TABLE IF NOT EXISTS USERS (user_id TEXT, password TEXT, \
+            access_token TEXT type UNIQUE, '
             'PRIMARY KEY (user_id, password))'
         )
-        # test user
-        add_user("user1", "123456")
-        add_user("user2", "2222")
         print('Database Online, tables created')
     except Error as err:
         print(err)
@@ -150,7 +148,6 @@ def add_tag(user_id, url, new_tag):
     return msg
 
 
-
 def delete_tag(user_id, url, tag_to_remove):
     '''
     Delete a specific tag from a news article
@@ -183,68 +180,6 @@ def delete_tag(user_id, url, tag_to_remove):
     return msg
 
 
-def update_tag(user_id, url, old_tag_text, new_tag_text):
-    '''
-    Update the tag text for an article
-    If the old_tag_text does not exist for this article,
-    add new_tag_text as a new entry
-    '''
-    conn = None
-    msg = ""
-    try:
-        conn = sqlite3.connect('sqlite_db')
-        cur = conn.cursor()
-
-        cur.execute("SELECT * FROM TAGS WHERE user_id = ? \
-                     AND url = ? AND tag = ?",
-                     (user_id, url, old_tag_text))
-        match_old = cur.fetchall()
-
-        cur.execute("SELECT * FROM TAGS WHERE user_id = ? \
-                     AND url = ? AND tag = ?",
-                     (user_id, url, new_tag_text))
-        match_new = cur.fetchall()
-
-        if match_old and not match_new:
-            cur.execute("UPDATE TAGS set tag = ? WHERE \
-                        user_id = ? AND url = ? AND tag = ?",
-                        (new_tag_text, user_id, url, old_tag_text))
-            conn.commit()
-            msg = 'updated tag for the article'
-        elif match_new:
-            msg = 'the proposed new tag is already associated with the url,' \
-                + ' no changes posted to database'
-        else:
-            msg = 'can\'t find the entry to update, no changes posted to database'
-    except Error as err:
-        print(err)
-    finally:
-        if conn:
-            conn.close()
-    return msg
-
-
-def add_user(user_id, password):
-    """
-    add a row in USERS table
-    """
-    conn = None
-    try:
-        if has_user(user_id):
-            print("user is already in database, no changes posted to database")
-        else:
-            conn = sqlite3.connect('sqlite_db')
-            cur = conn.cursor()
-            cur.execute("INSERT INTO USERS VALUES (?, ?)", (user_id, password))
-            conn.commit()
-            print('Database Online, user added')
-    except Error as err:
-        print(err)
-    finally:
-        if conn:
-            conn.close()
-
-
 def has_user(user_id):
     """
     check if the user already exists
@@ -252,6 +187,7 @@ def has_user(user_id):
     False otherwise
     """
     conn = None
+    match = None
     try:
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
@@ -268,6 +204,32 @@ def has_user(user_id):
     return False
 
 
+def add_user(user_id, password):
+    """
+    add a row in USERS table.
+    return true if user successfully added,
+    false otherwise
+    """
+    conn = None
+    success = False
+    try:
+        if has_user(user_id):
+            print("user is already in database, no changes posted to database")
+        else:
+            conn = sqlite3.connect('sqlite_db')
+            cur = conn.cursor()
+            cur.execute("INSERT INTO USERS VALUES (?, ?, NULL)", (user_id, password))
+            conn.commit()
+            success = True
+            print('Database Online, user added')
+    except Error as err:
+        print(err)
+    finally:
+        if conn:
+            conn.close()
+    return success
+
+
 def is_valid_user(user_id, password):
     """
     Check whether the user id and password match
@@ -279,7 +241,6 @@ def is_valid_user(user_id, password):
     try:
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
-        print(user_id, password)
         cur.execute("SELECT * FROM USERS WHERE user_id = ? \
                     AND password = ?",
                     (user_id, password))
@@ -293,6 +254,29 @@ def is_valid_user(user_id, password):
         if conn:
             conn.close()
     return is_valid
+
+
+def update_token(user_id, password, access_token):
+    """
+    link a new access token to specified user
+    """
+    conn = None
+    try:
+        if has_user(user_id):
+            conn = sqlite3.connect('sqlite_db')
+            cur = conn.cursor()
+            cur.execute("UPDATE USERS set access_token = ? WHERE \
+                        user_id = ? AND password = ?",
+                        (access_token, user_id, password))
+            conn.commit()
+            print('new token successfully linked to user')
+        else:
+            print('can\'t find the entry to update, no changes posted to database')
+    except Error as err:
+        print(err)
+    finally:
+        if conn:
+            conn.close()
 
 
 def clear():

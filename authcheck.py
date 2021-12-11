@@ -1,23 +1,38 @@
 """
 This module handles authentications
 """
+
 import json
 from functools import wraps
-from flask import Flask, request, jsonify, _request_ctx_stack
-from jose import jwt
 import http.client
-import db # pylint: disable=import-error
+from flask import Flask, request, _request_ctx_stack
+from flask.json import jsonify
+from jose import jwt
 from six.moves.urllib.request import urlopen
+import db # pylint: disable=import-error
 
 AUTH0_DOMAIN = 'dev-2ajo016m.us.auth0.com'
 API_AUDIENCE = 'https://smart_bookmarks/api'
 ALGORITHMS = ["RS256"]
+app = Flask(__name__)
 
-# Error handler
 class AuthError(Exception):
+    """
+    Handles auth related errors
+    """
     def __init__(self, error, status_code):
         self.error = error
         self.status_code = status_code
+
+
+@app.errorhandler(AuthError)
+def handle_auth_error(ex):
+    """
+    Handles authorization related errors
+    """
+    res = jsonify(ex.error)
+    res.status_code = ex.status_code
+    return res
 
 
 # Format error response and append status code
@@ -51,7 +66,8 @@ def get_token_auth_header():
 
 
 def requires_auth(func):
-    """Determines if the Access Token is valid
+    """
+    Determines if the Access Token is valid
     """
     @wraps(func)
     def decorated(*args, **kwargs):
@@ -78,7 +94,6 @@ def requires_auth(func):
                     audience=API_AUDIENCE,
                     issuer="https://"+AUTH0_DOMAIN+"/"
                 )
-                print(payload)
             except jwt.ExpiredSignatureError as err:
                 raise AuthError({"code": "token_expired",
                                 "description": "token is expired"}, 401) from err
@@ -113,13 +128,13 @@ def validate_user(user_id, password):
 
     if user_is_valid:
         try:
-            # import http.client
-
-            conn = http.client.HTTPSConnection("dev-2ajo016m.us.auth0.com")
+            conn = http.client.HTTPSConnection(AUTH0_DOMAIN)
             payload = "{\"client_id\":\"vlKnFcLWHhA16V6DUZbcOzXyGlfVuXN0\",\"client_secret\":\"9zgdj5UoxvbcySR1Z0bVvOGOGEjQAIfc57h3LrsSGDxmROTkOJ_oJU_jqZuf7_tJ\",\"audience\":\"https://smart_bookmarks/api\",\"grant_type\":\"client_credentials\"}" # pylint: disable=line-too-long
 
             headers = { 'content-type': "application/json" }
             conn.request("POST", "/oauth/token", payload, headers)
+
+            print("connection established and request sent")
 
             # If all goes well, you'll receive an HTTP 200 response
             # with a payload containing access_token, token_type,
@@ -131,7 +146,14 @@ def validate_user(user_id, password):
             # }
             res = conn.getresponse()
             data = res.read().decode("utf-8")
-            return data
+            json_data = json.loads(data)
+            print("data received")
+
+            # tie the access token to this user
+            db.update_token(user_id, password, json_data['access_token'])
+
+            return json_data
+
         except Exception as err:
             raise AuthError({"code": "HTTP_request_error",
                             "description":

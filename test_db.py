@@ -191,18 +191,18 @@ class TestDb(unittest.TestCase):
         row = ("test_user", "test_pass")
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
-        cur.execute("INSERT INTO USERS VALUES (?, ?)", row)
+        cur.execute("INSERT INTO USERS VALUES (?, ?, NULL)", row)
         conn.commit()
 
         actual = cur.execute("SELECT * FROM USERS").fetchall()
 
-        self.assertEqual(3, len(actual))
+        self.assertEqual(1, len(actual))
 
         db.add_user("test_user", "test_pass")
 
         db.add_user("test_user_2", "test_pass_2")
         actual2 = cur.execute("SELECT * FROM USERS").fetchall()
-        self.assertEqual(4, len(actual2))
+        self.assertEqual(2, len(actual2))
 
     def test_is_valid_user(self):
         """
@@ -214,7 +214,7 @@ class TestDb(unittest.TestCase):
         row = ("test_user", "test_pass")
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
-        cur.execute("INSERT INTO USERS VALUES (?, ?)", row)
+        cur.execute("INSERT INTO USERS VALUES (?, ?, NULL)", row)
         conn.commit()
 
         output1 = db.is_valid_user("test_user", "test_pass")
