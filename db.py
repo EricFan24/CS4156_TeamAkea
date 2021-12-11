@@ -105,6 +105,7 @@ def get_tags(user_id, url):
     Get all tags of an article
     '''
     conn = None
+    match = None
     try:
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()

@@ -85,8 +85,7 @@ def edit_tags():
 
     return {
             "message": "Tags modified",
-            "tags before action": old_tags,
-            "tags after action": new_tags
+            "tags": new_tags
         }, 200  # return data with 200 OK
 
 
@@ -133,17 +132,27 @@ def similar_urls():
     url = request_data['url']
     similar_url_list = []
     
+    print(user_id, url)
     tags = db.get_tags(user_id, url)
+    
+    #print(tags)
     if tags:
         # tags is a list of list, for better visualization,
         # we flatten the list before returning
         tags = flatten_list(tags)
-        all_urls = db.get_user_urls(user_id)
-        for url in all_urls:
-            url_tags = flatten_list(db.get_tags(user_id, url))
+        print(tags)
+        #tags = [tag[0] for tag in tags]
+        all_urls = flatten_list(db.get_user_urls(user_id))
+        print("All URLS ##########")
+        print(all_urls)
+        for u in all_urls:
+            if u == url:
+                print("Continuing for: ", u)
+                continue
+            url_tags = flatten_list(db.get_tags(user_id, u))
+            print(u, url_tags)
             if len(set(tags) & set(url_tags))>=3:
-                similar_url_list.append(url)
-
+                similar_url_list.append(u)
 
     else:
         similar_url_list = "No tags found for this url. " \
@@ -236,14 +245,16 @@ class BookmarkTagger(Resource):
         keywords = nlp_module.get_keywords()
         categories = nlp_module.get_categories()
         authors = [list(result["author"]) for result in parsing_results]
-        keywords = keywords + categories + authors
+        #keywords = keywords + categories + authors
 
         keywords = [list(i) for i in keywords]
+        keywords = [keywords[i] + custom_tags + categories[i] + authors[i] for i in range(len(urls))]
+        
 
 
         for i, url in enumerate(urls):
-            for tag in keywords[i] + custom_tags:
-                db.add_row((user_id, url, tag))
+            for tag in keywords[i]: #[i] + custom_tags + categories[i] + authors[i]:
+                db.add_row((user_id, url, tag.lower()))
 
         print("Keywords extracted: ", keywords)
 

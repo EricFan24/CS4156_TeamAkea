@@ -89,7 +89,7 @@ def tag_url():
 
     returned_urls = response.json()["urls"]
 
-    context=dict(stream="Tags", data=returned_urls)
+    context=dict(stream="URLs", data=returned_urls)
     return render_template("results.html", **context)    
 
 @app.route('/modify_tags')
@@ -109,7 +109,7 @@ def modify_tags():
     }
     response = requests.post(SERVERURI+ "/edit-tags", json={"user_id": user_id, "url": url, "tags_to_add": tags_to_add, "tags_to_remove": tags_to_remove}, headers=headers)
     print("Response JSON:", response.json())
-    context=dict(stream="Tags modified", data=response.json())
+    context=dict(stream="Tags after editing", data=response.json()["tags"])
     return render_template("results.html", **context)
 
 @app.route('/similar_urls')
@@ -144,7 +144,12 @@ def show_tags():
     response = requests.get(SERVERURI+ "/get-tags", json={"urls": urls, "user_id": user_id}, headers=headers)   
     print(response.json()) 
 
-    returned_tags = response.json()['tags']
+    returned_tags = []
+    tag_dict = response.json()['tags']
+
+    for u in tag_dict:
+        returned_tags.append(u+ ": ")
+        returned_tags.append(tag_dict[u])
     context=dict(stream="Tags", data=returned_tags)
     return render_template("results.html", **context)
 
