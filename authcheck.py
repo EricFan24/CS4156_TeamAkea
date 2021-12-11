@@ -1,9 +1,10 @@
 """
 This module handles authentications
 """
+
 import json
 from functools import wraps
-from flask import Flask, request, jsonify, _request_ctx_stack
+from flask import Request as request, _request_ctx_stack
 from jose import jwt
 import http.client
 import db # pylint: disable=import-error
@@ -51,7 +52,8 @@ def get_token_auth_header():
 
 
 def requires_auth(func):
-    """Determines if the Access Token is valid
+    """
+    Determines if the Access Token is valid
     """
     @wraps(func)
     def decorated(*args, **kwargs):
@@ -131,6 +133,10 @@ def validate_user(user_id, password):
             # }
             res = conn.getresponse()
             data = res.read().decode("utf-8")
+
+            # tie the access token to this user
+            db.update_token(user_id, password, data["access_token"])
+            
             return data
         except Exception as err:
             raise AuthError({"code": "HTTP_request_error",

@@ -2,12 +2,9 @@
 This module handles the incoming requests to the Bookmark tagging service.
 """
 
-from flask import Flask, json, request, render_template, jsonify
-from flask.wrappers import Response
+from flask import Flask, json, Request as request, jsonify
 from flask_restful import Resource, Api
 from flask_cors import cross_origin
-from jose import jwt
-from werkzeug.wrappers import response
 
 from web_scraper import Scraper # pylint: disable=import-error
 from nlp import NLP # pylint: disable=import-error
@@ -119,6 +116,7 @@ def get_tags():
             'tags': tags_in_urls
         }, 200  # return data with 200 OK
 
+
 @app.route("/similar_urls", methods=['GET'])
 @authcheck.requires_auth
 @cross_origin(headers=["Content-Type", "Authorization"])
@@ -143,8 +141,6 @@ def similar_urls():
             url_tags = flatten_list(db.get_tags(user_id, url))
             if len(set(tags) & set(url_tags))>=3:
                 similar_url_list.append(url)
-
-
     else:
         similar_url_list = "No tags found for this url. " \
             + "Therefore, it has no similar URLs " 
@@ -152,7 +148,6 @@ def similar_urls():
             "message": "User: " + user_id + " has the following tags for the urls",
             'urls': similar_url_list
         }, 200  # return data with 200 OK
-
 
 
 class BookmarkTagger(Resource):
@@ -239,7 +234,6 @@ class BookmarkTagger(Resource):
         keywords = keywords + categories + authors
 
         keywords = [list(i) for i in keywords]
-
 
         for i, url in enumerate(urls):
             for tag in keywords[i] + custom_tags:

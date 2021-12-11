@@ -20,12 +20,10 @@ def init_db():
             'PRIMARY KEY (user_id, url, tag))'
             )
         conn.execute(
-            'CREATE TABLE IF NOT EXISTS USERS (user_id TEXT, password TEXT, '
-            'PRIMARY KEY (user_id, password))'
+            'CREATE TABLE IF NOT EXISTS USERS (user_id TEXT, password TEXT, access_token TEXT'
+            'PRIMARY KEY (user_id, password)'
+            'UNIQUE (access_token))'
         )
-        # test user
-        add_user("user1", "123456")
-        add_user("user2", "2222")
         print('Database Online, tables created')
     except Error as err:
         print(err)
@@ -149,7 +147,6 @@ def add_tag(user_id, url, new_tag):
     return msg
 
 
-
 def delete_tag(user_id, url, tag_to_remove):
     '''
     Delete a specific tag from a news article
@@ -234,7 +231,7 @@ def add_user(user_id, password):
         else:
             conn = sqlite3.connect('sqlite_db')
             cur = conn.cursor()
-            cur.execute("INSERT INTO USERS VALUES (?, ?)", (user_id, password))
+            cur.execute("INSERT INTO USERS VALUES (?, ?, NULL)", (user_id, password))
             conn.commit()
             print('Database Online, user added')
     except Error as err:
@@ -278,7 +275,6 @@ def is_valid_user(user_id, password):
     try:
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
-        print(user_id, password)
         cur.execute("SELECT * FROM USERS WHERE user_id = ? \
                     AND password = ?",
                     (user_id, password))
@@ -292,6 +288,29 @@ def is_valid_user(user_id, password):
         if conn:
             conn.close()
     return is_valid
+
+
+def update_token(user_id, password, access_token):
+    """
+    link a new access token to specified user
+    """
+    conn = None
+    try:
+        if(has_user(user_id)):
+            conn = sqlite3.connect('sqlite_db')
+            cur = conn.cursor()
+            cur.execute("UPDATE USERS set access_token = ? WHERE \
+                        user_id = ? AND password = ?",
+                        (access_token, user_id, password))
+            conn.commit()
+            print('new token successfully linked to user')
+        else:
+            print('can\'t find the entry to update, no changes posted to database')
+    except Error as err:
+        print(err)
+    finally:
+        if conn:
+            conn.close()
 
 
 def clear():
