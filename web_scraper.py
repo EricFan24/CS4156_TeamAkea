@@ -132,7 +132,8 @@ class Scraper:
         author = soup.find_all('span', class_="byline-name")
         self.create_dict(url, heading, subheading, description, author)
 
-# scraper = Scraper(["https://www.nbcnews.com/politics/supreme-court/supreme-court-says-challenge-texas-near-total-ban-abortion-can-n1285732",
+# scraper = Scraper(["https://www.nbcnews.com/politics/supreme-court/
+# supreme-court-says-challenge-texas-near-total-ban-abortion-can-n1285732",
 #                    "https://www.nytimes.com/2021/11/07/us/politics/afghanistan-war-marines.html"])
 # parsing_results = scraper.parsing
 # authors = [list(result["author"]) for result in parsing_results]
