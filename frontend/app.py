@@ -21,18 +21,6 @@ app = Flask(__name__, template_folder=tmpl_dir)
 }
 
 '''
-'''
-Existing endpoints: 
-
-user check: done
-edit-tags: modify and test => done
-get-tags: add frontend for this => test
-tags get: done
-tags post: test author is working or not, modify list of list thing => 4
-similar urls: create endpoint and test => test
-
-'''
-
 
 SERVERURI =  "http://127.0.0.1:5000/"  
 dicty={'access_token':"hello"}
