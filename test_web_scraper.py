@@ -3,7 +3,7 @@ This module is for ** TESTING **
 The module tests the class Scraper.
 """
 import unittest
-from web_scraper import Scraper
+from web_scraper import Scraper # pylint: disable=import-error
 
 
 class TestWebScraper(unittest.TestCase):

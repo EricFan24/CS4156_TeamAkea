@@ -1,11 +1,13 @@
+"""
+This module handles authentications
+"""
 import json
-from six.moves.urllib.request import urlopen
 from functools import wraps
-
 from flask import Flask, request, jsonify, _request_ctx_stack
 from jose import jwt
 import http.client
-import db
+import db # pylint: disable=import-error
+from six.moves.urllib.request import urlopen
 
 AUTH0_DOMAIN = 'dev-2ajo016m.us.auth0.com'
 API_AUDIENCE = 'https://smart_bookmarks/api'
@@ -48,10 +50,10 @@ def get_token_auth_header():
     return token
 
 
-def requires_auth(f):
+def requires_auth(func):
     """Determines if the Access Token is valid
     """
-    @wraps(f)
+    @wraps(func)
     def decorated(*args, **kwargs):
         token = get_token_auth_header()
         jsonurl = urlopen("https://"+AUTH0_DOMAIN+"/.well-known/jwks.json")
@@ -77,22 +79,22 @@ def requires_auth(f):
                     issuer="https://"+AUTH0_DOMAIN+"/"
                 )
                 print(payload)
-            except jwt.ExpiredSignatureError:
+            except jwt.ExpiredSignatureError as err:
                 raise AuthError({"code": "token_expired",
-                                "description": "token is expired"}, 401)
-            except jwt.JWTClaimsError:
+                                "description": "token is expired"}, 401) from err
+            except jwt.JWTClaimsError as err:
                 raise AuthError({"code": "invalid_claims",
                                 "description":
                                     "incorrect claims,"
-                                    "please check the audience and issuer"}, 401)
-            except Exception:
+                                    "please check the audience and issuer"}, 401) from err
+            except Exception as err:
                 raise AuthError({"code": "invalid_header",
                                 "description":
                                     "Unable to parse authentication"
-                                    " token."}, 401)
+                                    " token."}, 401) from err
 
             _request_ctx_stack.top.current_user = payload
-            return f(*args, **kwargs)
+            return func(*args, **kwargs)
         raise AuthError({"code": "invalid_header",
                         "description": "Unable to find appropriate key"}, 401)
     return decorated
@@ -109,18 +111,18 @@ def validate_user(user_id, password):
 
     print("is user valid? - ", user_is_valid)
 
-    if(user_is_valid):
+    if user_is_valid:
         try:
-            import http.client
+            # import http.client
 
             conn = http.client.HTTPSConnection("dev-2ajo016m.us.auth0.com")
-            payload = "{\"client_id\":\"vlKnFcLWHhA16V6DUZbcOzXyGlfVuXN0\",\"client_secret\":\"9zgdj5UoxvbcySR1Z0bVvOGOGEjQAIfc57h3LrsSGDxmROTkOJ_oJU_jqZuf7_tJ\",\"audience\":\"https://smart_bookmarks/api\",\"grant_type\":\"client_credentials\"}"
+            payload = "{\"client_id\":\"vlKnFcLWHhA16V6DUZbcOzXyGlfVuXN0\",\"client_secret\":\"9zgdj5UoxvbcySR1Z0bVvOGOGEjQAIfc57h3LrsSGDxmROTkOJ_oJU_jqZuf7_tJ\",\"audience\":\"https://smart_bookmarks/api\",\"grant_type\":\"client_credentials\"}" # pylint: disable=line-too-long
 
             headers = { 'content-type': "application/json" }
             conn.request("POST", "/oauth/token", payload, headers)
 
-            # If all goes well, you'll receive an HTTP 200 response 
-            # with a payload containing access_token, token_type, 
+            # If all goes well, you'll receive an HTTP 200 response
+            # with a payload containing access_token, token_type,
             # and expires_in values:
             # {
             # "access_token":"eyJz93a...k4laUWw",
@@ -130,10 +132,10 @@ def validate_user(user_id, password):
             res = conn.getresponse()
             data = res.read().decode("utf-8")
             return data
-        except Exception:
+        except Exception as err:
             raise AuthError({"code": "HTTP_request_error",
                             "description":
-                                "Unable to get response from domain"}, 401)
+                                "Unable to get response from domain"}, 401) from err
 
     raise AuthError({"code": "invalid_user",
                     "description": "Invalid user_id and password combination"}, 401)

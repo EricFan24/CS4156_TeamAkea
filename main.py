@@ -9,9 +9,9 @@ from flask_cors import cross_origin
 from jose import jwt
 from werkzeug.wrappers import response
 
-from web_scraper import Scraper
-from nlp import NLP
-import db
+from web_scraper import Scraper # pylint: disable=import-error
+from nlp import NLP # pylint: disable=import-error
+import db # pylint: disable=import-error
 import authcheck
 
 app = Flask(__name__)
@@ -39,9 +39,9 @@ def check_user():
     password = request_data['password']
 
     db.init_db()
-    response = authcheck.validate_user(user_id, password)
+    res = authcheck.validate_user(user_id, password)
 
-    return json.loads(response)
+    return json.loads(res)
 
 
 @app.route("/edit-tags", methods=['POST'])
@@ -82,7 +82,7 @@ def edit_tags():
             "message": "The requested url is not bookmarked." \
                 "Please create a bookmark before editing the tags."
         }, 400 # bad request
-    
+
     return {
             "message": "Tags modified",
             "tags before action": old_tags,
@@ -103,7 +103,7 @@ def get_tags():
     # remove duplicates in urls
     urls = list(set(request_data['urls']))
     tags_in_urls = {}
-    
+
     for url in urls:
         tags = db.get_tags(user_id, url)
         if tags:
@@ -213,11 +213,11 @@ class BookmarkTagger(Resource):
         user_id = request_data['user_id']
         if len(urls) == 0:
             return {'message': 'No valid urls found'}, 400
-        
+
         custom_tags = []
         if 'tags' in request_data:
             custom_tags = request_data['tags']
-        
+
         scrapper = Scraper(urls)
         parsing_results = scrapper.parsing
         print(parsing_results)
@@ -232,9 +232,9 @@ class BookmarkTagger(Resource):
                 result["author"] = ""
         # print(parsingResults)
 
-        NLP_module = NLP(parsing_results)
-        keywords = NLP_module.get_keywords()
-        categories = NLP_module.get_categories()
+        nlp_module = NLP(parsing_results)
+        keywords = nlp_module.get_keywords()
+        categories = nlp_module.get_categories()
         authors = [list(result["author"]) for result in parsing_results]
         keywords = keywords + categories + authors
 
@@ -261,9 +261,9 @@ def handle_auth_error(ex):
     """
     Handles authorization related errors
     """
-    response = jsonify(ex.error)
-    response.status_code = ex.status_code
-    return response
+    res = jsonify(ex.error)
+    res.status_code = ex.status_code
+    return res
 
 
 if __name__ == '__main__':

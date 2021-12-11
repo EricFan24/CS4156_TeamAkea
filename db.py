@@ -74,7 +74,6 @@ def get_urls(user_id, tag):
     finally:
         if conn:
             conn.close()
-
     return match
 
 def get_user_urls(user_id):
@@ -112,12 +111,12 @@ def get_tags(user_id, url):
         cur.execute("SELECT tag FROM TAGS WHERE user_id  = ? \
                     AND url = ?", (user_id, url))
         match = cur.fetchall()
-    except Error as e:
-        print(e)
+    except Error as err:
+        print(err)
     finally:
         if conn:
             conn.close()
-        return match
+    return match
 
 
 def add_tag(user_id, url, new_tag):
@@ -142,13 +141,13 @@ def add_tag(user_id, url, new_tag):
             msg = 'new tag added for the article'
         else:
             msg = 'the tag is already associated with the article, no changes posted to database'
-
-    except Error as e:
-        print(e)
+    except Error as err:
+        print(err)
     finally:
         if conn:
             conn.close()
-        return msg
+    return msg
+
 
 
 def delete_tag(user_id, url, tag_to_remove):
@@ -175,13 +174,12 @@ def delete_tag(user_id, url, tag_to_remove):
             msg = 'tag deleted for the article'
         else:
             msg = 'the tag does not exist for this article, no changes posted to database'
-
-    except Error as e:
-        print(e)
+    except Error as err:
+        print(err)
     finally:
         if conn:
             conn.close()
-        return msg
+    return msg
 
 
 def update_tag(user_id, url, old_tag_text, new_tag_text):
@@ -217,13 +215,12 @@ def update_tag(user_id, url, old_tag_text, new_tag_text):
                 + ' no changes posted to database'
         else:
             msg = 'can\'t find the entry to update, no changes posted to database'
-
-    except Error as e:
-        print(e)
+    except Error as err:
+        print(err)
     finally:
         if conn:
             conn.close()
-        return msg
+    return msg
 
 
 def add_user(user_id, password):
@@ -232,7 +229,7 @@ def add_user(user_id, password):
     """
     conn = None
     try:
-        if(has_user(user_id)):
+        if has_user(user_id):
             print("user is already in database, no changes posted to database")
         else:
             conn = sqlite3.connect('sqlite_db')
@@ -260,14 +257,14 @@ def has_user(user_id):
         cur.execute("SELECT * FROM USERS WHERE user_id='"
                     + user_id + "'")
         match = cur.fetchall()
-    except Error as e:
-        print(e)
+    except Error as err:
+        print(err)
     finally:
         if conn:
             conn.close()
-        if match:
-            return True
-        return False
+    if match:
+        return True
+    return False
 
 
 def is_valid_user(user_id, password):
@@ -289,12 +286,12 @@ def is_valid_user(user_id, password):
         print(match)
         if match:
             is_valid = True
-    except Error as e:
-        print(e)
+    except Error as err:
+        print(err)
     finally:
         if conn:
             conn.close()
-        return is_valid
+    return is_valid
 
 
 def clear():
