@@ -4,11 +4,12 @@ This module handles authentications
 
 import json
 from functools import wraps
-from flask import request, _request_ctx_stack
+from flask import app, request, _request_ctx_stack
+from flask.json import jsonify
 from jose import jwt
 import http.client
-import db # pylint: disable=import-error
 from six.moves.urllib.request import urlopen
+import db # pylint: disable=import-error
 
 AUTH0_DOMAIN = 'dev-2ajo016m.us.auth0.com'
 API_AUDIENCE = 'https://smart_bookmarks/api'
@@ -19,6 +20,16 @@ class AuthError(Exception):
     def __init__(self, error, status_code):
         self.error = error
         self.status_code = status_code
+
+
+@app.errorhandler(AuthError)
+def handle_auth_error(ex):
+    """
+    Handles authorization related errors
+    """
+    res = jsonify(ex.error)
+    res.status_code = ex.status_code
+    return res
 
 
 # Format error response and append status code
@@ -134,12 +145,12 @@ def validate_user(user_id, password):
             data = res.read().decode("utf-8")
             json_data = json.loads(data)
             print("data received")
-            
+
             # tie the access token to this user
             db.update_token(user_id, password, json_data['access_token'])
-            
+
             return json_data
-            
+
         except Exception as err:
             raise AuthError({"code": "HTTP_request_error",
                             "description":

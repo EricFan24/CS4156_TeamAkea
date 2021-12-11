@@ -20,7 +20,8 @@ def init_db():
             'PRIMARY KEY (user_id, url, tag))'
             )
         conn.execute(
-            'CREATE TABLE IF NOT EXISTS USERS (user_id TEXT, password TEXT, access_token TEXT type UNIQUE, '
+            'CREATE TABLE IF NOT EXISTS USERS (user_id TEXT, password TEXT, '
+            'access_token TEXT type UNIQUE, '
             'PRIMARY KEY (user_id, password))'
         )
         print('Database Online, tables created')
@@ -252,7 +253,7 @@ def add_user(user_id, password):
     conn = None
     success = False
     try:
-        if(has_user(user_id)):
+        if has_user(user_id):
             print("user is already in database, no changes posted to database")
         else:
             conn = sqlite3.connect('sqlite_db')
@@ -301,7 +302,7 @@ def update_token(user_id, password, access_token):
     """
     conn = None
     try:
-        if(has_user(user_id)):
+        if has_user(user_id):
             conn = sqlite3.connect('sqlite_db')
             cur = conn.cursor()
             cur.execute("UPDATE USERS set access_token = ? WHERE \

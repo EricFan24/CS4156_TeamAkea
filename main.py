@@ -15,7 +15,7 @@ app = Flask(__name__)
 api = Api(app)
 
 
-def flatten_list(list):
+def twoD_to_oneD(list):
     """
     turn a list of list into one-dimensional list
     """
@@ -35,7 +35,7 @@ def add_user():
     db.init_db()
     res = db.add_user(user_id, password)
 
-    if(res):
+    if res:
         return {
             "message": "User successfully added."
         }, 200
@@ -77,19 +77,19 @@ def edit_tags():
     url = request_data['url']
     tags_to_add = request_data['tags_to_add']
     tags_to_remove = request_data['tags_to_remove']
-    
+
     old_tags = db.get_tags(user_id, url)
     new_tags = []
 
     print("Old tags found: ", old_tags)
-    if(old_tags):
+    if old_tags:
         for tag in tags_to_add:
             db.add_tag(user_id, url, tag)
         for tag in tags_to_remove:
             db.delete_tag(user_id, url, tag)
-        
-        old_tags = flatten_list(old_tags)
-        new_tags = flatten_list(db.get_tags(user_id, url))
+
+        old_tags = twoD_to_oneD(old_tags)
+        new_tags = twoD_to_oneD(db.get_tags(user_id, url))
     else:
         return {
             "message": "The requested url is not bookmarked." \
@@ -123,7 +123,7 @@ def get_tags():
         if tags:
             # tags is a list of list, for better visualization,
             # we flatten the list before returning
-            tags_in_urls[url] = flatten_list(tags)
+            tags_in_urls[url] = twoD_to_oneD(tags)
         else:
             tags_in_urls[url] = "No tags found for this url. " \
                 + "Either the user did not bookmark it, or " \
@@ -147,20 +147,20 @@ def similar_urls():
     # remove duplicates in urls
     url = request_data['url']
     similar_url_list = []
-    
+
     tags = db.get_tags(user_id, url)
     if tags:
         # tags is a list of list, for better visualization,
         # we flatten the list before returning
-        tags = flatten_list(tags)
+        tags = twoD_to_oneD(tags)
         all_urls = db.get_user_urls(user_id)
         for url in all_urls:
-            url_tags = flatten_list(db.get_tags(user_id, url))
+            url_tags = twoD_to_oneD(db.get_tags(user_id, url))
             if len(set(tags) & set(url_tags))>=3:
                 similar_url_list.append(url)
     else:
         similar_url_list = "No tags found for this url. " \
-            + "Therefore, it has no similar URLs " 
+            + "Therefore, it has no similar URLs "
     return {
             "message": "User: " + user_id + " has the following tags for the urls",
             'urls': similar_url_list
@@ -265,16 +265,6 @@ class BookmarkTagger(Resource):
 
 
 api.add_resource(BookmarkTagger, '/tags')  # add endpoint
-
-
-@app.errorhandler(authcheck.AuthError)
-def handle_auth_error(ex):
-    """
-    Handles authorization related errors
-    """
-    res = jsonify(ex.error)
-    res.status_code = ex.status_code
-    return res
 
 
 if __name__ == '__main__':
