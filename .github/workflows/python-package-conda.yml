@@ -26,10 +26,6 @@ jobs:
         C:\Miniconda/condabin/conda.bat env update --file environment.yml --name base
         C:\Miniconda/condabin/conda.bat activate base
      
-        
-    - name: flake8 Lint
-      uses: py-actions/flake8@v1 >flake8-style-check.txt
-        
     - name: Run Unit tests
       run: |
         python -m unittest discover >unit-test-report.txt
@@ -39,6 +35,10 @@ jobs:
         pip3 install pytest
         coverage run -m pytest
         coverage report > coverage-report.txt
+        
+    - name: flake8 Lint
+      uses: py-actions/flake8@v1 
+        
  
     - name: Commit files
       run: |
