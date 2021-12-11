@@ -2,7 +2,7 @@
 This module handles the incoming requests to the Bookmark tagging service.
 """
 
-from flask import Flask, json, Request as request, jsonify
+from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 from flask_cors import cross_origin
 
@@ -22,6 +22,28 @@ def flatten_list(list):
     return [item for sublist in list for item in sublist]
 
 
+@app.route("/add-user", methods=['POST'])
+@cross_origin(headers=["Content-Type", "Authorization"])
+def add_user():
+    """
+    add user to database
+    """
+    request_data = request.get_json()
+    user_id = request_data['user_id']
+    password = request_data['password']
+
+    db.init_db()
+    res = db.add_user(user_id, password)
+
+    if(res):
+        return {
+            "message": "User successfully added."
+        }, 200
+    return {
+        "message": "Fail to add user. User may already be in database."
+    }, 400
+
+
 # This doesn't need authentication
 # simply send a GET request to the route to test access
 @app.route("/user-check", methods=['GET'])
@@ -38,7 +60,7 @@ def check_user():
     db.init_db()
     res = authcheck.validate_user(user_id, password)
 
-    return json.loads(res)
+    return res
 
 
 @app.route("/edit-tags", methods=['POST'])
@@ -46,31 +68,25 @@ def check_user():
 @cross_origin(headers=["Content-Type", "Authorization"])
 def edit_tags():
     """
-    endpoint for adding, removing, or updating tags
+    endpoint for adding, removing tags
     for a given url
-    accepts one tag per request
+    accepts a list of tags
     """
     request_data = request.get_json()
     user_id = request_data['user_id']
     url = request_data['url']
-    #action = request_data['action']
     tags_to_add = request_data['tags_to_add']
     tags_to_remove = request_data['tags_to_remove']
     
     old_tags = db.get_tags(user_id, url)
-    msg = ""
     new_tags = []
 
     print("Old tags found: ", old_tags)
     if(old_tags):
-        #if(action == 'add'):
-        
         for tag in tags_to_add:
-            #tag = request_data['tag']
-            msg = db.add_tag(user_id, url, tag)
-        #elif(action == 'remove'):
+            db.add_tag(user_id, url, tag)
         for tag in tags_to_remove:
-            msg = db.delete_tag(user_id, url, tag)
+            db.delete_tag(user_id, url, tag)
         
         old_tags = flatten_list(old_tags)
         new_tags = flatten_list(db.get_tags(user_id, url))
@@ -89,12 +105,13 @@ def edit_tags():
 
 @app.route("/get-tags", methods=['GET'])
 @authcheck.requires_auth
-@cross_origin(headers=["Content-Type", "Authorization"])
+@cross_origin()
 def get_tags():
     """
     endpoint for getting tags from given urls
     accepts a list of urls
     """
+
     request_data = request.get_json()
     user_id = request_data['user_id']
     # remove duplicates in urls

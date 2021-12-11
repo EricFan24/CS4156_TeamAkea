@@ -20,9 +20,8 @@ def init_db():
             'PRIMARY KEY (user_id, url, tag))'
             )
         conn.execute(
-            'CREATE TABLE IF NOT EXISTS USERS (user_id TEXT, password TEXT, access_token TEXT'
-            'PRIMARY KEY (user_id, password)'
-            'UNIQUE (access_token))'
+            'CREATE TABLE IF NOT EXISTS USERS (user_id TEXT, password TEXT, access_token TEXT type UNIQUE, '
+            'PRIMARY KEY (user_id, password))'
         )
         print('Database Online, tables created')
     except Error as err:
@@ -220,27 +219,6 @@ def update_tag(user_id, url, old_tag_text, new_tag_text):
     return msg
 
 
-def add_user(user_id, password):
-    """
-    add a row in USERS table
-    """
-    conn = None
-    try:
-        if has_user(user_id):
-            print("user is already in database, no changes posted to database")
-        else:
-            conn = sqlite3.connect('sqlite_db')
-            cur = conn.cursor()
-            cur.execute("INSERT INTO USERS VALUES (?, ?, NULL)", (user_id, password))
-            conn.commit()
-            print('Database Online, user added')
-    except Error as err:
-        print(err)
-    finally:
-        if conn:
-            conn.close()
-
-
 def has_user(user_id):
     """
     check if the user already exists
@@ -248,6 +226,7 @@ def has_user(user_id):
     False otherwise
     """
     conn = None
+    match = None
     try:
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
@@ -262,6 +241,32 @@ def has_user(user_id):
     if match:
         return True
     return False
+
+
+def add_user(user_id, password):
+    """
+    add a row in USERS table.
+    return true if user successfully added,
+    false otherwise
+    """
+    conn = None
+    success = False
+    try:
+        if(has_user(user_id)):
+            print("user is already in database, no changes posted to database")
+        else:
+            conn = sqlite3.connect('sqlite_db')
+            cur = conn.cursor()
+            cur.execute("INSERT INTO USERS VALUES (?, ?, NULL)", (user_id, password))
+            conn.commit()
+            success = True
+            print('Database Online, user added')
+    except Error as err:
+        print(err)
+    finally:
+        if conn:
+            conn.close()
+    return success
 
 
 def is_valid_user(user_id, password):
