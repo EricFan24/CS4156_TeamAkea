@@ -127,7 +127,7 @@ def similar_urls():
 
 
 @app.route('/show_tags')
-def tag_urls():
+def show_tags():
     
     urls_string = request.args['urls']
 
