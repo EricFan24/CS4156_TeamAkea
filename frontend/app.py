@@ -161,6 +161,25 @@ def user_login():
   print(r.json())  
   
   return render_template("index.html")
+
+@app.route('/user_sign_up', methods=["POST"])
+def user_sign_up():
+  user_id=request.form['user_id']
+  password=request.form['psw']
+
+  payload = {"user_id": user_id, "password": password}
+  print(payload)
+
+  r = requests.post(SERVERURI + "add-user", json=payload)
+  
+  r = requests.get(SERVERURI + "user-check", json=payload)
+  
+  dicty['access_token'] = r.json()['access_token']
+  dicty['user_id'] = user_id
+  
+  print(r.json())  
+  
+  return render_template("index.html")
   '''
   if not rows:
     print("Login Failed, Please check the login details")
