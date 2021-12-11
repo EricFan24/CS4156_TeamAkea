@@ -196,13 +196,13 @@ class TestDb(unittest.TestCase):
 
         actual = cur.execute("SELECT * FROM USERS").fetchall()
 
-        self.assertEqual(3, len(actual))
+        self.assertEqual(1, len(actual))
 
         db.add_user("test_user", "test_pass")
 
         db.add_user("test_user_2", "test_pass_2")
         actual2 = cur.execute("SELECT * FROM USERS").fetchall()
-        self.assertEqual(4, len(actual2))
+        self.assertEqual(2, len(actual2))
 
     def test_is_valid_user(self):
         """
