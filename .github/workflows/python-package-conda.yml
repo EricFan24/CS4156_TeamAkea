@@ -40,7 +40,7 @@ jobs:
     - name: Analysing the code with pylint
       run: |
         pip3 install pylint
-        pylint `ls -R|grep .py$|xargs`
+        pylint CS4156_TeamAkea
     
  
     - name: Commit files
