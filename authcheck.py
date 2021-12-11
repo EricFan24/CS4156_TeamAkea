@@ -2,13 +2,12 @@
 This module handles authentications
 """
 import json
-from six.moves.urllib.request import urlopen
 from functools import wraps
-
 from flask import Flask, request, jsonify, _request_ctx_stack
 from jose import jwt
 import http.client
 import db # pylint: disable=import-error
+from six.moves.urllib.request import urlopen
 
 AUTH0_DOMAIN = 'dev-2ajo016m.us.auth0.com'
 API_AUDIENCE = 'https://smart_bookmarks/api'
@@ -80,19 +79,19 @@ def requires_auth(func):
                     issuer="https://"+AUTH0_DOMAIN+"/"
                 )
                 print(payload)
-            except jwt.ExpiredSignatureError:
+            except jwt.ExpiredSignatureError as err:
                 raise AuthError({"code": "token_expired",
-                                "description": "token is expired"}, 401)
-            except jwt.JWTClaimsError:
+                                "description": "token is expired"}, 401) from err
+            except jwt.JWTClaimsError as err:
                 raise AuthError({"code": "invalid_claims",
                                 "description":
                                     "incorrect claims,"
-                                    "please check the audience and issuer"}, 401)
-            except Exception:
+                                    "please check the audience and issuer"}, 401) from err
+            except Exception as err:
                 raise AuthError({"code": "invalid_header",
                                 "description":
                                     "Unable to parse authentication"
-                                    " token."}, 401)
+                                    " token."}, 401) from err
 
             _request_ctx_stack.top.current_user = payload
             return func(*args, **kwargs)
@@ -117,7 +116,7 @@ def validate_user(user_id, password):
             # import http.client
 
             conn = http.client.HTTPSConnection("dev-2ajo016m.us.auth0.com")
-            payload = "{\"client_id\":\"vlKnFcLWHhA16V6DUZbcOzXyGlfVuXN0\",\"client_secret\":\"9zgdj5UoxvbcySR1Z0bVvOGOGEjQAIfc57h3LrsSGDxmROTkOJ_oJU_jqZuf7_tJ\",\"audience\":\"https://smart_bookmarks/api\",\"grant_type\":\"client_credentials\"}"
+            payload = "{\"client_id\":\"vlKnFcLWHhA16V6DUZbcOzXyGlfVuXN0\",\"client_secret\":\"9zgdj5UoxvbcySR1Z0bVvOGOGEjQAIfc57h3LrsSGDxmROTkOJ_oJU_jqZuf7_tJ\",\"audience\":\"https://smart_bookmarks/api\",\"grant_type\":\"client_credentials\"}" # pylint: disable=line-too-long
 
             headers = { 'content-type': "application/json" }
             conn.request("POST", "/oauth/token", payload, headers)
@@ -133,10 +132,10 @@ def validate_user(user_id, password):
             res = conn.getresponse()
             data = res.read().decode("utf-8")
             return data
-        except Exception:
+        except Exception as err:
             raise AuthError({"code": "HTTP_request_error",
                             "description":
-                                "Unable to get response from domain"}, 401)
+                                "Unable to get response from domain"}, 401) from err
 
     raise AuthError({"code": "invalid_user",
                     "description": "Invalid user_id and password combination"}, 401)
