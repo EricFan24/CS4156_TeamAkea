@@ -101,6 +101,12 @@ class TestDb(unittest.TestCase):
 
         self.assertEqual("new-test-tag",actual[1][0])
 
+        db.add_tag(user_id, url, "new-test-tag")
+        actual = cur.execute('SELECT tag FROM TAGS WHERE user_id  = ? \
+                                    AND url = ? AND  tag = ?', (user_id, url, "new-test-tag")).fetchall()
+
+        self.assertEqual(1, len(actual))
+
     def test_delete_tag(self):
 
         db.clear()
@@ -122,6 +128,14 @@ class TestDb(unittest.TestCase):
 
         self.assertEqual(len(actual), 1)
 
+        db.delete_tag(user_id, url, "tag-does-not-exist")
+        actual = cur.execute('SELECT * FROM TAGS WHERE user_id  = ? \
+                                            AND url = ?', (user_id, url)).fetchall()
+
+        self.assertEqual(len(actual), 1)
+
+
+
     def test_update_tag(self):
         db.clear()
         db.init_db()
@@ -135,6 +149,11 @@ class TestDb(unittest.TestCase):
         cur.execute("INSERT INTO TAGS VALUES (?, ?, ?)", row1)
         cur.execute("INSERT INTO TAGS VALUES (?, ?, ?)", row2)
         conn.commit()
+
+        db.update_tag(user_id, url, "testing-tag", "India")
+        actual_check1 = cur.execute('SELECT * FROM TAGS WHERE user_id  = ? \
+                                                   AND url = ? AND tag = ?', (user_id, url, "India")).fetchall()
+        self.assertEqual(len(actual_check1), 1)
 
         db.update_tag(user_id, url, "testing-tag", "World")
         actual_check1 = cur.execute('SELECT * FROM TAGS WHERE user_id  = ? \
@@ -162,8 +181,10 @@ class TestDb(unittest.TestCase):
         conn.commit()
 
         actual = cur.execute("SELECT * FROM USERS").fetchall()
-        print(actual)
+
         self.assertEqual(3, len(actual))
+
+        db.add_user("test_user", "test_pass")
 
         db.add_user("test_user_2", "test_pass_2")
         actual2 = cur.execute("SELECT * FROM USERS").fetchall()
