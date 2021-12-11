@@ -56,26 +56,24 @@ def edit_tags():
     request_data = request.get_json()
     user_id = request_data['user_id']
     url = request_data['url']
-    action = request_data['action']
+    #action = request_data['action']
+    tags_to_add = request_data['tags_to_add']
+    tags_to_remove = request_data['tags_to_remove']
+    
     old_tags = db.get_tags(user_id, url)
     msg = ""
     new_tags = []
 
+    print("Old tags found: ", old_tags)
     if(old_tags):
-        if(action == 'add'):
-            tag = request_data['tag']
+        #if(action == 'add'):
+        
+        for tag in tags_to_add:
+            #tag = request_data['tag']
             msg = db.add_tag(user_id, url, tag)
-        elif(action == 'remove'):
-            tag = request_data['tag']
+        #elif(action == 'remove'):
+        for tag in tags_to_remove:
             msg = db.delete_tag(user_id, url, tag)
-        elif(action == 'update'):
-            old_tag = request_data['old-tag']
-            new_tag = request_data['new-tag']
-            msg = db.update_tag(user_id, url, old_tag, new_tag)
-        else:
-            return {
-                "message": "this endpoint does not support the requested action"
-            }, 400  # bad request
         
         old_tags = flatten_list(old_tags)
         new_tags = flatten_list(db.get_tags(user_id, url))
@@ -86,7 +84,7 @@ def edit_tags():
         }, 400 # bad request
     
     return {
-            "message": msg,
+            "message": "Tags modified",
             "tags before action": old_tags,
             "tags after action": new_tags
         }, 200  # return data with 200 OK
@@ -120,6 +118,41 @@ def get_tags():
             "message": "User: " + user_id + " has the following tags for the urls",
             'tags': tags_in_urls
         }, 200  # return data with 200 OK
+
+@app.route("/similar_urls", methods=['GET'])
+@authcheck.requires_auth
+@cross_origin(headers=["Content-Type", "Authorization"])
+def similar_urls():
+    """
+    endpoint for getting tags from given urls
+    accepts a list of urls
+    """
+    request_data = request.get_json()
+    user_id = request_data['user_id']
+    # remove duplicates in urls
+    url = request_data['url']
+    similar_url_list = []
+    
+    tags = db.get_tags(user_id, url)
+    if tags:
+        # tags is a list of list, for better visualization,
+        # we flatten the list before returning
+        tags = flatten_list(tags)
+        all_urls = db.get_user_urls(user_id)
+        for url in all_urls:
+            url_tags = flatten_list(db.get_tags(user_id, url))
+            if len(set(tags) & set(url_tags))>=3:
+                similar_url_list.append(url)
+
+
+    else:
+        similar_url_list = "No tags found for this url. " \
+            + "Therefore, it has no similar URLs " 
+    return {
+            "message": "User: " + user_id + " has the following tags for the urls",
+            'urls': similar_url_list
+        }, 200  # return data with 200 OK
+
 
 
 class BookmarkTagger(Resource):

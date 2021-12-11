@@ -21,6 +21,18 @@ app = Flask(__name__, template_folder=tmpl_dir)
 }
 
 '''
+'''
+Existing endpoints: 
+
+user check: done
+edit-tags: modify and test => done
+get-tags: add frontend for this => test
+tags get: done
+tags post: test author is working or not, modify list of list thing => 4
+similar urls: create endpoint and test => test
+
+'''
+
 
 SERVERURI =  "http://127.0.0.1:5000/"  
 dicty={'access_token':"hello"}
@@ -95,9 +107,9 @@ def modify_tags():
     headers = {
         'authorization' : "Bearer " + access_token
     }
-    response = requests.get(SERVERURI+ "/modify_tags", json={"user_id": user_id, "url": url, "tags_to_add": tags_to_add, "tags_to_remove": tags_to_remove}, headers=headers)
-    
-    context=dict(stream="Tags", data=["Tags modified"])
+    response = requests.post(SERVERURI+ "/edit-tags", json={"user_id": user_id, "url": url, "tags_to_add": tags_to_add, "tags_to_remove": tags_to_remove}, headers=headers)
+    print("Response JSON:", response.json())
+    context=dict(stream="Tags modified", data=response.json())
     return render_template("results.html", **context)
 
 @app.route('/similar_urls')
@@ -112,7 +124,29 @@ def similar_urls():
     returned_urls = response.json()["urls"]
     context=dict(stream="URLS", data=returned_urls)
     return render_template("results.html", **context)
+
+
+@app.route('/show_tags')
+def tag_urls():
     
+    urls_string = request.args['urls']
+
+    urls = [x.strip() for x in urls_string.split(',')]
+
+    access_token = dicty['access_token']
+    user_id = dicty['user_id']
+    headers = {
+        'authorization' : "Bearer " + access_token
+    }
+    print(headers)
+
+    
+    response = requests.get(SERVERURI+ "/get-tags", json={"urls": urls, "user_id": user_id}, headers=headers)   
+    print(response.json()) 
+
+    returned_tags = response.json()['tags']
+    context=dict(stream="Tags", data=returned_tags)
+    return render_template("results.html", **context)
 
 @app.route('/redirect')
 def redirect():

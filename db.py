@@ -77,6 +77,29 @@ def get_urls(user_id, tag):
 
     return match
 
+def get_user_urls(user_id):
+    """
+    Get all articles for the user_id
+    """
+    print(user_id)
+    conn = None
+    match = None
+    try:
+        conn = sqlite3.connect('sqlite_db')
+        print("Connected")
+        cur = conn.cursor()
+        cur.execute("SELECT DISTINCT url FROM TAGS WHERE user_id='"
+                    + user_id + "'")
+        print("Command executed")
+        match = cur.fetchall()
+    except Error as err:
+        print(err)
+    finally:
+        if conn:
+            conn.close()
+
+    return match
+
 
 def get_tags(user_id, url):
     '''
