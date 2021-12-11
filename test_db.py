@@ -103,7 +103,7 @@ class TestDb(unittest.TestCase):
 
         db.add_tag(user_id, url, "new-test-tag")
         actual = cur.execute('SELECT tag FROM TAGS WHERE user_id  = ? \
-                                    AND url = ? AND  tag = ?', (user_id, url, "new-test-tag")).fetchall()
+                            AND url = ? AND  tag = ?', (user_id, url, "new-test-tag")).fetchall()
 
         self.assertEqual(1, len(actual))
 
@@ -152,21 +152,21 @@ class TestDb(unittest.TestCase):
 
         db.update_tag(user_id, url, "testing-tag", "India")
         actual_check1 = cur.execute('SELECT * FROM TAGS WHERE user_id  = ? \
-                                                   AND url = ? AND tag = ?', (user_id, url, "India")).fetchall()
+                                    AND url = ? AND tag = ?', (user_id, url, "India")).fetchall()
         self.assertEqual(len(actual_check1), 1)
 
         db.update_tag(user_id, url, "testing-tag", "World")
         actual_check1 = cur.execute('SELECT * FROM TAGS WHERE user_id  = ? \
-                                           AND url = ? AND tag = ?' , (user_id, url, "World")).fetchall()
+                                    AND url = ? AND tag = ?' , (user_id, url, "World")).fetchall()
         self.assertEqual(len(actual_check1), 1)
 
         actual_check2 = cur.execute('SELECT * FROM TAGS WHERE user_id  = ? \
-                                                   AND url = ? AND tag = ?', (user_id, url, "testing-tag")).fetchall()
+                                    AND url = ? AND tag = ?', (user_id, url, "testing-tag")).fetchall()
         self.assertEqual(len(actual_check2), 0)
 
         db.update_tag(user_id, url, "tag-not-exist", "Earth")
         actual_check3 = cur.execute('SELECT * FROM TAGS WHERE user_id  = ? \
-                                                   AND url = ? AND tag = ?', (user_id, url, "Earth")).fetchall()
+                                    AND url = ? AND tag = ?', (user_id, url, "Earth")).fetchall()
         self.assertEqual(len(actual_check3), 0)
 
     def test_add_user(self):
@@ -206,15 +206,3 @@ class TestDb(unittest.TestCase):
 
         output2 = db.is_valid_user("test_user", "pass")
         self.assertEqual(output2, False)
-
-
-
-
-
-
-
-
-
-
-
-
