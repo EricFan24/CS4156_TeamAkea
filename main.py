@@ -25,11 +25,6 @@ def flatten_list(list):
     return [item for sublist in list for item in sublist]
 
 
-@app.route('/', methods=['GET'])
-def connect():
-    return render_template("index.html")
-
-
 # This doesn't need authentication
 # simply send a GET request to the route to test access
 @app.route("/user-check", methods=['GET'])
