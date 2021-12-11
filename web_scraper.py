@@ -59,7 +59,8 @@ class Scraper:
         soup = BeautifulSoup(response.content, 'html.parser')
         return soup
 
-    def create_dict(self, url, heading, subheading, descr, author = None, time = None):
+    def create_dict(self, url, heading, subheading, descr,
+                    author=None):
         """
         Creates & appends dictionary, that contains url with heading,
         subheading and description
@@ -98,7 +99,7 @@ class Scraper:
         heading = soup.find_all('h1', class_='gnt_ar_hl')
         subheading = []
         description = soup.find_all('p', class_='gnt_ar_b_p')
-        author = soup.find_all('a', class_= 'gnt_ar_by_a gnt_ar_by_a__fi')
+        author = soup.find_all('a', class_='gnt_ar_by_a gnt_ar_by_a__fi')
         self.create_dict(url, heading, subheading, description, author)
 
     def parse_ny_times(self, url):
@@ -113,7 +114,7 @@ class Scraper:
         heading = soup.find_all('h1', class_='e1h9rw200')
         subheading = soup.find_all('p', id='article-summary')
         description = soup.find_all('p', class_='evys1bk0')
-        author = soup.find_all('a', class_= 'css-mrorfa e1jsehar0')
+        author = soup.find_all('a', class_='css-mrorfa e1jsehar0')
         # time = soup.find_all('span', class_ = 'css-1sbuyqj e16638kd3')
         self.create_dict(url, heading, subheading, description, author)
 
@@ -130,8 +131,3 @@ class Scraper:
         description = soup.find_all('p', class_='')
         author = soup.find_all('span', class_="byline-name")
         self.create_dict(url, heading, subheading, description, author)
-
-scrap = Scraper(["https://www.nbcnews.com/politics/supreme-court/supreme-court-says-challenge-texas-near-total-ban-abortion-can-n1285732",
-                 "https://www.usatoday.com/story/sports/nfl/2021/12/10/demaryius-thomas-death-cause-what-we-know-nfl-broncos/6460874001",
-                 "https://www.nytimes.com/2021/11/07/us/politics/afghanistan-war-marines.html"])
-print(scrap.parsing)
