@@ -36,11 +36,11 @@ jobs:
         coverage run -m pytest
         coverage report > coverage-report.txt
         
-  
-    - name: Lint with pylint
+        
+    - name: Analysing the code with pylint
       run: |
         pip3 install pylint
-        pylint ./CS4156_TeamAkea > style-check.txt
+        pylint `ls -R|grep .py$|xargs`
     
  
     - name: Commit files
