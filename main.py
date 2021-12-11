@@ -187,6 +187,7 @@ class BookmarkTagger(Resource):
         
         scrapper = Scraper(urls)
         parsing_results = scrapper.parsing
+        print(parsing_results)
         for result in parsing_results:
             if "heading" not in result:
                 result["heading"] = ""
@@ -194,13 +195,18 @@ class BookmarkTagger(Resource):
                 result["description"] = ""
             if "subheading" not in result:
                 result["subheading"] = ""
+            if "author" not in result:
+                result["author"] = ""
         # print(parsingResults)
 
         NLP_module = NLP(parsing_results)
         keywords = NLP_module.get_keywords()
         categories = NLP_module.get_categories()
-        keywords = keywords + categories
+        authors = [list(result["author"]) for result in parsing_results]
+        keywords = keywords + categories + authors
+
         keywords = [list(i) for i in keywords]
+
 
         for i, url in enumerate(urls):
             for tag in keywords[i] + custom_tags:
