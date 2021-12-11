@@ -40,7 +40,7 @@ jobs:
     - name: Analysing the code with pylint
       run: |
         pip3 install pylint
-        pylint CS4156_TeamAkea
+        pylint CS4156_TeamAkea >style-check.txt
     
  
     - name: Commit files
