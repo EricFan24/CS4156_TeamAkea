@@ -25,15 +25,7 @@ jobs:
       run: |
         C:\Miniconda/condabin/conda.bat env update --file environment.yml --name base
         C:\Miniconda/condabin/conda.bat activate base
-   
-    - name: Test with flake8 (Bug Testing)
-      run: |
-        conda install flake8
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics > flake8-style-check.txt
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-        
+     
     - name: Run Unit tests
       run: |
         python -m unittest discover >unit-test-report.txt
@@ -43,6 +35,10 @@ jobs:
         pip3 install pytest
         coverage run -m pytest
         coverage report > coverage-report.txt
+        
+    - name: flake8 Lint
+      uses: py-actions/flake8@v1 
+        
  
     - name: Commit files
       run: |

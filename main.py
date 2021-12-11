@@ -195,8 +195,11 @@ class BookmarkTagger(Resource):
             if "subheading" not in result:
                 result["subheading"] = ""
         # print(parsingResults)
-        keywords = NLP(parsing_results).get_keywords()
 
+        NLP_module = NLP(parsing_results)
+        keywords = NLP_module.get_keywords()
+        categories = NLP_module.get_categories()
+        keywords = keywords + categories
         keywords = [list(i) for i in keywords]
 
         for i, url in enumerate(urls):

@@ -7,6 +7,6 @@ nlp.py                   60     10    83%
 test_db.py               39      1    97%
 test_nlp.py              28      0   100%
 test_web_scraper.py      40      0   100%
-web_scraper.py           57      0   100%
+web_scraper.py           66      0   100%
 -----------------------------------------
-TOTAL                   462    147    68%
+TOTAL                   471    147    69%
