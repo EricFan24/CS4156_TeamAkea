@@ -28,7 +28,7 @@ class TestDb(unittest.TestCase):
 
     def test_add_row(self):
         """
-        Checks if add_move works correctly
+        Checks if add_row works correctly
         """
         db.clear()
         db.init_db()
@@ -47,7 +47,7 @@ class TestDb(unittest.TestCase):
 
     def test_get_urls(self):
         """
-        Checks if get_move works correctly
+        Checks if get_urls works correctly
         """
         db.clear()
         db.init_db()
@@ -66,6 +66,9 @@ class TestDb(unittest.TestCase):
         self.assertEqual([row], output)
 
     def test_get_tags(self):
+        """
+        Checks if get_tags works correctly
+        """
         db.clear()
         db.init_db()
 
@@ -84,6 +87,9 @@ class TestDb(unittest.TestCase):
         self.assertEqual(actual, output)
 
     def test_add_tag(self):
+        """
+        Checks if add_tags works correctly
+        """
         db.clear()
         db.init_db()
 
@@ -108,7 +114,9 @@ class TestDb(unittest.TestCase):
         self.assertEqual(1, len(actual))
 
     def test_delete_tag(self):
-
+        """
+        Checks if delete_tags works correctly
+        """
         db.clear()
         db.init_db()
 
@@ -137,6 +145,9 @@ class TestDb(unittest.TestCase):
 
 
     def test_update_tag(self):
+        """
+        Checks if update_tags works correctly
+        """
         db.clear()
         db.init_db()
 
@@ -161,7 +172,8 @@ class TestDb(unittest.TestCase):
         self.assertEqual(len(actual_check1), 1)
 
         actual_check2 = cur.execute('SELECT * FROM TAGS WHERE user_id  = ? \
-                                    AND url = ? AND tag = ?', (user_id, url, "testing-tag")).fetchall()
+                                    AND url = ? AND tag = ?',
+                                    (user_id, url, "testing-tag")).fetchall()
         self.assertEqual(len(actual_check2), 0)
 
         db.update_tag(user_id, url, "tag-not-exist", "Earth")
@@ -170,7 +182,9 @@ class TestDb(unittest.TestCase):
         self.assertEqual(len(actual_check3), 0)
 
     def test_add_user(self):
-
+        """
+        Checks if add_user works correctly
+        """
         db.clear()
         db.init_db()
 
@@ -191,7 +205,9 @@ class TestDb(unittest.TestCase):
         self.assertEqual(4, len(actual2))
 
     def test_is_valid_user(self):
-
+        """
+        Checks if is_valid_user works correctly
+        """
         db.clear()
         db.init_db()
 

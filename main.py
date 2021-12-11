@@ -75,7 +75,7 @@ def edit_tags():
         else:
             return {
                 "message": "this endpoint does not support the requested action"
-            }, 400  # bad request     
+            }, 400  # bad request
         old_tags = flatten_list(old_tags)
         new_tags = flatten_list(db.get_tags(user_id, url))
     else:
@@ -83,7 +83,7 @@ def edit_tags():
             "message": "The requested url is not bookmarked." \
                 "Please create a bookmark before editing the tags."
         }, 400 # bad request
-    
+
     return {
             "message": msg,
             "tags before action": old_tags,
@@ -198,9 +198,9 @@ class BookmarkTagger(Resource):
                 result["author"] = ""
         # print(parsingResults)
 
-        NLP_module = NLP(parsing_results)
-        keywords = NLP_module.get_keywords()
-        categories = NLP_module.get_categories()
+        nlp_module = NLP(parsing_results)
+        keywords = nlp_module.get_keywords()
+        categories = nlp_module.get_categories()
         authors = [list(result["author"]) for result in parsing_results]
         keywords = keywords + categories + authors
 

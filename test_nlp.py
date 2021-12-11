@@ -42,7 +42,7 @@ class TestTestNLP(unittest.TestCase):
 
         keywords = NLP([]).get_keywords()
         self.assertEqual(keywords, None)
-    
+
     def test_get_categories_empty(self):
         """test empty input get_categories"""
 
