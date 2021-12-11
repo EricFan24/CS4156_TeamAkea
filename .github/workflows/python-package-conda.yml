@@ -40,7 +40,7 @@ jobs:
     - name: Lint with pylint
       run: |
         pip3 install pylint
-        pylint .
+        pylint ./CS4156_TeamAkea > style-check.txt
     
  
     - name: Commit files
