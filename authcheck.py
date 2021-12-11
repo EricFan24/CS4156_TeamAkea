@@ -1,3 +1,6 @@
+"""
+This module handles authentications
+"""
 import json
 from six.moves.urllib.request import urlopen
 from functools import wraps
@@ -5,7 +8,7 @@ from functools import wraps
 from flask import Flask, request, jsonify, _request_ctx_stack
 from jose import jwt
 import http.client
-import db
+import db # pylint: disable=import-error
 
 AUTH0_DOMAIN = 'dev-2ajo016m.us.auth0.com'
 API_AUDIENCE = 'https://smart_bookmarks/api'
@@ -48,10 +51,10 @@ def get_token_auth_header():
     return token
 
 
-def requires_auth(f):
+def requires_auth(func):
     """Determines if the Access Token is valid
     """
-    @wraps(f)
+    @wraps(func)
     def decorated(*args, **kwargs):
         token = get_token_auth_header()
         jsonurl = urlopen("https://"+AUTH0_DOMAIN+"/.well-known/jwks.json")
@@ -92,7 +95,7 @@ def requires_auth(f):
                                     " token."}, 401)
 
             _request_ctx_stack.top.current_user = payload
-            return f(*args, **kwargs)
+            return func(*args, **kwargs)
         raise AuthError({"code": "invalid_header",
                         "description": "Unable to find appropriate key"}, 401)
     return decorated
@@ -109,9 +112,9 @@ def validate_user(user_id, password):
 
     print("is user valid? - ", user_is_valid)
 
-    if(user_is_valid):
+    if user_is_valid:
         try:
-            import http.client
+            # import http.client
 
             conn = http.client.HTTPSConnection("dev-2ajo016m.us.auth0.com")
             payload = "{\"client_id\":\"vlKnFcLWHhA16V6DUZbcOzXyGlfVuXN0\",\"client_secret\":\"9zgdj5UoxvbcySR1Z0bVvOGOGEjQAIfc57h3LrsSGDxmROTkOJ_oJU_jqZuf7_tJ\",\"audience\":\"https://smart_bookmarks/api\",\"grant_type\":\"client_credentials\"}"
@@ -119,8 +122,8 @@ def validate_user(user_id, password):
             headers = { 'content-type': "application/json" }
             conn.request("POST", "/oauth/token", payload, headers)
 
-            # If all goes well, you'll receive an HTTP 200 response 
-            # with a payload containing access_token, token_type, 
+            # If all goes well, you'll receive an HTTP 200 response
+            # with a payload containing access_token, token_type,
             # and expires_in values:
             # {
             # "access_token":"eyJz93a...k4laUWw",
