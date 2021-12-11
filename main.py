@@ -15,7 +15,7 @@ app = Flask(__name__)
 api = Api(app)
 
 
-def twoD_to_oneD(list):
+def to_one_dimension(list):
     """
     turn a list of list into one-dimensional list
     """

@@ -20,8 +20,8 @@ def init_db():
             'PRIMARY KEY (user_id, url, tag))'
             )
         conn.execute(
-            'CREATE TABLE IF NOT EXISTS USERS (user_id TEXT, password TEXT, '
-            'access_token TEXT type UNIQUE, '
+            'CREATE TABLE IF NOT EXISTS USERS (user_id TEXT, password TEXT, \
+            access_token TEXT type UNIQUE, '
             'PRIMARY KEY (user_id, password))'
         )
         print('Database Online, tables created')
@@ -171,47 +171,6 @@ def delete_tag(user_id, url, tag_to_remove):
             msg = 'tag deleted for the article'
         else:
             msg = 'the tag does not exist for this article, no changes posted to database'
-    except Error as err:
-        print(err)
-    finally:
-        if conn:
-            conn.close()
-    return msg
-
-
-def update_tag(user_id, url, old_tag_text, new_tag_text):
-    '''
-    Update the tag text for an article
-    If the old_tag_text does not exist for this article,
-    add new_tag_text as a new entry
-    '''
-    conn = None
-    msg = ""
-    try:
-        conn = sqlite3.connect('sqlite_db')
-        cur = conn.cursor()
-
-        cur.execute("SELECT * FROM TAGS WHERE user_id = ? \
-                     AND url = ? AND tag = ?",
-                     (user_id, url, old_tag_text))
-        match_old = cur.fetchall()
-
-        cur.execute("SELECT * FROM TAGS WHERE user_id = ? \
-                     AND url = ? AND tag = ?",
-                     (user_id, url, new_tag_text))
-        match_new = cur.fetchall()
-
-        if match_old and not match_new:
-            cur.execute("UPDATE TAGS set tag = ? WHERE \
-                        user_id = ? AND url = ? AND tag = ?",
-                        (new_tag_text, user_id, url, old_tag_text))
-            conn.commit()
-            msg = 'updated tag for the article'
-        elif match_new:
-            msg = 'the proposed new tag is already associated with the url,' \
-                + ' no changes posted to database'
-        else:
-            msg = 'can\'t find the entry to update, no changes posted to database'
     except Error as err:
         print(err)
     finally:

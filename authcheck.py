@@ -4,19 +4,22 @@ This module handles authentications
 
 import json
 from functools import wraps
-from flask import app, request, _request_ctx_stack
+import http.client
+from flask import Flask, request, _request_ctx_stack
 from flask.json import jsonify
 from jose import jwt
-import http.client
 from six.moves.urllib.request import urlopen
 import db # pylint: disable=import-error
 
 AUTH0_DOMAIN = 'dev-2ajo016m.us.auth0.com'
 API_AUDIENCE = 'https://smart_bookmarks/api'
 ALGORITHMS = ["RS256"]
+app = Flask(__name__)
 
-# Error handler
 class AuthError(Exception):
+    """
+    Handles auth related errors
+    """
     def __init__(self, error, status_code):
         self.error = error
         self.status_code = status_code
