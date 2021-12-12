@@ -41,11 +41,11 @@ The API has the following endpoints:  We use JSON for input and output.
 
 - /add-user POST add user to database
 
-- /user-check check if user id match with password, return access token if passes authentication
+- /user-check GET check if user id match with password, return access token if passes authentication
 
-- /edit-tags endpoint for adding, removing tags for a given url, accepts a list of tags
+- /edit-tags POST endpoint for adding, removing tags for a given url, accepts a list of tags
 
-- /get-tags endpoint for getting tags from given urls accepts a list of urls
+- /get-tags GET endpoint for getting tags from given urls accepts a list of urls
 
 - /similar_urls GET endpoint for finding similar URLS on the basis of tags
 
