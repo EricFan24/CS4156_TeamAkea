@@ -15,11 +15,14 @@ More often than not, we forget to properly designate bookmarks to folders or fin
 
 The project is implemented with Windows OS and Python3.
 
-## Features implemented in first iteration
-
-- Parse news articles from [USA Today](https://www.usatoday.com/), [NY Times](https://www.nytimes.com/), and [NBC News](https://www.nbcnews.com/).
+## Features implemented 
+- Allow users to register to the service, i.e, user creates login-password credential for them
+- Generate access token for the user to log in 
+- Parse news articles and extract content from [USA Today](https://www.usatoday.com/), [NY Times](https://www.nytimes.com/), and [NBC News](https://www.nbcnews.com/).
 - Automatically extract keywords from article titles and generate a list of tags for the article.
-- Query articles with one or multiple keywords.
+- Predict categories the article belongs to. For example, the article might belong to 'POLITICS', 'WELLNESS' etc.
+- Query articles with one or multiple keywords. Keywords can include the generated tags, categories as well as the Author Name.
+- Creation of client that uses the service.
 
 ## Video Demo
 - First iteration demo: https://youtu.be/QXQI32gLffQ
