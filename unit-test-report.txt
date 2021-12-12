@@ -1,6 +1,41 @@
 table TAGS already exists
+Database Cleared
+Database Online, tables created
 Database Online, tag added
 table TAGS already exists
+Database Cleared
+Database Online, tables created
+table TAGS already exists
+Database Cleared
+Database Online, tables created
+user is already in database, no changes posted to database
+Database Online, user added
+table TAGS already exists
+Database Cleared
+Database Online, tables created
+table TAGS already exists
+Database Cleared
+Database Online, tables created
+table TAGS already exists
+Database Cleared
+Database Online, tables created
 test_user India
 Connected
 Command executed
+table TAGS already exists
+Database Cleared
+Database Online, tables created
+test_user
+Connected
+Command executed
+[('www.abc.com',), ('www.nbc_news.com',)]
+table TAGS already exists
+Database Cleared
+Database Online, tables created
+[('test_user', 'test_pass', None)]
+[]
+table TAGS already exists
+Database Cleared
+Database Online, tables created
+new token successfully linked to user
+can't find the entry to update, no changes posted to database
