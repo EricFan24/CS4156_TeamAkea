@@ -79,7 +79,10 @@ def check_user():
 
     db.init_db()
     res = authcheck.validate_user(user_id, password)
-
+    if not res:
+        return {
+            "message": "The user id or password is incorrect."
+        }, 401
     return res
 
 

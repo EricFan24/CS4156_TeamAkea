@@ -154,9 +154,10 @@ def validate_user(user_id, password):
             return json_data
 
         except Exception as err:
-            raise AuthError({"code": "HTTP_request_error",
-                            "description":
-                                "Unable to get response from domain"}, 401) from err
-
-    raise AuthError({"code": "invalid_user",
-                    "description": "Invalid user_id and password combination"}, 401)
+            return None
+            # raise AuthError({"code": "HTTP_request_error",
+            #                 "description":
+            #                     "Unable to get response from domain"}, 401) from err
+    return None
+    # raise AuthError({"code": "invalid_user",
+    #                 "description": "Invalid user_id and password combination"}, 401)
