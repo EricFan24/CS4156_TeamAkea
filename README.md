@@ -23,6 +23,7 @@ The project is implemented with Windows OS and Python3.
 - Predict categories the article belongs to. For example, the article might belong to 'POLITICS', 'WELLNESS' etc.
 - Query articles with one or multiple keywords. Keywords can include the generated tags, categories as well as the Author Name.
 - Creation of client that uses the service.
+- Recommend articles to a user depending on the articles that they've searched before.
 
 ## Video Demo
 - First iteration demo: https://youtu.be/QXQI32gLffQ
