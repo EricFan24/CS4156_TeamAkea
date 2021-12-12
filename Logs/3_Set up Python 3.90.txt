@@ -1,6 +1,0 @@
-2021-12-12T04:52:27.9975931Z ##[group]Run actions/setup-python@v2
-2021-12-12T04:52:27.9976433Z with:
-2021-12-12T04:52:27.9976892Z   python-version: 3.9
-2021-12-12T04:52:27.9977739Z   token: ***
-2021-12-12T04:52:27.9978042Z ##[endgroup]
-2021-12-12T04:52:28.1976493Z Successfully setup CPython (3.9.9)
