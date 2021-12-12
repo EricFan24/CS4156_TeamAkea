@@ -1,7 +1,6 @@
 """
 This module handles authentications
 """
-
 import json
 from functools import wraps
 import http.client
