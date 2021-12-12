@@ -41,7 +41,7 @@ jobs:
       run: |
         pip3 install pylint
         pylint CS4156_TeamAkea --fail-under=9.9
-        pylint CS4156_TeamAkea/frontend --fail-under=9.9
+        pylint frontend --fail-under=9.9
     
  
     - name: Commit files
