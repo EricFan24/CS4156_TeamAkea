@@ -15,11 +15,11 @@ app = Flask(__name__)
 api = Api(app)
 db.init_db()
 
-def to_one_dimension(list):
+def to_one_dimension(ls):
     """
     turn a list of list into one-dimensional list
     """
-    return [item for sublist in list for item in sublist]
+    return [item for sublist in ls for item in sublist]
 
 
 @app.route("/add-user", methods=['POST'])
@@ -47,11 +47,11 @@ def add_user():
 
     if res:
         return {
-            "message": "User successfully added."
-        }, 200
+                   "message": "User successfully added."
+               }, 200
     return {
-        "message": "Fail to add user. User may already be in database."
-    }, 400
+               "message": "Fail to add user. User may already be in database."
+           }, 400
 
 
 # This doesn't need authentication
@@ -169,12 +169,13 @@ def get_tags():
             tags_in_urls[url] = to_one_dimension(tags)
         else:
             tags_in_urls[url] = "No tags found for this url. " \
-                + "Either the user did not bookmark it, or " \
-                + "all the existing tags have been removed."
+                                + "Either the user did not bookmark it, or " \
+                                + "all the existing tags have been removed."
     return {
         "message": "User: " + user_id + " has the following tags for the urls",
         'tags': tags_in_urls
     }, 200  # return data with 200 OK
+
 
 
 @app.route("/similar_urls", methods=['GET'])
@@ -205,41 +206,32 @@ def similar_urls():
     print(user_id, url)
     tags = db.get_tags(user_id, url)
 
-    # print(tags)
     if tags:
         # tags is a list of list, for better visualization,
         # we flatten the list before returning
         tags = to_one_dimension(tags)
         print(tags)
-        #tags = [tag[0] for tag in tags]
+        # tags = [tag[0] for tag in tags]
         all_urls = to_one_dimension(db.get_user_urls(user_id))
         print("All URLS ##########")
         print(all_urls)
-        for u in all_urls:
-            if u == url:
-                print("Continuing for: ", u)
+        for the_url in all_urls:
+            if the_url == url:
+                print("Continuing for: ", the_url)
                 continue
-            url_tags = to_one_dimension(db.get_tags(user_id, u))
-            print(u, url_tags)
+            url_tags = to_one_dimension(db.get_tags(user_id, the_url))
+            print(the_url, url_tags)
             if len(set(tags) & set(url_tags)) >= 3:
-                similar_url_list.append(u)
+                similar_url_list.append(the_url)
 
     else:
         similar_url_list = "No tags found for this url. " \
-            + "Therefore, it has no similar URLs "
+                           + "Therefore, it has no similar URLs "
     return {
         "message": "User: " + user_id + " has the following tags for the urls",
         'urls': similar_url_list
     }, 200  # return data with 200 OK
 
-
-# class BookmarkTagger(Resource):
-"""
-Handles get and post requests to the /tags endpoint.
-"""
-
-# def __init__(self):
-#     db.init_db()
 
 # Getting user data needs authentication
 # add an entry in Postman header with
@@ -335,8 +327,6 @@ def post_urls():
         'message': "the following tags are created for the user",
         'results': results
         }, 200  # return data with 200 OK
-
-# api.add_resource(BookmarkTagger, '/tags')  # add endpoint
 
 def extract_valid_urls(urls):
     """

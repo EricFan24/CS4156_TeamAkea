@@ -70,6 +70,7 @@ class Scraper:
         :param heading: heading of the news article
         :param subheading: subheading of the news article
         :param descr: description of the news article
+        :param author : author(s) of the news article
         :return: -NA-
         """
 
