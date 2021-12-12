@@ -29,8 +29,18 @@ def add_user():
     add user to database
     """
     request_data = request.get_json()
-    user_id = request_data['user_id']
-    password = request_data['password']
+    if "user_id" not in request_data or "password" not in request_data:
+        return {
+            "message": "The request is invalid. Please include user_id and password."
+        }, 400  # bad request
+
+    user_id = request_data['user_id'].strip()
+    password = request_data['password'].strip()
+
+    if user_id == "" or password == "":
+        return {
+            "message": "The request is invalid. Please include user_id and password."
+        }, 400  # bad request
 
     db.init_db()
     res = db.add_user(user_id, password)
@@ -54,12 +64,25 @@ def check_user():
     return access token if passes authentication
     """
     request_data = request.get_json()
-    user_id = request_data['user_id']
-    password = request_data['password']
+    if "user_id" not in request_data or "password" not in request_data:
+        return {
+            "message": "The request is invalid. Please include user_id and password."
+        }, 400  # bad request
+
+    user_id = request_data['user_id'].strip()
+    password = request_data['password'].strip()
+
+    if user_id == "" or password == "":
+        return {
+            "message": "The request is invalid. Please include user_id and password."
+        }, 400  # bad request
 
     db.init_db()
     res = authcheck.validate_user(user_id, password)
-
+    if not res:
+        return {
+            "message": "The user id or password is incorrect."
+        }, 401
     return res
 
 
@@ -73,8 +96,20 @@ def edit_tags():
     accepts a list of tags
     """
     request_data = request.get_json()
+
+    if "user_id" not in request_data or "url" not in request_data:
+        return {
+            "message": "The request is invalid. Include user_id and url."
+        }, 400  # bad request
+
     user_id = request_data['user_id']
     url = request_data['url']
+
+    if not url.startswith('http'):
+        return {
+            "message": "The requested url is invalid."
+        }, 400  # bad request
+
     tags_to_add = request_data['tags_to_add']
     tags_to_remove = request_data['tags_to_remove']
 
@@ -92,14 +127,14 @@ def edit_tags():
         new_tags = to_one_dimension(db.get_tags(user_id, url))
     else:
         return {
-                   "message": "The requested url is not bookmarked."
-                              "Please create a bookmark before editing the tags."
-               }, 400  # bad request
+            "message": "The requested url is not bookmarked."
+            "Please create a bookmark before editing the tags."
+        }, 400  # bad request
 
     return {
-               "message": "Tags modified",
-               "tags": new_tags
-           }, 200  # return data with 200 OK
+        "message": "Tags modified",
+        "tags": new_tags
+    }, 200  # return data with 200 OK
 
 
 @app.route("/get-tags", methods=['GET'])
@@ -112,12 +147,21 @@ def get_tags():
     """
 
     request_data = request.get_json()
+
+    if "user_id" not in request_data or "urls" not in request_data:
+        return {
+            "message": "The request is invalid. Include user_id and urls."
+        }, 400  # bad request
+
     user_id = request_data['user_id']
     # remove duplicates in urls
     urls = list(set(request_data['urls']))
     tags_in_urls = {}
 
     for url in urls:
+        if not url.startswith('http'):
+            tags_in_urls[url] = "Invalid URL"
+            continue
         tags = db.get_tags(user_id, url)
         if tags:
             # tags is a list of list, for better visualization,
@@ -128,9 +172,10 @@ def get_tags():
                                 + "Either the user did not bookmark it, or " \
                                 + "all the existing tags have been removed."
     return {
-               "message": "User: " + user_id + " has the following tags for the urls",
-               'tags': tags_in_urls
-           }, 200  # return data with 200 OK
+        "message": "User: " + user_id + " has the following tags for the urls",
+        'tags': tags_in_urls
+    }, 200  # return data with 200 OK
+
 
 
 @app.route("/similar_urls", methods=['GET'])
@@ -142,9 +187,20 @@ def similar_urls():
     accepts a list of urls
     """
     request_data = request.get_json()
+    if "user_id" not in request_data or "url" not in request_data:
+        return {
+            "message": "The request is invalid. Include user_id and url."
+        }, 400  # bad request
+
     user_id = request_data['user_id']
     # remove duplicates in urls
     url = request_data['url']
+
+    if not url.startswith('http'):
+        return {
+            "message": "The requested url is invalid."
+        }, 400  # bad request
+
     similar_url_list = []
 
     print(user_id, url)
@@ -173,9 +229,10 @@ def similar_urls():
         similar_url_list = "No tags found for this url. " \
                            + "Therefore, it has no similar URLs "
     return {
-               "message": "User: " + user_id + " has the following tags for the urls",
-               'urls': similar_url_list
-           }, 200  # return data with 200 OK
+        "message": "User: " + user_id + " has the following tags for the urls",
+        'urls': similar_url_list
+    }, 200  # return data with 200 OK
+
 
 
 class BookmarkTagger(Resource):
@@ -218,9 +275,11 @@ class BookmarkTagger(Resource):
         # return render_template('tags.html', tags=common_urls)
 
         return {
-                   "message": "User: " + user_id + " has the following matching urls for the keyword(s)",
-                   'urls': common_urls
-               }, 200  # return data with 200 OK
+
+            "message": "User: " + user_id + " has the following matching urls for the keyword(s)",
+            'urls': common_urls
+        }, 200  # return data with 200 OK
+
 
     @authcheck.requires_auth
     @cross_origin(headers=["Content-Type", "Authorization"])
@@ -261,18 +320,28 @@ class BookmarkTagger(Resource):
         # keywords = keywords + categories + authors
 
         keywords = [list(i) for i in keywords]
-        keywords = [keywords[i] + custom_tags + categories[i] + authors[i] for i in range(len(urls))]
+
+        keywords = [
+            keywords[i] +
+            custom_tags +
+            categories[i] +
+            authors[i] for i in range(
+                len(urls))]
 
         for i, url in enumerate(urls):
-            for tag in keywords[i]:  # [i] + custom_tags + categories[i] + authors[i]:
+            # [i] + custom_tags + categories[i] + authors[i]:
+            for tag in keywords[i]:
+
                 db.add_row((user_id, url, tag.lower()))
 
         print("Keywords extracted: ", keywords)
 
         return {
-                   'message': "the following tags are created for the user",
-                   'tags': keywords
-               }, 200  # return data with 200 OK
+
+            'message': "the following tags are created for the user",
+            'tags': keywords
+        }, 200  # return data with 200 OK
+
 
 
 api.add_resource(BookmarkTagger, '/tags')  # add endpoint
