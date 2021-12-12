@@ -23,6 +23,7 @@ The project is implemented with Windows OS and Python3.
 - Predict categories the article belongs to. For example, the article might belong to 'POLITICS', 'WELLNESS' etc.
 - Query articles with one or multiple keywords. Keywords can include the generated tags, categories as well as the Author Name.
 - Creation of client that uses the service.
+- Recommend articles to a user depending on the articles that they've searched before.
 
 ## Video Demo
 - First iteration demo: https://youtu.be/QXQI32gLffQ
@@ -108,7 +109,19 @@ We follow the Google Style Guide for Python - https://google.github.io/styleguid
   Next, run `pylint` on the main directory and direct the output to `style_check.txt`:
 
         pylint ./CS4156_TeamAkea > style_check.txt
-        
+
+## Authentication & Authorization
+
+We use [Auth0](https://auth0.com/) for authentication and authorization. The implementation is done by following this tutorial: [Python API Quickstarters](https://auth0.com/docs/quickstart/backend/python).
+
+The basic flow works as follows:
+
+- Clients send us user_id and password
+- We check if the user_id and password match (validate user)
+- If user is validated, we return a JSON object containing an access token
+- Clients put the access token inside all future request headers in order to post changes to our database (authorization)
+- We check if the access token is valid for every request, and respond to client requests accordingly (modify database or throw errors)
+
 ## Continuous Integration
 
 The repository supports Continuous Integration using Github Actions. Github actions are configured to run each time a "push" is made to the repository. More specifically, each time we make a push is made, Github Actions sends a job running which first builds a Windows environment with Python 3.9 support. Next up, a conda base environment is build from the specified environment.yml file in the repository. Once, the base environment is built, it is activated on our Windows + Python 3.9 machine. 
