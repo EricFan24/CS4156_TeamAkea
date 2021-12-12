@@ -131,3 +131,5 @@ After we replicate our environment, we run the following -
 3. Static and Style Checking Analysis using Pylint - `pylint CS4156_TeamAkea` 
 
 Post the running of the above checks, a commit of the reports is made to the repository using a github bot. The files are finally pushed to the repo using ad-m/github-push-action@master.
+
+## Documentation
