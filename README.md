@@ -105,3 +105,14 @@ We follow the Google Style Guide for Python - https://google.github.io/styleguid
   Next, run `pylint` on the main directory and direct the output to `style_check.txt`:
 
         pylint ./CS4156_TeamAkea > style_check.txt
+        
+## Continuous Integration
+
+The repository supports Continuous Integration using Github Actions. Github actions are configured to run each time a "push" is made to the repository. More specifically, each time we make a push is made, Github Actions sends a job running which first builds a Windows environment with Python 3.9 support. Next up, a conda base environment is build from the specified environment.yml file in the repository. Once, the base environment is built, it is activated on our Windows + Python 3.9 machine. 
+
+After we replicate our environment, we run the following -
+1. Unit tests - `Run all the unit test cases for all python files using python -m unittest discover`
+2. Coverage Analysis - `coverage run -m pytest`
+3. Static and Style Checking Analysis using Pylint - `pylint CS4156_TeamAkea` 
+
+Post the running of the above checks, a commit of the reports is made to the repository using a github bot. The files are finally pushed to the repo using ad-m/github-push-action@master.
