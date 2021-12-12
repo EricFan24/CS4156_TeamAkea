@@ -40,7 +40,8 @@ jobs:
     - name: Analysing the code with pylint
       run: |
         pip3 install pylint
-        pylint CS4156_TeamAkea --fail-under=9.5
+        pylint CS4156_TeamAkea --fail-under=9.9
+        pylint CS4156_TeamAkea/frontend --fail-under=9.9
     
  
     - name: Commit files
