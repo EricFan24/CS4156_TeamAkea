@@ -250,7 +250,7 @@ Handles get and post requests to the /tags endpoint.
 # @cross_origin(headers=["Content-Type", "Authorization"])
 # def get(self):
 
-@app.route("/get_urls", methods=['GET'])
+@app.route("/get-urls", methods=['GET'])
 @authcheck.requires_auth
 @cross_origin(headers=["Content-Type", "Authorization"])
 def get_urls():
@@ -285,7 +285,7 @@ def get_urls():
 # @authcheck.requires_auth
 # @cross_origin(headers=["Content-Type", "Authorization"])
 # def post(self):
-@app.route("/post_urls", methods=['POST'])
+@app.route("/post-urls", methods=['POST'])
 @authcheck.requires_auth
 @cross_origin(headers=["Content-Type", "Authorization"])
 def post_urls():
