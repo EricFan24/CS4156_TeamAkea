@@ -29,8 +29,18 @@ def add_user():
     add user to database
     """
     request_data = request.get_json()
-    user_id = request_data['user_id']
-    password = request_data['password']
+    if "user_id" not in request_data or "password" not in request_data:
+        return {
+            "message": "The request is invalid. Please include user_id and password." 
+        }, 400 # bad request
+    
+    user_id = request_data['user_id'].strip()
+    password = request_data['password'].strip()
+
+    if user_id=="" or password =="":
+        return {
+            "message": "The request is invalid. Please include user_id and password." 
+        }, 400 # bad request
 
     db.init_db()
     res = db.add_user(user_id, password)
@@ -54,8 +64,18 @@ def check_user():
     return access token if passes authentication
     """
     request_data = request.get_json()
-    user_id = request_data['user_id']
-    password = request_data['password']
+    if "user_id" not in request_data or "password" not in request_data:
+        return {
+            "message": "The request is invalid. Please include user_id and password." 
+        }, 400 # bad request
+
+    user_id = request_data['user_id'].strip()
+    password = request_data['password'].strip()
+
+    if user_id=="" or password =="":
+        return {
+            "message": "The request is invalid. Please include user_id and password." 
+        }, 400 # bad request
 
     db.init_db()
     res = authcheck.validate_user(user_id, password)
@@ -167,7 +187,7 @@ def similar_urls():
         return {
             "message": "The request is invalid. Include user_id and url." 
         }, 400 # bad request
-        
+
     user_id = request_data['user_id']
     # remove duplicates in urls
     url = request_data['url']
