@@ -4,7 +4,7 @@ This module handles the incoming requests to the Bookmark tagging service.
 import requests
 from flask import Flask, request
 from flask_restful import Api
-from flask_cors import cross_origin
+from flask_cors import cross_origin # pylint: disable=import-error
 
 from web_scraper import Scraper  # pylint: disable=import-error
 from nlp import NLP  # pylint: disable=import-error
