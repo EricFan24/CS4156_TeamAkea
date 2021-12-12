@@ -181,8 +181,7 @@ def get_tags():
 @cross_origin(headers=["Content-Type", "Authorization"])
 def similar_urls():
     """
-    endpoint for getting tags from given urls
-    accepts a list of urls
+    endpoint for finding similar URLS on the basis of tags
     """
     request_data = request.get_json()
     if "user_id" not in request_data or "url" not in request_data:

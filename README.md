@@ -37,24 +37,21 @@ The project is implemented with Windows OS and Python3.
 
 **See documentation on all endpoints here: https://documenter.getpostman.com/view/17893450/UVR5po8D**
 
-The API has one endpoint "/tags" which offers two functionalities. We use JSON for input and output.
+The API has the following endpoints:  We use JSON for input and output.
 
-- POST request which sends a list of URLs (must begin with "http") to be tagged. We currently support USA Today, The New York Times, and NBC News. Sample POST request JSON:
+- /add-user POST add user to database
 
-```json
-{
-      "urls": ["https://www.usatoday.com/story/news/nation/2021/11/10/atmospheric-river-wallop-pacific-northwest/6370849001/",
-    "https://www.nbcnews.com/news/us-news/ability-force-recalls-fda-can-only-warn-consumers-benzene-hand-sanitiz-rcna4585",
-    "https://www.nytimes.com/2021/11/10/climate/climate-cop26-glasgow.html"]
-}
-```
-- GET request which sends a list of tags and gets back the URLs corresonding to all specified tags. Sample GET request json: 
+- /user-check check if user id match with password, return access token if passes authentication
 
-```json
-{
-    "tags" : ["washington"]
-}
-```
+- /edit-tags endpoint for adding, removing tags for a given url, accepts a list of tags
+
+- /get-tags endpoint for getting tags from given urls accepts a list of urls
+
+- /similar_urls GET endpoint for finding similar URLS on the basis of tags
+
+- /get-urls GET get all urls that match given tags
+
+- /post-urls POST Post urls for parsing and nlp
 
 ## How to build the service
 
