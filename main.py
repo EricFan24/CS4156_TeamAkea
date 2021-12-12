@@ -97,9 +97,10 @@ def edit_tags():
     """
     request_data = request.get_json()
 
-    if "user_id" not in request_data or "url" not in request_data:
+    if "user_id" not in request_data or "url" not in request_data or \
+       "tags_to_add" not in request_data or "tags_to_remove" not in request_data:
         return {
-            "message": "The request is invalid. Include user_id and url."
+            "message": "The request is invalid. Include user_id, url, tags_to_add (list), tags_to_remove (list)."
         }, 400  # bad request
 
     user_id = request_data['user_id']
@@ -156,24 +157,20 @@ def get_tags():
     user_id = request_data['user_id']
     # remove duplicates in urls
     urls = list(set(request_data['urls']))
-    tags_in_urls = {}
-
+    results = []
     for url in urls:
-        if not url.startswith('http'):
-            tags_in_urls[url] = "Invalid URL"
-            continue
         tags = db.get_tags(user_id, url)
         if tags:
             # tags is a list of list, for better visualization,
             # we flatten the list before returning
-            tags_in_urls[url] = to_one_dimension(tags)
+            results.append({"url": url, "tags": to_one_dimension(tags)})
         else:
-            tags_in_urls[url] = "No tags found for this url. " \
+            results.append({"url": url, "error": "No tags found for this url. " \
                                 + "Either the user did not bookmark it, or " \
-                                + "all the existing tags have been removed."
+                                + "all the existing tags have been removed."})
     return {
         "message": "User: " + user_id + " has the following tags for the urls",
-        'tags': tags_in_urls
+        'results': results
     }, 200  # return data with 200 OK
 
 
@@ -221,7 +218,7 @@ def similar_urls():
                 continue
             url_tags = to_one_dimension(db.get_tags(user_id, the_url))
             print(the_url, url_tags)
-            if len(set(tags) & set(url_tags)) >= 3:
+            if len(set(tags).intersection(set(url_tags))) >= 4:
                 similar_url_list.append(the_url)
 
     else:
@@ -250,6 +247,11 @@ def get_urls():
     get all urls that match given tags
     '''
     request_data = request.get_json()
+    if "user_id" not in request_data or "tags" not in request_data:
+        return {
+            "message": "The request is invalid. Include user_id and tags."
+        }, 400  # bad request
+
     user_id = request_data['user_id']
     tags = request_data['tags']
 
@@ -273,9 +275,7 @@ def get_urls():
         'urls': common_urls
         }, 200  # return data with 200 OK
 
-# @authcheck.requires_auth
-# @cross_origin(headers=["Content-Type", "Authorization"])
-# def post(self):
+
 @app.route("/post-urls", methods=['POST'])
 @authcheck.requires_auth
 @cross_origin(headers=["Content-Type", "Authorization"])
@@ -284,6 +284,11 @@ def post_urls():
     Post urls for parsing and nlp
     '''
     request_data = request.get_json()
+    if "user_id" not in request_data or "urls" not in request_data:
+        return {
+            "message": "The request is invalid. Include user_id and urls."
+        }, 400  # bad request
+
     urls = request_data['urls']
     urls = extract_valid_urls(urls)
     user_id = request_data['user_id']
