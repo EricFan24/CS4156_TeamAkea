@@ -153,7 +153,7 @@ def validate_user(user_id, password):
 
             return json_data
 
-        except Exception as err:
+        except Exception: #as err:
             return None
             # raise AuthError({"code": "HTTP_request_error",
             #                 "description":

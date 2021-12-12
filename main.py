@@ -13,7 +13,7 @@ import authcheck
 
 app = Flask(__name__)
 api = Api(app)
-
+db.init_db()
 
 def to_one_dimension(list):
     """
@@ -233,106 +233,112 @@ def similar_urls():
         }, 200  # return data with 200 OK
 
 
-class BookmarkTagger(Resource):
-    """
-    Handles get and post requests to the /tags endpoint.
-    """
+# class BookmarkTagger(Resource):
+"""
+Handles get and post requests to the /tags endpoint.
+"""
 
-    def __init__(self):
-        db.init_db()
+# def __init__(self):
+#     db.init_db()
 
-    # Getting user data needs authentication
-    # add an entry in Postman header with
-    # key = 'Authorization'
-    # value = 'Bearer <Access Token>'
-    # and send a request to test the access
-    @authcheck.requires_auth
-    @cross_origin(headers=["Content-Type", "Authorization"])
-    def get(self):
-        '''
-        Search bookmarks using tags.
-        '''
+# Getting user data needs authentication
+# add an entry in Postman header with
+# key = 'Authorization'
+# value = 'Bearer <Access Token>'
+# and send a request to test the access
+# @authcheck.requires_auth
+# @cross_origin(headers=["Content-Type", "Authorization"])
+# def get(self):
 
-        request_data = request.get_json()
-        user_id = request_data['user_id']
-        tags = request_data['tags']
+@app.route("/get_urls", methods=['GET'])
+@authcheck.requires_auth
+@cross_origin(headers=["Content-Type", "Authorization"])
+def get_urls():
+    '''
+    get all urls that match given tags
+    '''
+    request_data = request.get_json()
+    user_id = request_data['user_id']
+    tags = request_data['tags']
 
-        url_lists = []
+    url_lists = []
 
-        for tag in tags:
-            data_for_tag = db.get_urls(user_id, tag.lower())
-            urls_for_tag = []
-            if data_for_tag is not None:
-                for datum in data_for_tag:
-                    urls_for_tag.append(datum[1])
-                url_lists.append(urls_for_tag)
-        common_urls = []
-        if len(url_lists) > 0:
-            common_urls = list(set(url_lists[0]).intersection(*url_lists))
-        print("A OK")
-        # return render_template('tags.html', tags=common_urls)
+    for tag in tags:
+        data_for_tag = db.get_urls(user_id, tag.lower())
+        urls_for_tag = []
+        if data_for_tag is not None:
+            for datum in data_for_tag:
+                urls_for_tag.append(datum[1])
+            url_lists.append(urls_for_tag)
+    common_urls = []
+    if len(url_lists) > 0:
+        common_urls = list(set(url_lists[0]).intersection(*url_lists))
+    print("A OK")
+    # return render_template('tags.html', tags=common_urls)
 
-        return {
-            "message": "User: " + user_id + " has the following matching urls for the keyword(s)",
-            'urls': common_urls
-            }, 200  # return data with 200 OK
-
-
-    @authcheck.requires_auth
-    @cross_origin(headers=["Content-Type", "Authorization"])
-    def post(self):
-        '''
-        Handles tagging and adding a new bookmark to the database.
-        '''
-
-        request_data = request.get_json()
-        urls = request_data['urls']
-        urls = [url for url in urls if url.startswith('http')]
-        user_id = request_data['user_id']
-        if len(urls) == 0:
-            return {'message': 'No valid urls found'}, 400
-
-        custom_tags = []
-        if 'tags' in request_data:
-            custom_tags = request_data['tags']
-
-        scrapper = Scraper(urls)
-        parsing_results = scrapper.parsing
-        print(parsing_results)
-        for result in parsing_results:
-            if "heading" not in result:
-                result["heading"] = ""
-            if "description" not in result:
-                result["description"] = ""
-            if "subheading" not in result:
-                result["subheading"] = ""
-            if "author" not in result:
-                result["author"] = ""
-        # print(parsingResults)
-
-        nlp_module = NLP(parsing_results)
-        keywords = nlp_module.get_keywords()
-        categories = nlp_module.get_categories()
-        authors = [list(result["author"]) for result in parsing_results]
-        #keywords = keywords + categories + authors
-
-        keywords = [list(i) for i in keywords]
-        keywords = [keywords[i] + custom_tags + categories[i] + authors[i] for i in range(len(urls))]
-        
-
-        for i, url in enumerate(urls):
-            for tag in keywords[i]: #[i] + custom_tags + categories[i] + authors[i]:
-                db.add_row((user_id, url, tag.lower()))
-
-        print("Keywords extracted: ", keywords)
-
-        return {
-            'message': "the following tags are created for the user",
-            'tags': keywords
-            }, 200  # return data with 200 OK
+    return {
+        "message": "User: " + user_id + " has the following matching urls for the keyword(s)",
+        'urls': common_urls
+        }, 200  # return data with 200 OK
 
 
-api.add_resource(BookmarkTagger, '/tags')  # add endpoint
+# @authcheck.requires_auth
+# @cross_origin(headers=["Content-Type", "Authorization"])
+# def post(self):
+@app.route("/post_urls", methods=['POST'])
+@authcheck.requires_auth
+@cross_origin(headers=["Content-Type", "Authorization"])
+def post_urls():
+    '''
+    Post urls for parsing and nlp
+    '''
+
+    request_data = request.get_json()
+    urls = request_data['urls']
+    urls = [url for url in urls if url.startswith('http')]
+    user_id = request_data['user_id']
+    if len(urls) == 0:
+        return {'message': 'No valid urls found'}, 400
+
+    custom_tags = []
+    if 'tags' in request_data:
+        custom_tags = request_data['tags']
+
+    scrapper = Scraper(urls)
+    parsing_results = scrapper.parsing
+    print(parsing_results)
+    for result in parsing_results:
+        if "heading" not in result:
+            result["heading"] = ""
+        if "description" not in result:
+            result["description"] = ""
+        if "subheading" not in result:
+            result["subheading"] = ""
+        if "author" not in result:
+            result["author"] = ""
+    # print(parsingResults)
+
+    nlp_module = NLP(parsing_results)
+    keywords = nlp_module.get_keywords()
+    categories = nlp_module.get_categories()
+    authors = [list(result["author"]) for result in parsing_results]
+    #keywords = keywords + categories + authors
+
+    keywords = [list(i) for i in keywords]
+    keywords = [keywords[i] + custom_tags + categories[i] + authors[i] for i in range(len(urls))]
+    
+    results = []
+    for i, url in enumerate(urls):
+        results.append({"url": url, "tags": keywords[i]})
+        for tag in keywords[i]: #[i] + custom_tags + categories[i] + authors[i]:
+            db.add_row((user_id, url, tag.lower()))
+
+    return {
+        'message': "the following tags are created for the user",
+        'results': results
+        }, 200  # return data with 200 OK
+
+# api.add_resource(BookmarkTagger, '/tags')  # add endpoint
 
 
 if __name__ == '__main__':
