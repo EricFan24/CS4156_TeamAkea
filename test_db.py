@@ -5,7 +5,12 @@ Unit tests for db.py
 import unittest
 import sqlite3
 from sqlite3 import Error
-import db # pylint: disable=import-error
+import db  # pylint: disable=import-error
+
+
+def initialize():
+    db.clear()
+    db.init_db()
 
 
 class TestDb(unittest.TestCase):
@@ -30,8 +35,7 @@ class TestDb(unittest.TestCase):
         """
         Checks if add_row works correctly
         """
-        db.clear()
-        db.init_db()
+        initialize()
 
         tag = ("test_user", "www.abc.com", "India")
         db.add_row(tag)
@@ -49,8 +53,7 @@ class TestDb(unittest.TestCase):
         """
         Checks if get_urls works correctly
         """
-        db.clear()
-        db.init_db()
+        initialize()
 
         user_id = "test_user"
         tag = "India"
@@ -69,9 +72,7 @@ class TestDb(unittest.TestCase):
         """
         Checks if get_tags works correctly
         """
-        db.clear()
-        db.init_db()
-
+        initialize()
         user_id = "test_user"
         url = "www.abc.com"
         row = ("test_user", "www.abc.com", "India")
@@ -90,9 +91,7 @@ class TestDb(unittest.TestCase):
         """
         Checks if add_tags works correctly
         """
-        db.clear()
-        db.init_db()
-
+        initialize()
         user_id = "test_user"
         url = "www.abc.com"
         row = ("test_user", "www.abc.com", "India")
@@ -105,7 +104,7 @@ class TestDb(unittest.TestCase):
         actual = cur.execute('SELECT tag FROM TAGS WHERE user_id  = ? \
                             AND url = ?', (user_id, url)).fetchall()
 
-        self.assertEqual("new-test-tag",actual[1][0])
+        self.assertEqual("new-test-tag", actual[1][0])
 
         db.add_tag(user_id, url, "new-test-tag")
         actual = cur.execute('SELECT tag FROM TAGS WHERE user_id  = ? \
@@ -117,9 +116,7 @@ class TestDb(unittest.TestCase):
         """
         Checks if delete_tags works correctly
         """
-        db.clear()
-        db.init_db()
-
+        initialize()
         user_id = "test_user"
         url = "www.abc.com"
         row1 = ("test_user", "www.abc.com", "India")
@@ -142,52 +139,30 @@ class TestDb(unittest.TestCase):
 
         self.assertEqual(len(actual), 1)
 
+    def test_get_user_urls(self):
 
-
-    def test_update_tag(self):
-        """
-        Checks if update_tags works correctly
-        """
-        db.clear()
-        db.init_db()
-
-        user_id = "test_user"
-        url = "www.abc.com"
+        initialize()
         row1 = ("test_user", "www.abc.com", "India")
-        row2 = ("test_user", "www.abc.com", "testing-tag")
+        row2 = ("test_user", "www.nbc_news.com", "World")
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
         cur.execute("INSERT INTO TAGS VALUES (?, ?, ?)", row1)
         cur.execute("INSERT INTO TAGS VALUES (?, ?, ?)", row2)
         conn.commit()
 
-        db.update_tag(user_id, url, "testing-tag", "India")
-        actual_check1 = cur.execute('SELECT * FROM TAGS WHERE user_id  = ? \
-                                    AND url = ? AND tag = ?', (user_id, url, "India")).fetchall()
-        self.assertEqual(len(actual_check1), 1)
+        output = db.get_user_urls("test_user")
+        print(output)
+        self.assertEqual(len(output), 2)
 
-        db.update_tag(user_id, url, "testing-tag", "World")
-        actual_check1 = cur.execute('SELECT * FROM TAGS WHERE user_id  = ? \
-                                    AND url = ? AND tag = ?' , (user_id, url, "World")).fetchall()
-        self.assertEqual(len(actual_check1), 1)
 
-        actual_check2 = cur.execute('SELECT * FROM TAGS WHERE user_id  = ? \
-                                    AND url = ? AND tag = ?',
-                                    (user_id, url, "testing-tag")).fetchall()
-        self.assertEqual(len(actual_check2), 0)
 
-        db.update_tag(user_id, url, "tag-not-exist", "Earth")
-        actual_check3 = cur.execute('SELECT * FROM TAGS WHERE user_id  = ? \
-                                    AND url = ? AND tag = ?', (user_id, url, "Earth")).fetchall()
-        self.assertEqual(len(actual_check3), 0)
+
 
     def test_add_user(self):
         """
         Checks if add_user works correctly
         """
-        db.clear()
-        db.init_db()
-
+        initialize()
         row = ("test_user", "test_pass")
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
@@ -208,9 +183,7 @@ class TestDb(unittest.TestCase):
         """
         Checks if is_valid_user works correctly
         """
-        db.clear()
-        db.init_db()
-
+        initialize()
         row = ("test_user", "test_pass")
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
@@ -222,3 +195,26 @@ class TestDb(unittest.TestCase):
 
         output2 = db.is_valid_user("test_user", "pass")
         self.assertEqual(output2, False)
+
+    def test_update_token(self):
+
+        initialize()
+        row = ("test_user", "test_pass", "old-access-token")
+        conn = sqlite3.connect('sqlite_db')
+        cur = conn.cursor()
+        cur.execute("INSERT INTO USERS VALUES (?, ?, ?)", row)
+        conn.commit()
+
+        db.update_token("test_user", "test_pass", "new-access-token")
+
+        output = cur.execute("SELECT access_token from USERS "
+                             "WHERE user_id=? and password= ?",
+                             ("test_user", "test_pass")).fetchall()
+
+        self.assertEqual(output[0][0], "new-access-token")
+
+        output2 = cur.execute("SELECT access_token from USERS "
+                              "WHERE user_id=? and password= ?",
+                              ("test_user_2", "test_pass")).fetchall()
+        db.update_token("test_user_2", "test_pass", "token")
+        self.assertEqual(len(output2), 0)

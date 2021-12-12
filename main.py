@@ -73,8 +73,20 @@ def edit_tags():
     accepts a list of tags
     """
     request_data = request.get_json()
+
+    if "user_id" not in request_data or "url" not in request_data:
+        return {
+            "message": "The request is invalid. Include user_id and url." 
+        }, 400 # bad request
+
     user_id = request_data['user_id']
     url = request_data['url']
+
+    if not url.startswith('http'):
+        return {
+            "message": "The requested url is invalid." \
+        }, 400 # bad request
+
     tags_to_add = request_data['tags_to_add']
     tags_to_remove = request_data['tags_to_remove']
 
@@ -112,12 +124,21 @@ def get_tags():
     """
 
     request_data = request.get_json()
+
+    if "user_id" not in request_data or "urls" not in request_data:
+        return {
+            "message": "The request is invalid. Include user_id and urls." 
+        }, 400 # bad request
+
     user_id = request_data['user_id']
     # remove duplicates in urls
     urls = list(set(request_data['urls']))
     tags_in_urls = {}
 
     for url in urls:
+        if not url.startswith('http'):
+            tags_in_urls[url] = "Invalid URL"
+            continue
         tags = db.get_tags(user_id, url)
         if tags:
             # tags is a list of list, for better visualization,
@@ -142,9 +163,20 @@ def similar_urls():
     accepts a list of urls
     """
     request_data = request.get_json()
+    if "user_id" not in request_data or "url" not in request_data:
+        return {
+            "message": "The request is invalid. Include user_id and url." 
+        }, 400 # bad request
+        
     user_id = request_data['user_id']
     # remove duplicates in urls
     url = request_data['url']
+
+    if not url.startswith('http'):
+        return {
+            "message": "The requested url is invalid." 
+        }, 400 # bad request
+
     similar_url_list = []
     
     print(user_id, url)
