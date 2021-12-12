@@ -4,7 +4,7 @@ This module handles the incoming requests to the Bookmark tagging service.
 import requests
 from flask import Flask, request
 from flask_restful import Api
-from flask_cors import cross_origin
+from flask_cors import cross_origin # pylint: disable=import-error
 
 from web_scraper import Scraper  # pylint: disable=import-error
 from nlp import NLP  # pylint: disable=import-error
@@ -15,11 +15,11 @@ app = Flask(__name__)
 api = Api(app)
 db.init_db()
 
-def to_one_dimension(ls):
+def to_one_dimension(lst):
     """
     turn a list of list into one-dimensional list
     """
-    return [item for sublist in ls for item in sublist]
+    return [item for sublist in lst for item in sublist]
 
 
 @app.route("/add-user", methods=['POST'])
@@ -100,7 +100,8 @@ def edit_tags():
     if "user_id" not in request_data or "url" not in request_data or \
        "tags_to_add" not in request_data or "tags_to_remove" not in request_data:
         return {
-            "message": "The request is invalid. Include user_id, url, tags_to_add (list), tags_to_remove (list)."
+            "message": "The request is invalid. Include user_id, url, \
+            tags_to_add (list), tags_to_remove (list)."
         }, 400  # bad request
 
     user_id = request_data['user_id']
@@ -342,7 +343,7 @@ def extract_valid_urls(urls):
         try:
             if url.startswith('http') and requests.get(url).status_code == 200:
                 valid_urls.append(url)
-        except:
+        except requests.exceptions.RequestException:
             pass
     return valid_urls
 

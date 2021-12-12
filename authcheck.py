@@ -7,7 +7,7 @@ import http.client
 from flask import Flask, request, _request_ctx_stack
 from flask.json import jsonify
 from jose import jwt # pylint: disable=import-error
-from six.moves.urllib.request import urlopen
+from six.moves.urllib.request import urlopen # pylint: disable=import-error
 import db  # pylint: disable=import-error
 
 AUTH0_DOMAIN = 'dev-2ajo016m.us.auth0.com'
@@ -21,7 +21,7 @@ class AuthError(Exception):
     Handles auth related errors
     """
 
-    def __init__(self, error, status_code):
+    def __init__(self, error, status_code): # pylint: disable=super-init-not-called
         self.error = error
         self.status_code = status_code
 
@@ -155,7 +155,7 @@ def validate_user(user_id, password):
 
             return json_data
 
-        except Exception: #as err:
+        except: #as err: # pylint: disable=bare-except
             return None
             # raise AuthError({"code": "HTTP_request_error",
             #                 "description":
