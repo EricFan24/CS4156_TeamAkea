@@ -1,15 +1,15 @@
 """
 This module handles the incoming requests to the Bookmark tagging service.
 """
-
-from flask import Flask, request, jsonify
-from flask_restful import Resource, Api
+import requests
+from flask import Flask, request
+from flask_restful import Api
 from flask_cors import cross_origin
 
 from web_scraper import Scraper  # pylint: disable=import-error
 from nlp import NLP  # pylint: disable=import-error
 import db  # pylint: disable=import-error
-import authcheck
+import authcheck # pylint: disable=import-error
 
 app = Flask(__name__)
 api = Api(app)
@@ -293,7 +293,7 @@ def post_urls():
     '''
     request_data = request.get_json()
     urls = request_data['urls']
-    urls = [url for url in urls if url.startswith('http')]
+    urls = extract_valid_urls(urls)
     user_id = request_data['user_id']
     if len(urls) == 0:
         return {'message': 'No valid urls found'}, 400
@@ -324,7 +324,7 @@ def post_urls():
 
     keywords = [list(i) for i in keywords]
     keywords = [keywords[i] + custom_tags + categories[i] + authors[i] for i in range(len(urls))]
-    
+
     results = []
     for i, url in enumerate(urls):
         results.append({"url": url, "tags": keywords[i]})
@@ -338,6 +338,18 @@ def post_urls():
 
 # api.add_resource(BookmarkTagger, '/tags')  # add endpoint
 
+def extract_valid_urls(urls):
+    """
+    Extracts valid urls from a list of urls
+    """
+    valid_urls = []
+    for url in urls:
+        try:
+            if url.startswith('http') and requests.get(url).status_code == 200:
+                valid_urls.append(url)
+        except:
+            pass
+    return valid_urls
 
 if __name__ == '__main__':
     app.run()

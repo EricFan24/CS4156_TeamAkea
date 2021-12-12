@@ -47,6 +47,8 @@ class Scraper:
                 self.parse_usa_today(url)
             elif host_name == "www.nbcnews.com":
                 self.parse_nbc_news(url)
+            else:
+                print("Unsupported host name")
 
     @staticmethod
     def get_content(url):
@@ -55,8 +57,8 @@ class Scraper:
         :param url: website URL
         :return: extracted soup
         """
-        response = requests.get(url)
-        soup = BeautifulSoup(response.content, 'html.parser')
+        res = requests.get(url)
+        soup = BeautifulSoup(res.content, 'html.parser')
         return soup
 
     def create_dict(self, url, heading, subheading, descr,
