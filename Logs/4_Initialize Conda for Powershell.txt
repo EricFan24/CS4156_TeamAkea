@@ -1,0 +1,181 @@
+2021-12-12T04:52:28.2204667Z ##[group]Run (Get-Command python).Path
+2021-12-12T04:52:28.2205341Z [36;1m(Get-Command python).Path[0m
+2021-12-12T04:52:28.2205921Z [36;1mC:\Miniconda/condabin/conda.bat update -n base -c defaults conda[0m
+2021-12-12T04:52:28.2206569Z [36;1mC:\Miniconda/condabin/conda.bat init powershell[0m
+2021-12-12T04:52:28.2336040Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2021-12-12T04:52:28.2336522Z env:
+2021-12-12T04:52:28.2337136Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.9.9\x64
+2021-12-12T04:52:28.2337637Z ##[endgroup]
+2021-12-12T04:52:28.7281445Z C:\hostedtoolcache\windows\Python\3.9.9\x64\python.exe
+2021-12-12T04:52:44.5225601Z Collecting package metadata (current_repodata.json): ...working... done
+2021-12-12T04:52:45.2939864Z Solving environment: ...working... done
+2021-12-12T04:52:45.7658378Z 
+2021-12-12T04:52:45.7659641Z ## Package Plan ##
+2021-12-12T04:52:45.7660068Z 
+2021-12-12T04:52:45.7660660Z   environment location: C:\Miniconda
+2021-12-12T04:52:45.7661300Z 
+2021-12-12T04:52:45.7661811Z   added / updated specs:
+2021-12-12T04:52:45.7662356Z     - conda
+2021-12-12T04:52:45.7663326Z 
+2021-12-12T04:52:45.7664028Z 
+2021-12-12T04:52:45.7664623Z The following packages will be downloaded:
+2021-12-12T04:52:45.7665064Z 
+2021-12-12T04:52:45.7665557Z     package                    |            build
+2021-12-12T04:52:45.7666284Z     ---------------------------|-----------------
+2021-12-12T04:52:45.7667096Z     ca-certificates-2021.10.26 |       haa95532_2         115 KB
+2021-12-12T04:52:45.7667970Z     certifi-2021.10.8          |   py39haa95532_0         152 KB
+2021-12-12T04:52:45.7668677Z     cffi-1.15.0                |   py39h2bbff1b_0         224 KB
+2021-12-12T04:52:45.7669374Z     charset-normalizer-2.0.4   |     pyhd3eb1b0_0          35 KB
+2021-12-12T04:52:45.7670050Z     conda-4.11.0               |   py39haa95532_0        14.4 MB
+2021-12-12T04:52:45.7670675Z     cryptography-35.0.0        |   py39h71e12ea_0         991 KB
+2021-12-12T04:52:45.7671306Z     idna-3.3                   |     pyhd3eb1b0_0          49 KB
+2021-12-12T04:52:45.7671857Z     openssl-1.1.1l             |       h2bbff1b_0         4.8 MB
+2021-12-12T04:52:45.7672408Z     pip-21.2.4                 |   py39haa95532_0         1.8 MB
+2021-12-12T04:52:45.7672975Z     pycparser-2.21             |     pyhd3eb1b0_0          94 KB
+2021-12-12T04:52:45.7673600Z     pyopenssl-21.0.0           |     pyhd3eb1b0_1          49 KB
+2021-12-12T04:52:45.7674191Z     pywin32-228                |   py39hbaba5e8_1         5.6 MB
+2021-12-12T04:52:45.7674778Z     requests-2.26.0            |     pyhd3eb1b0_0          59 KB
+2021-12-12T04:52:45.7675412Z     setuptools-58.0.4          |   py39haa95532_0         778 KB
+2021-12-12T04:52:45.7675983Z     tqdm-4.62.3                |     pyhd3eb1b0_1          83 KB
+2021-12-12T04:52:45.7676523Z     tzdata-2021e               |       hda174b7_0         112 KB
+2021-12-12T04:52:45.7677065Z     urllib3-1.26.7             |     pyhd3eb1b0_0         111 KB
+2021-12-12T04:52:45.7678597Z     wheel-0.37.0               |     pyhd3eb1b0_1          33 KB
+2021-12-12T04:52:45.7679209Z     wincertstore-0.2           |   py39haa95532_2          15 KB
+2021-12-12T04:52:45.7679824Z     ------------------------------------------------------------
+2021-12-12T04:52:45.7680353Z                                            Total:        29.5 MB
+2021-12-12T04:52:45.7680629Z 
+2021-12-12T04:52:45.7681086Z The following NEW packages will be INSTALLED:
+2021-12-12T04:52:45.7681467Z 
+2021-12-12T04:52:45.7682489Z   charset-normalizer pkgs/main/noarch::charset-normalizer-2.0.4-pyhd3eb1b0_0
+2021-12-12T04:52:45.7683203Z 
+2021-12-12T04:52:45.7683641Z The following packages will be REMOVED:
+2021-12-12T04:52:45.7683997Z 
+2021-12-12T04:52:45.7684442Z   chardet-4.0.0-py39haa95532_1003
+2021-12-12T04:52:45.7684819Z 
+2021-12-12T04:52:45.7685259Z The following packages will be UPDATED:
+2021-12-12T04:52:45.7685614Z 
+2021-12-12T04:52:45.7686085Z   ca-certificates                       2021.7.5-haa95532_1 --> 2021.10.26-haa95532_2
+2021-12-12T04:52:45.7688508Z   certifi                          2021.5.30-py39haa95532_0 --> 2021.10.8-py39haa95532_0
+2021-12-12T04:52:45.7689143Z   cffi                                1.14.6-py39h2bbff1b_0 --> 1.15.0-py39h2bbff1b_0
+2021-12-12T04:52:45.7689778Z   conda                               4.10.3-py39haa95532_0 --> 4.11.0-py39haa95532_0
+2021-12-12T04:52:45.7690448Z   cryptography                         3.4.7-py39h71e12ea_0 --> 35.0.0-py39h71e12ea_0
+2021-12-12T04:52:45.7691102Z   idna                                    2.10-pyhd3eb1b0_0 --> 3.3-pyhd3eb1b0_0
+2021-12-12T04:52:45.7691731Z   openssl                                 1.1.1k-h2bbff1b_0 --> 1.1.1l-h2bbff1b_0
+2021-12-12T04:52:45.7692390Z   pip                                 21.1.3-py39haa95532_0 --> 21.2.4-py39haa95532_0
+2021-12-12T04:52:45.7692996Z   pycparser                                       2.20-py_2 --> 2.21-pyhd3eb1b0_0
+2021-12-12T04:52:45.7693648Z   pyopenssl                             20.0.1-pyhd3eb1b0_1 --> 21.0.0-pyhd3eb1b0_1
+2021-12-12T04:52:45.7694305Z   pywin32                                228-py39he774522_0 --> 228-py39hbaba5e8_1
+2021-12-12T04:52:45.7694962Z   requests                              2.25.1-pyhd3eb1b0_0 --> 2.26.0-pyhd3eb1b0_0
+2021-12-12T04:52:45.7695637Z   setuptools                          52.0.0-py39haa95532_0 --> 58.0.4-py39haa95532_0
+2021-12-12T04:52:45.7696275Z   tqdm                                  4.61.2-pyhd3eb1b0_1 --> 4.62.3-pyhd3eb1b0_1
+2021-12-12T04:52:45.7696883Z   tzdata                                   2021a-h52ac0ba_0 --> 2021e-hda174b7_0
+2021-12-12T04:52:45.7697486Z   urllib3                               1.26.6-pyhd3eb1b0_1 --> 1.26.7-pyhd3eb1b0_0
+2021-12-12T04:52:45.7698127Z   wheel                                 0.36.2-pyhd3eb1b0_0 --> 0.37.0-pyhd3eb1b0_1
+2021-12-12T04:52:45.7698837Z   wincertstore                           0.2-py39h2bbff1b_0 --> 0.2-py39haa95532_2
+2021-12-12T04:52:45.7699257Z 
+2021-12-12T04:52:45.7699455Z 
+2021-12-12T04:52:45.7699798Z Proceed ([y]/n)? 
+2021-12-12T04:52:45.8094879Z 
+2021-12-12T04:52:45.8096508Z Downloading and Extracting Packages
+2021-12-12T04:52:45.8097098Z 
+2021-12-12T04:52:46.4069715Z tzdata-2021e         | 112 KB    |            |   0% 
+2021-12-12T04:52:46.4072100Z tzdata-2021e         | 112 KB    | ########## | 100% 
+2021-12-12T04:52:46.4074234Z tzdata-2021e         | 112 KB    | ########## | 100% 
+2021-12-12T04:52:46.4074633Z 
+2021-12-12T04:52:46.5408325Z urllib3-1.26.7       | 111 KB    |            |   0% 
+2021-12-12T04:52:46.5410943Z urllib3-1.26.7       | 111 KB    | ########## | 100% 
+2021-12-12T04:52:46.5412978Z urllib3-1.26.7       | 111 KB    | ########## | 100% 
+2021-12-12T04:52:46.5413370Z 
+2021-12-12T04:52:46.9566321Z openssl-1.1.1l       | 4.8 MB    |            |   0% 
+2021-12-12T04:52:46.9568981Z openssl-1.1.1l       | 4.8 MB    | ########## | 100% 
+2021-12-12T04:52:46.9571452Z openssl-1.1.1l       | 4.8 MB    | ########## | 100% 
+2021-12-12T04:52:46.9572153Z 
+2021-12-12T04:52:47.1976945Z pycparser-2.21       | 94 KB     |            |   0% 
+2021-12-12T04:52:47.1979381Z pycparser-2.21       | 94 KB     | ########## | 100% 
+2021-12-12T04:52:47.1985693Z pycparser-2.21       | 94 KB     | ########## | 100% 
+2021-12-12T04:52:47.1986274Z 
+2021-12-12T04:52:47.5883538Z setuptools-58.0.4    | 778 KB    |            |   0% 
+2021-12-12T04:52:47.5891824Z setuptools-58.0.4    | 778 KB    | ########## | 100% 
+2021-12-12T04:52:47.5892679Z setuptools-58.0.4    | 778 KB    | ########## | 100% 
+2021-12-12T04:52:47.5893184Z 
+2021-12-12T04:52:47.7593244Z idna-3.3             | 49 KB     |            |   0% 
+2021-12-12T04:52:47.7595160Z idna-3.3             | 49 KB     | ########## | 100% 
+2021-12-12T04:52:47.7597179Z idna-3.3             | 49 KB     | ########## | 100% 
+2021-12-12T04:52:47.7597620Z 
+2021-12-12T04:52:47.8409850Z requests-2.26.0      | 59 KB     |            |   0% 
+2021-12-12T04:52:47.8411571Z requests-2.26.0      | 59 KB     | ########## | 100% 
+2021-12-12T04:52:47.8412724Z 
+2021-12-12T04:52:48.4511945Z cryptography-35.0.0  | 991 KB    |            |   0% 
+2021-12-12T04:52:48.4514376Z cryptography-35.0.0  | 991 KB    | ########## | 100% 
+2021-12-12T04:52:48.4516544Z cryptography-35.0.0  | 991 KB    | ########## | 100% 
+2021-12-12T04:52:48.4517051Z 
+2021-12-12T04:52:48.5315103Z charset-normalizer-2 | 35 KB     |            |   0% 
+2021-12-12T04:52:48.5316386Z charset-normalizer-2 | 35 KB     | ########## | 100% 
+2021-12-12T04:52:48.5316874Z 
+2021-12-12T04:52:48.6327711Z tqdm-4.62.3          | 83 KB     |            |   0% 
+2021-12-12T04:52:48.6330301Z tqdm-4.62.3          | 83 KB     | ########## | 100% 
+2021-12-12T04:52:48.6332812Z tqdm-4.62.3          | 83 KB     | ########## | 100% 
+2021-12-12T04:52:48.6333287Z 
+2021-12-12T04:52:48.7335875Z conda-4.11.0         | 14.4 MB   |            |   0% 
+2021-12-12T04:52:56.9037039Z conda-4.11.0         | 14.4 MB   | ########9  |  90% 
+2021-12-12T04:52:56.9038118Z conda-4.11.0         | 14.4 MB   | ########## | 100% 
+2021-12-12T04:52:56.9038587Z 
+2021-12-12T04:52:56.9976183Z ca-certificates-2021 | 115 KB    |            |   0% 
+2021-12-12T04:52:56.9977597Z ca-certificates-2021 | 115 KB    | ########## | 100% 
+2021-12-12T04:52:56.9978126Z 
+2021-12-12T04:52:57.1039899Z wincertstore-0.2     | 15 KB     |            |   0% 
+2021-12-12T04:52:57.1042557Z wincertstore-0.2     | 15 KB     | ########## | 100% 
+2021-12-12T04:52:57.1044654Z wincertstore-0.2     | 15 KB     | ########## | 100% 
+2021-12-12T04:52:57.1045121Z 
+2021-12-12T04:52:57.2388188Z certifi-2021.10.8    | 152 KB    |            |   0% 
+2021-12-12T04:52:57.2389911Z certifi-2021.10.8    | 152 KB    | ########## | 100% 
+2021-12-12T04:52:57.2391774Z certifi-2021.10.8    | 152 KB    | ########## | 100% 
+2021-12-12T04:52:57.2392192Z 
+2021-12-12T04:52:57.4459023Z cffi-1.15.0          | 224 KB    |            |   0% 
+2021-12-12T04:52:57.4461645Z cffi-1.15.0          | 224 KB    | ########## | 100% 
+2021-12-12T04:52:57.4463640Z cffi-1.15.0          | 224 KB    | ########## | 100% 
+2021-12-12T04:52:57.4464117Z 
+2021-12-12T04:52:57.7750393Z pyopenssl-21.0.0     | 49 KB     |            |   0% 
+2021-12-12T04:52:57.7752903Z pyopenssl-21.0.0     | 49 KB     | ########## | 100% 
+2021-12-12T04:52:57.7755240Z pyopenssl-21.0.0     | 49 KB     | ########## | 100% 
+2021-12-12T04:52:57.7755706Z 
+2021-12-12T04:52:59.5543370Z pip-21.2.4           | 1.8 MB    |            |   0% 
+2021-12-12T04:52:59.5546001Z pip-21.2.4           | 1.8 MB    | ########## | 100% 
+2021-12-12T04:52:59.5548525Z pip-21.2.4           | 1.8 MB    | ########## | 100% 
+2021-12-12T04:52:59.5548948Z 
+2021-12-12T04:53:02.1867762Z pywin32-228          | 5.6 MB    |            |   0% 
+2021-12-12T04:53:02.1869695Z pywin32-228          | 5.6 MB    | ########## | 100% 
+2021-12-12T04:53:02.1871725Z pywin32-228          | 5.6 MB    | ########## | 100% 
+2021-12-12T04:53:02.1872173Z 
+2021-12-12T04:53:02.3836331Z wheel-0.37.0         | 33 KB     |            |   0% 
+2021-12-12T04:53:02.3838798Z wheel-0.37.0         | 33 KB     | ########## | 100% 
+2021-12-12T04:53:02.3840750Z wheel-0.37.0         | 33 KB     | ########## | 100% 
+2021-12-12T04:53:02.6314302Z Preparing transaction: ...working... done
+2021-12-12T04:53:03.4379392Z Verifying transaction: ...working... done
+2021-12-12T04:53:17.9195692Z Executing transaction: ...working... done
+2021-12-12T04:53:20.9928332Z no change     C:\Miniconda\Scripts\conda.exe
+2021-12-12T04:53:20.9929441Z no change     C:\Miniconda\Scripts\conda-env.exe
+2021-12-12T04:53:20.9930198Z no change     C:\Miniconda\Scripts\conda-script.py
+2021-12-12T04:53:20.9931076Z no change     C:\Miniconda\Scripts\conda-env-script.py
+2021-12-12T04:53:20.9931849Z no change     C:\Miniconda\condabin\conda.bat
+2021-12-12T04:53:20.9932499Z no change     C:\Miniconda\Library\bin\conda.bat
+2021-12-12T04:53:20.9933276Z no change     C:\Miniconda\condabin\_conda_activate.bat
+2021-12-12T04:53:20.9934109Z no change     C:\Miniconda\condabin\rename_tmp.bat
+2021-12-12T04:53:20.9935048Z no change     C:\Miniconda\condabin\conda_auto_activate.bat
+2021-12-12T04:53:20.9935786Z no change     C:\Miniconda\condabin\conda_hook.bat
+2021-12-12T04:53:20.9936490Z no change     C:\Miniconda\Scripts\activate.bat
+2021-12-12T04:53:20.9937158Z no change     C:\Miniconda\condabin\activate.bat
+2021-12-12T04:53:20.9937893Z no change     C:\Miniconda\condabin\deactivate.bat
+2021-12-12T04:53:20.9938609Z modified      C:\Miniconda\Scripts\activate
+2021-12-12T04:53:20.9939256Z modified      C:\Miniconda\Scripts\deactivate
+2021-12-12T04:53:20.9939966Z modified      C:\Miniconda\etc\profile.d\conda.sh
+2021-12-12T04:53:20.9940646Z modified      C:\Miniconda\etc\fish\conf.d\conda.fish
+2021-12-12T04:53:20.9941390Z no change     C:\Miniconda\shell\condabin\Conda.psm1
+2021-12-12T04:53:20.9942162Z modified      C:\Miniconda\shell\condabin\conda-hook.ps1
+2021-12-12T04:53:20.9942935Z no change     C:\Miniconda\Lib\site-packages\xontrib\conda.xsh
+2021-12-12T04:53:20.9943716Z modified      C:\Miniconda\etc\profile.d\conda.csh
+2021-12-12T04:53:20.9944615Z modified      C:\Users\runneradmin\Documents\PowerShell\profile.ps1
+2021-12-12T04:53:20.9945563Z modified      C:\Users\runneradmin\Documents\WindowsPowerShell\profile.ps1
+2021-12-12T04:53:20.9946181Z 
+2021-12-12T04:53:20.9946802Z ==> For changes to take effect, close and re-open your current shell. <==
+2021-12-12T04:53:20.9947317Z 
