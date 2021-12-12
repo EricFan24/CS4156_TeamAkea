@@ -73,6 +73,12 @@ def edit_tags():
     accepts a list of tags
     """
     request_data = request.get_json()
+
+    if "user_id" not in request_data or "url" not in request_data:
+        return {
+            "message": "The request is invalid. Include user_id and url." 
+        }, 400 # bad request
+
     user_id = request_data['user_id']
     url = request_data['url']
 
@@ -118,6 +124,12 @@ def get_tags():
     """
 
     request_data = request.get_json()
+
+    if "user_id" not in request_data or "urls" not in request_data:
+        return {
+            "message": "The request is invalid. Include user_id and urls." 
+        }, 400 # bad request
+
     user_id = request_data['user_id']
     # remove duplicates in urls
     urls = list(set(request_data['urls']))
@@ -151,6 +163,11 @@ def similar_urls():
     accepts a list of urls
     """
     request_data = request.get_json()
+    if "user_id" not in request_data or "url" not in request_data:
+        return {
+            "message": "The request is invalid. Include user_id and url." 
+        }, 400 # bad request
+        
     user_id = request_data['user_id']
     # remove duplicates in urls
     url = request_data['url']
