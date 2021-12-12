@@ -61,8 +61,8 @@ class Scraper:
         soup = BeautifulSoup(res.content, 'html.parser')
         return soup
 
-    def create_dict(self, url, heading, subheading, descr,
-                    author=None):
+    def create_dict(self, url, heading, subheading,
+                    descr, author=None):  # pylint: disable=R0913
         """
         Creates & appends dictionary, that contains url with heading,
         subheading and description
@@ -134,10 +134,3 @@ class Scraper:
         description = soup.find_all('p', class_='')
         author = soup.find_all('span', class_="byline-name")
         self.create_dict(url, heading, subheading, description, author)
-
-# scraper = Scraper(["https://www.nbcnews.com/politics/supreme-court/
-# supreme-court-says-challenge-texas-near-total-ban-abortion-can-n1285732",
-#                    "https://www.nytimes.com/2021/11/07/us/politics/afghanistan-war-marines.html"])
-# parsing_results = scraper.parsing
-# authors = [list(result["author"]) for result in parsing_results]
-# print(authors)
