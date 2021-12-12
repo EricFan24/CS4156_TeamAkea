@@ -47,11 +47,11 @@ def add_user():
 
     if res:
         return {
-            "message": "User successfully added."
-        }, 200
+                   "message": "User successfully added."
+               }, 200
     return {
-        "message": "Fail to add user. User may already be in database."
-    }, 400
+               "message": "Fail to add user. User may already be in database."
+           }, 400
 
 
 # This doesn't need authentication
@@ -169,12 +169,13 @@ def get_tags():
             tags_in_urls[url] = to_one_dimension(tags)
         else:
             tags_in_urls[url] = "No tags found for this url. " \
-                + "Either the user did not bookmark it, or " \
-                + "all the existing tags have been removed."
+                                + "Either the user did not bookmark it, or " \
+                                + "all the existing tags have been removed."
     return {
         "message": "User: " + user_id + " has the following tags for the urls",
         'tags': tags_in_urls
     }, 200  # return data with 200 OK
+
 
 
 @app.route("/similar_urls", methods=['GET'])
@@ -211,7 +212,7 @@ def similar_urls():
         # we flatten the list before returning
         tags = to_one_dimension(tags)
         print(tags)
-        #tags = [tag[0] for tag in tags]
+        # tags = [tag[0] for tag in tags]
         all_urls = to_one_dimension(db.get_user_urls(user_id))
         print("All URLS ##########")
         print(all_urls)
@@ -226,11 +227,12 @@ def similar_urls():
 
     else:
         similar_url_list = "No tags found for this url. " \
-            + "Therefore, it has no similar URLs "
+                           + "Therefore, it has no similar URLs "
     return {
         "message": "User: " + user_id + " has the following tags for the urls",
         'urls': similar_url_list
     }, 200  # return data with 200 OK
+
 
 
 class BookmarkTagger(Resource):
@@ -273,9 +275,11 @@ class BookmarkTagger(Resource):
         # return render_template('tags.html', tags=common_urls)
 
         return {
+
             "message": "User: " + user_id + " has the following matching urls for the keyword(s)",
             'urls': common_urls
         }, 200  # return data with 200 OK
+
 
     @authcheck.requires_auth
     @cross_origin(headers=["Content-Type", "Authorization"])
@@ -313,9 +317,10 @@ class BookmarkTagger(Resource):
         keywords = nlp_module.get_keywords()
         categories = nlp_module.get_categories()
         authors = [list(result["author"]) for result in parsing_results]
-        #keywords = keywords + categories + authors
+        # keywords = keywords + categories + authors
 
         keywords = [list(i) for i in keywords]
+
         keywords = [
             keywords[i] +
             custom_tags +
@@ -326,18 +331,20 @@ class BookmarkTagger(Resource):
         for i, url in enumerate(urls):
             # [i] + custom_tags + categories[i] + authors[i]:
             for tag in keywords[i]:
+
                 db.add_row((user_id, url, tag.lower()))
 
         print("Keywords extracted: ", keywords)
 
         return {
+
             'message': "the following tags are created for the user",
             'tags': keywords
         }, 200  # return data with 200 OK
 
 
-api.add_resource(BookmarkTagger, '/tags')  # add endpoint
 
+api.add_resource(BookmarkTagger, '/tags')  # add endpoint
 
 if __name__ == '__main__':
     app.run()
