@@ -9,6 +9,9 @@ import db  # pylint: disable=import-error
 
 
 def initialize():
+    """
+    Clean up and set up db
+    """
     db.clear()
     db.init_db()
 
@@ -140,7 +143,9 @@ class TestDb(unittest.TestCase):
         self.assertEqual(len(actual), 1)
 
     def test_get_user_urls(self):
-
+        """
+        Check if get_urls work correctly
+        """
         initialize()
         row1 = ("test_user", "www.abc.com", "India")
         row2 = ("test_user", "www.nbc_news.com", "World")
@@ -197,7 +202,9 @@ class TestDb(unittest.TestCase):
         self.assertEqual(output2, False)
 
     def test_update_token(self):
-
+        """
+        Check the token is updated
+        """
         initialize()
         row = ("test_user", "test_pass", "old-access-token")
         conn = sqlite3.connect('sqlite_db')

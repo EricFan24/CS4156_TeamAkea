@@ -2,9 +2,9 @@
 This module handles the incoming requests to the Bookmark tagging service.
 """
 
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from flask_restful import Resource, Api
-from flask_cors import cross_origin
+from flask_cors import cross_origin # pylint: disable=import-error
 
 from web_scraper import Scraper  # pylint: disable=import-error
 from nlp import NLP  # pylint: disable=import-error
@@ -15,11 +15,11 @@ app = Flask(__name__)
 api = Api(app)
 
 
-def to_one_dimension(list):
+def to_one_dimension(ls):
     """
     turn a list of list into one-dimensional list
     """
-    return [item for sublist in list for item in sublist]
+    return [item for sublist in ls for item in sublist]
 
 
 @app.route("/add-user", methods=['POST'])
@@ -205,7 +205,6 @@ def similar_urls():
     print(user_id, url)
     tags = db.get_tags(user_id, url)
 
-    # print(tags)
     if tags:
         # tags is a list of list, for better visualization,
         # we flatten the list before returning
@@ -215,14 +214,14 @@ def similar_urls():
         all_urls = to_one_dimension(db.get_user_urls(user_id))
         print("All URLS ##########")
         print(all_urls)
-        for u in all_urls:
-            if u == url:
-                print("Continuing for: ", u)
+        for the_url in all_urls:
+            if the_url == url:
+                print("Continuing for: ", the_url)
                 continue
-            url_tags = to_one_dimension(db.get_tags(user_id, u))
-            print(u, url_tags)
+            url_tags = to_one_dimension(db.get_tags(user_id, the_url))
+            print(the_url, url_tags)
             if len(set(tags) & set(url_tags)) >= 3:
-                similar_url_list.append(u)
+                similar_url_list.append(the_url)
 
     else:
         similar_url_list = "No tags found for this url. " \

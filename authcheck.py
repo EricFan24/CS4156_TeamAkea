@@ -6,7 +6,7 @@ from functools import wraps
 import http.client
 from flask import Flask, request, _request_ctx_stack
 from flask.json import jsonify
-from jose import jwt
+from jose import jwt # pylint: disable=import-error
 from six.moves.urllib.request import urlopen
 import db  # pylint: disable=import-error
 
