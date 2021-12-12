@@ -8,17 +8,19 @@ from flask import Flask, request, _request_ctx_stack
 from flask.json import jsonify
 from jose import jwt
 from six.moves.urllib.request import urlopen
-import db # pylint: disable=import-error
+import db  # pylint: disable=import-error
 
 AUTH0_DOMAIN = 'dev-2ajo016m.us.auth0.com'
 API_AUDIENCE = 'https://smart_bookmarks/api'
 ALGORITHMS = ["RS256"]
 app = Flask(__name__)
 
+
 class AuthError(Exception):
     """
     Handles auth related errors
     """
+
     def __init__(self, error, status_code):
         self.error = error
         self.status_code = status_code
@@ -71,7 +73,7 @@ def requires_auth(func):
     @wraps(func)
     def decorated(*args, **kwargs):
         token = get_token_auth_header()
-        jsonurl = urlopen("https://"+AUTH0_DOMAIN+"/.well-known/jwks.json")
+        jsonurl = urlopen("https://" + AUTH0_DOMAIN + "/.well-known/jwks.json")
         jwks = json.loads(jsonurl.read())
         unverified_header = jwt.get_unverified_header(token)
         rsa_key = {}
@@ -91,16 +93,16 @@ def requires_auth(func):
                     rsa_key,
                     algorithms=ALGORITHMS,
                     audience=API_AUDIENCE,
-                    issuer="https://"+AUTH0_DOMAIN+"/"
+                    issuer="https://" + AUTH0_DOMAIN + "/"
                 )
             except jwt.ExpiredSignatureError as err:
                 raise AuthError({"code": "token_expired",
                                 "description": "token is expired"}, 401) from err
             except jwt.JWTClaimsError as err:
                 raise AuthError({"code": "invalid_claims",
-                                "description":
-                                    "incorrect claims,"
-                                    "please check the audience and issuer"}, 401) from err
+                                 "description": "incorrect claims,"
+                                 "please check the audience and issuer"},
+                                401) from err
             except Exception as err:
                 raise AuthError({"code": "invalid_header",
                                 "description":
@@ -128,9 +130,9 @@ def validate_user(user_id, password):
     if user_is_valid:
         try:
             conn = http.client.HTTPSConnection(AUTH0_DOMAIN)
-            payload = "{\"client_id\":\"vlKnFcLWHhA16V6DUZbcOzXyGlfVuXN0\",\"client_secret\":\"9zgdj5UoxvbcySR1Z0bVvOGOGEjQAIfc57h3LrsSGDxmROTkOJ_oJU_jqZuf7_tJ\",\"audience\":\"https://smart_bookmarks/api\",\"grant_type\":\"client_credentials\"}" # pylint: disable=line-too-long
+            payload = "{\"client_id\":\"vlKnFcLWHhA16V6DUZbcOzXyGlfVuXN0\",\"client_secret\":\"9zgdj5UoxvbcySR1Z0bVvOGOGEjQAIfc57h3LrsSGDxmROTkOJ_oJU_jqZuf7_tJ\",\"audience\":\"https://smart_bookmarks/api\",\"grant_type\":\"client_credentials\"}"  # pylint: disable=line-too-long
 
-            headers = { 'content-type': "application/json" }
+            headers = {'content-type': "application/json"}
             conn.request("POST", "/oauth/token", payload, headers)
 
             print("connection established and request sent")

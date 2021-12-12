@@ -6,9 +6,9 @@ from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 from flask_cors import cross_origin
 
-from web_scraper import Scraper # pylint: disable=import-error
-from nlp import NLP # pylint: disable=import-error
-import db # pylint: disable=import-error
+from web_scraper import Scraper  # pylint: disable=import-error
+from nlp import NLP  # pylint: disable=import-error
+import db  # pylint: disable=import-error
 import authcheck
 
 app = Flask(__name__)
@@ -31,16 +31,16 @@ def add_user():
     request_data = request.get_json()
     if "user_id" not in request_data or "password" not in request_data:
         return {
-            "message": "The request is invalid. Please include user_id and password." 
-        }, 400 # bad request
-    
+            "message": "The request is invalid. Please include user_id and password."
+        }, 400  # bad request
+
     user_id = request_data['user_id'].strip()
     password = request_data['password'].strip()
 
-    if user_id=="" or password =="":
+    if user_id == "" or password == "":
         return {
-            "message": "The request is invalid. Please include user_id and password." 
-        }, 400 # bad request
+            "message": "The request is invalid. Please include user_id and password."
+        }, 400  # bad request
 
     db.init_db()
     res = db.add_user(user_id, password)
@@ -66,16 +66,16 @@ def check_user():
     request_data = request.get_json()
     if "user_id" not in request_data or "password" not in request_data:
         return {
-            "message": "The request is invalid. Please include user_id and password." 
-        }, 400 # bad request
+            "message": "The request is invalid. Please include user_id and password."
+        }, 400  # bad request
 
     user_id = request_data['user_id'].strip()
     password = request_data['password'].strip()
 
-    if user_id=="" or password =="":
+    if user_id == "" or password == "":
         return {
-            "message": "The request is invalid. Please include user_id and password." 
-        }, 400 # bad request
+            "message": "The request is invalid. Please include user_id and password."
+        }, 400  # bad request
 
     db.init_db()
     res = authcheck.validate_user(user_id, password)
@@ -99,16 +99,16 @@ def edit_tags():
 
     if "user_id" not in request_data or "url" not in request_data:
         return {
-            "message": "The request is invalid. Include user_id and url." 
-        }, 400 # bad request
+            "message": "The request is invalid. Include user_id and url."
+        }, 400  # bad request
 
     user_id = request_data['user_id']
     url = request_data['url']
 
     if not url.startswith('http'):
         return {
-            "message": "The requested url is invalid." \
-        }, 400 # bad request
+            "message": "The requested url is invalid."
+        }, 400  # bad request
 
     tags_to_add = request_data['tags_to_add']
     tags_to_remove = request_data['tags_to_remove']
@@ -127,14 +127,14 @@ def edit_tags():
         new_tags = to_one_dimension(db.get_tags(user_id, url))
     else:
         return {
-            "message": "The requested url is not bookmarked." \
-                "Please create a bookmark before editing the tags."
-        }, 400 # bad request
+            "message": "The requested url is not bookmarked."
+            "Please create a bookmark before editing the tags."
+        }, 400  # bad request
 
     return {
-            "message": "Tags modified",
-            "tags": new_tags
-        }, 200  # return data with 200 OK
+        "message": "Tags modified",
+        "tags": new_tags
+    }, 200  # return data with 200 OK
 
 
 @app.route("/get-tags", methods=['GET'])
@@ -150,8 +150,8 @@ def get_tags():
 
     if "user_id" not in request_data or "urls" not in request_data:
         return {
-            "message": "The request is invalid. Include user_id and urls." 
-        }, 400 # bad request
+            "message": "The request is invalid. Include user_id and urls."
+        }, 400  # bad request
 
     user_id = request_data['user_id']
     # remove duplicates in urls
@@ -172,9 +172,9 @@ def get_tags():
                 + "Either the user did not bookmark it, or " \
                 + "all the existing tags have been removed."
     return {
-            "message": "User: " + user_id + " has the following tags for the urls",
-            'tags': tags_in_urls
-        }, 200  # return data with 200 OK
+        "message": "User: " + user_id + " has the following tags for the urls",
+        'tags': tags_in_urls
+    }, 200  # return data with 200 OK
 
 
 @app.route("/similar_urls", methods=['GET'])
@@ -188,8 +188,8 @@ def similar_urls():
     request_data = request.get_json()
     if "user_id" not in request_data or "url" not in request_data:
         return {
-            "message": "The request is invalid. Include user_id and url." 
-        }, 400 # bad request
+            "message": "The request is invalid. Include user_id and url."
+        }, 400  # bad request
 
     user_id = request_data['user_id']
     # remove duplicates in urls
@@ -197,15 +197,15 @@ def similar_urls():
 
     if not url.startswith('http'):
         return {
-            "message": "The requested url is invalid." 
-        }, 400 # bad request
+            "message": "The requested url is invalid."
+        }, 400  # bad request
 
     similar_url_list = []
-    
+
     print(user_id, url)
     tags = db.get_tags(user_id, url)
-    
-    #print(tags)
+
+    # print(tags)
     if tags:
         # tags is a list of list, for better visualization,
         # we flatten the list before returning
@@ -221,16 +221,16 @@ def similar_urls():
                 continue
             url_tags = to_one_dimension(db.get_tags(user_id, u))
             print(u, url_tags)
-            if len(set(tags) & set(url_tags))>=3:
+            if len(set(tags) & set(url_tags)) >= 3:
                 similar_url_list.append(u)
 
     else:
         similar_url_list = "No tags found for this url. " \
             + "Therefore, it has no similar URLs "
     return {
-            "message": "User: " + user_id + " has the following tags for the urls",
-            'urls': similar_url_list
-        }, 200  # return data with 200 OK
+        "message": "User: " + user_id + " has the following tags for the urls",
+        'urls': similar_url_list
+    }, 200  # return data with 200 OK
 
 
 # class BookmarkTagger(Resource):
@@ -281,7 +281,6 @@ def get_urls():
         'urls': common_urls
         }, 200  # return data with 200 OK
 
-
 # @authcheck.requires_auth
 # @cross_origin(headers=["Content-Type", "Authorization"])
 # def post(self):
@@ -292,7 +291,6 @@ def post_urls():
     '''
     Post urls for parsing and nlp
     '''
-
     request_data = request.get_json()
     urls = request_data['urls']
     urls = [url for url in urls if url.startswith('http')]

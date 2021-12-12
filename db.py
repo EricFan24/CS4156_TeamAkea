@@ -7,7 +7,6 @@ from sqlite3 import Error
 
 
 def init_db():
-
     """
     Initializes the Table TAGS
     """
@@ -17,8 +16,7 @@ def init_db():
         conn = sqlite3.connect('sqlite_db')
         conn.execute(
             'CREATE TABLE IF NOT EXISTS TAGS (user_id TEXT, url TEXT, tag TEXT, '
-            'PRIMARY KEY (user_id, url, tag))'
-            )
+            'PRIMARY KEY (user_id, url, tag))')
         conn.execute(
             'CREATE TABLE IF NOT EXISTS USERS (user_id TEXT, password TEXT, \
             access_token TEXT type UNIQUE, '
@@ -34,7 +32,6 @@ def init_db():
 
 
 def add_row(tag):  # will take in a tuple
-
     """
     Adds the url and tag to the database
     """
@@ -73,6 +70,7 @@ def get_urls(user_id, tag):
         if conn:
             conn.close()
     return match
+
 
 def get_user_urls(user_id):
     """
@@ -218,7 +216,8 @@ def add_user(user_id, password):
         else:
             conn = sqlite3.connect('sqlite_db')
             cur = conn.cursor()
-            cur.execute("INSERT INTO USERS VALUES (?, ?, NULL)", (user_id, password))
+            cur.execute("INSERT INTO USERS VALUES (?, ?, NULL)",
+                        (user_id, password))
             conn.commit()
             success = True
             print('Database Online, user added')
@@ -280,7 +279,6 @@ def update_token(user_id, password, access_token):
 
 
 def clear():
-
     """
     Clears the table TAGS
     DO NOT MODIFY
