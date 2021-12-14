@@ -50,7 +50,7 @@ def add_user():
                    "message": "User successfully added."
                }, 200
     return {
-               "message": "Fail to add user. User may already be in database."
+               "message": "Failed to add user. User may already be in database."
            }, 400
 
 
@@ -225,7 +225,7 @@ def similar_urls():
         similar_url_list = "No tags found for this url. " \
                            + "Therefore, it has no similar URLs "
     return {
-        "message": "User: " + user_id + " has the following tags for the urls",
+        "message": "User: " + user_id + " has the following urls similar to the url",
         'urls': similar_url_list
     }, 200  # return data with 200 OK
 

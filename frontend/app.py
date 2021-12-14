@@ -35,7 +35,7 @@ def tag_urls():
     print(headers)
 
     if len(tags_string)==0:
-        response = requests.post(SERVERURI+ "/tags", \
+        response = requests.post(SERVERURI+ "/post-urls", \
             json={"urls": urls, "user_id": user_id}, headers=headers)
         print(response.json())
 
@@ -44,8 +44,11 @@ def tag_urls():
             json={"urls": urls, "user_id": user_id, "tags": tags}, headers=headers)
         print(response.json())
 
-    returned_tags = response.json()['tags']
-    context=dict(stream="Tags", data=returned_tags)
+    message = response.json()['message']
+    results = ""
+    if "results" in response.json():
+        results = response.json()["results"]
+    context=dict(stream=message, data=results)
     return render_template("results.html", **context)
 
 @app.route('/search_urls')
@@ -62,14 +65,20 @@ def search_url():
     user_id = dicty['user_id']
     tags = [x.strip() for x in tags_string.split(',')]
 
-    response = requests.get(SERVERURI+ "/tags", \
+    response = requests.get(SERVERURI+ "/get-urls", \
         json={"tags": tags,  "user_id": user_id}, headers=headers)
     print(response.json())
 
-    returned_urls = response.json()["urls"]
+    #returned_urls = response.json()["urls"]
 
-    context=dict(stream="URLs", data=returned_urls)
+    message = response.json()['message']
+    results = ""
+    if "urls" in response.json():
+        results = response.json()["urls"]
+    context=dict(stream=message, data=results)
     return render_template("results.html", **context)
+    #context=dict(stream="URLs", data=returned_urls)
+    #return render_template("results.html", **context)
 
 @app.route('/modify_tags')
 def modify_tags():
@@ -92,7 +101,12 @@ def modify_tags():
         json={"user_id": user_id, "url": url, "tags_to_add": tags_to_add, \
             "tags_to_remove": tags_to_remove}, headers=headers)
     print("Response JSON:", response.json())
-    context=dict(stream="Tags after editing", data=response.json()["tags"])
+
+    message = response.json()['message']
+    results = ""
+    if "tags" in response.json():
+        results = response.json()["tags"]
+    context=dict(stream=message, data=results)
     return render_template("results.html", **context)
 
 @app.route('/similar_urls')
@@ -108,9 +122,17 @@ def similar_urls():
     }
     response = requests.get(SERVERURI+ "/similar_urls", \
         json={"url": url,  "user_id": user_id}, headers=headers)
-    returned_urls = response.json()["urls"]
-    context=dict(stream="URLS", data=returned_urls)
+    #returned_urls = response.json()["urls"]
+
+    message = response.json()['message']
+    results = ""
+    if "urls" in response.json():
+        results = response.json()["urls"]
+    context=dict(stream=message, data=results)
     return render_template("results.html", **context)
+
+    #context=dict(stream="URLS", data=returned_urls)
+    #return render_template("results.html", **context)
 
 
 @app.route('/show_tags')
@@ -133,14 +155,21 @@ def show_tags():
         json={"urls": urls, "user_id": user_id}, headers=headers)
     print(response.json())
 
-    returned_tags = []
-    tag_dict = response.json()['tags']
-
-    for url in tag_dict:
-        returned_tags.append(url+ ": ")
-        returned_tags.append(tag_dict[url])
-    context=dict(stream="Tags", data=returned_tags)
+    message = response.json()['message']
+    results = ""
+    if "results" in response.json():
+        results = response.json()["results"]
+    context=dict(stream=message, data=results)
     return render_template("results.html", **context)
+
+    #returned_tags = []
+    #tag_dict = response.json()['tags']
+
+    #for url in tag_dict:
+    #    returned_tags.append(url+ ": ")
+    #    returned_tags.append(tag_dict[url])
+    #context=dict(stream="Tags", data=returned_tags)
+    #return render_template("results.html", **context)
 
 @app.route('/redirect')
 def redirect():
@@ -161,6 +190,12 @@ def user_login():
     print(payload)
 
     resp = requests.get(SERVERURI + "user-check", json=payload)
+
+    if resp.status_code in [400,401]:
+        message = resp.json()["message"]
+        context=dict(stream=message)
+        return render_template("login_error.html", **context)
+
     dicty['access_token'] = resp.json()['access_token']
     dicty['user_id'] = user_id
     print(resp.json())
@@ -178,7 +213,19 @@ def user_sign_up():
     print(payload)
 
     resp = requests.post(SERVERURI + "add-user", json=payload)
+
+    message = resp.json()["message"]
+    context=dict(stream=message)
+    if resp.status_code==400:
+        return render_template("login_error.html", **context)
+
     resp = requests.get(SERVERURI + "user-check", json=payload)
+
+    if resp.status_code in [400, 401]:
+        message = resp.json()["message"]
+        context=dict(stream=message)
+        return render_template("login_error.html", **context)
+
     dicty['access_token'] = resp.json()['access_token']
     dicty['user_id'] = user_id
 
