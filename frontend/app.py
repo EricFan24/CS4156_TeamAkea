@@ -40,9 +40,8 @@ def tag_urls():
         print(response.json())
 
     else:
-        response = requests.post(SERVERURI+ "/tags", \
+        response = requests.post(SERVERURI+ "/post-urls", \
             json={"urls": urls, "user_id": user_id, "tags": tags}, headers=headers)
-        print(response.json())
 
     message = response.json()['message']
     results = ""

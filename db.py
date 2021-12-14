@@ -277,6 +277,28 @@ def update_token(user_id, password, access_token):
         if conn:
             conn.close()
 
+def check_token(user_id, access_token):
+    """
+    Check whether the token matches the user_id
+    """
+    conn = None
+    match = None
+    try:
+        conn = sqlite3.connect('sqlite_db')
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM USERS WHERE  \
+                        user_id = ? AND access_token = ?",
+                        (user_id, access_token))
+        match = cur.fetchall()
+    except Error as err:
+        print(err)
+    finally:
+        if conn:
+            conn.close()
+    if match:
+        return True
+    return False
+
 
 def clear():
     """

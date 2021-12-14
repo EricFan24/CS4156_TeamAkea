@@ -83,6 +83,11 @@ def check_user():
         return {
             "message": "The user id or password is incorrect."
         }, 401
+
+    print("Sending user the token:##################")
+    access_token = res['access_token']
+    db.update_token(user_id, password, access_token)
+
     return res
 
 
@@ -105,6 +110,14 @@ def edit_tags():
         }, 400  # bad request
 
     user_id = request_data['user_id']
+
+    header_dict=dict(request.headers)
+    access_token = header_dict['Authorization'].split(" ")[1]
+    if not db.check_token(user_id, access_token):
+        return {
+            "message": "The request is invalid. Please enter correct user_id."
+        }, 400  # bad request
+
     url = request_data['url']
 
     if not url.startswith('http'):
@@ -156,6 +169,14 @@ def get_tags():
         }, 400  # bad request
 
     user_id = request_data['user_id']
+
+    header_dict=dict(request.headers)
+    access_token = header_dict['Authorization'].split(" ")[1]
+    if not db.check_token(user_id, access_token):
+        return {
+            "message": "The request is invalid. Please enter correct user_id."
+        }, 400  # bad request
+
     # remove duplicates in urls
     urls = list(set(request_data['urls']))
     results = []
@@ -190,6 +211,14 @@ def similar_urls():
         }, 400  # bad request
 
     user_id = request_data['user_id']
+
+    header_dict=dict(request.headers)
+    access_token = header_dict['Authorization'].split(" ")[1]
+    if not db.check_token(user_id, access_token):
+        return {
+            "message": "The request is invalid. Please enter correct user_id."
+        }, 400  # bad request
+
     # remove duplicates in urls
     url = request_data['url']
 
@@ -246,6 +275,7 @@ def get_urls():
     '''
     get all urls that match given tags
     '''
+
     request_data = request.get_json()
     if "user_id" not in request_data or "tags" not in request_data:
         return {
@@ -254,6 +284,13 @@ def get_urls():
 
     user_id = request_data['user_id']
     tags = request_data['tags']
+
+    header_dict=dict(request.headers)
+    access_token = header_dict['Authorization'].split(" ")[1]
+    if not db.check_token(user_id, access_token):
+        return {
+            "message": "The request is invalid. Please enter correct user_id."
+        }, 400  # bad request
 
     url_lists = []
 
@@ -292,6 +329,14 @@ def post_urls():
     urls = request_data['urls']
     urls = extract_valid_urls(urls)
     user_id = request_data['user_id']
+
+    header_dict=dict(request.headers)
+    access_token = header_dict['Authorization'].split(" ")[1]
+    if not db.check_token(user_id, access_token):
+        return {
+            "message": "The request is invalid. Please enter correct user_id."
+        }, 400  # bad request
+
     if len(urls) == 0:
         return {'message': 'No valid urls found'}, 400
 
