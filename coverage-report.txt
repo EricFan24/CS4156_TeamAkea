@@ -1,11 +1,11 @@
 Name                  Stmts   Miss  Cover
 -----------------------------------------
 __init__.py               0      0   100%
-db.py                   179     24    87%
+db.py                   194     38    80%
 nlp.py                   59     10    83%
 test_db.py              139      1    99%
 test_nlp.py              28      0   100%
 test_web_scraper.py      40      0   100%
 web_scraper.py           65      1    98%
 -----------------------------------------
-TOTAL                   510     36    93%
+TOTAL                   525     50    90%
