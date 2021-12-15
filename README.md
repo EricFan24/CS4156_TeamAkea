@@ -133,3 +133,7 @@ After we replicate our environment, we run the following -
 Post the running of the above checks, a commit of the reports is made to the repository using a github bot. The files are finally pushed to the repo using ad-m/github-push-action@master.
 
 ## Documentation
+
+The generated CI logs can be found in thelogs directory.
+
+For unit-test reports, one can see that no failures were observed in the unit-test-report.txt
