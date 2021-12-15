@@ -70,14 +70,34 @@ The API has the following endpoints:  We use JSON for input and output.
 
         pip install beautifulsoup4
 
+All dependencies:
+
+* Flask-2.0.2 
+* Flask-RESTful-0.3.9 
+* beautifulsoup4-4.10.0 
+* click-8.0.3 
+* cryptography-36.0.1 
+* en-core-web-sm-3.2.0 
+* flask-cors-3.0.10 
+* joblib-1.1.0 
+* numpy-1.21.4
+* python-dotenv-0.19.2 
+* python-jose-3.3.0 
+* scikit-learn-1.0.1 
+* six-1.16.0 
+* soupsieve-2.3 
+* spacy-3.2.1 
+
 ## Logistic model for topic prediction
 
-We trained a logistic model using tf-idf vectors to predict the top 5 most likely topics for each input article. When the user post a url for automatic parsing, we save as tags the predicted topics together with keywords extracted from the article itself.
+We trained a logistic model using tf-idf vectors and sklearn to predict the top 5 most likely topics for each input article. When the user post a url for automatic parsing, we save as tags the predicted topics together with keywords extracted from the article itself.
 
 For example, for this [USA Today article](https://www.usatoday.com/story/news/nation/2021/11/10/atmospheric-river-wallop-pacific-northwest/6370849001/), our model predicts the following topics :
 ['ENVIRONMENT', 'TRAVEL', 'WELLNESS & LIVING', 'WORLD', 'POLITICS']
 
-For training, we used the [News Categories Dataset](https://www.kaggle.com/rmisra/news-category-dataset), a collection of about 200k news headlines and short descriptions from the year 2012 to 2018 from HuffPost. Each article was labeled one of 31 topics ranging from science and politics to food and art. We randomly split the dataset into a training set and a testing set with a 4-1 ratio. Our logistic model has a 74% rate of predicting the correct category on the training set, and a 66% correct prediction rate on the testing set. In our API implementation, we select the top 5 topics according to predicted probabilities. Based on real-world testings, we are fairly confident that our model can reliably generate meaningful topic tags that help our users search for relevent articles.
+For training, we used the [News Categories Dataset](https://www.kaggle.com/rmisra/news-category-dataset), a collection of about 200k news headlines and short descriptions from the year 2012 to 2018 from HuffPost. Each article was labeled one of 31 topics ranging from science and politics to food and art. We randomly split the dataset into a training set and a testing set with a 4-1 ratio. Our logistic model has a 74% rate of predicting the correct category on the training set, and a 66% correct prediction rate on the testing set. 
+
+In our API implementation, we select the top 5 topics according to predicted probabilities. Based on real-world testings, we are fairly confident that our model can reliably generate meaningful topic tags that help our users search for relevent articles.
 
 ## How to test the service
 
@@ -133,3 +153,13 @@ After we replicate our environment, we run the following -
 Post the running of the above checks, a commit of the reports is made to the repository using a github bot. The files are finally pushed to the repo using ad-m/github-push-action@master.
 
 ## Documentation
+
+The generated CI logs can be found in thelogs directory.
+
+For unit-test reports, one can see that no failures were observed in the unit-test-report.txt. Only logs generated during testing were recorded in this file. In the CI logs that have been generated, one can see for 'Run Unit Test Cases', 'OK' is returned. This file is auto-generated during CIs.
+
+For coverage teport, refer to coverage-report.txt. This file is auto-generated during CIs.
+
+For style checks and static analysis, refer to style-checks.txt for detailed analysis. 
+
+

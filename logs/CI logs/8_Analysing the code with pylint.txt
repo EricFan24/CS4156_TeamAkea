@@ -1,55 +1,56 @@
-2021-12-12T04:56:44.7361619Z ##[group]Run pip3 install pylint
-2021-12-12T04:56:44.7362278Z [36;1mpip3 install pylint[0m
-2021-12-12T04:56:44.7362751Z [36;1mpylint CS4156_TeamAkea --fail-under=9.9[0m
-2021-12-12T04:56:44.7363269Z [36;1mpylint frontend --fail-under=9.9[0m
-2021-12-12T04:56:44.7405680Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
-2021-12-12T04:56:44.7406181Z env:
-2021-12-12T04:56:44.7406785Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.9.9\x64
-2021-12-12T04:56:44.7407323Z ##[endgroup]
-2021-12-12T04:56:46.4853006Z Requirement already satisfied: pylint in c:\miniconda\lib\site-packages (2.11.1)
-2021-12-12T04:56:46.4958636Z Requirement already satisfied: mccabe<0.7,>=0.6 in c:\miniconda\lib\site-packages (from pylint) (0.6.1)
-2021-12-12T04:56:46.4967094Z Requirement already satisfied: colorama in c:\miniconda\lib\site-packages (from pylint) (0.4.4)
-2021-12-12T04:56:46.4980150Z Requirement already satisfied: typing-extensions>=3.10.0 in c:\miniconda\lib\site-packages (from pylint) (3.10.0.2)
-2021-12-12T04:56:46.4988484Z Requirement already satisfied: platformdirs>=2.2.0 in c:\miniconda\lib\site-packages (from pylint) (2.4.0)
-2021-12-12T04:56:46.5000112Z Requirement already satisfied: isort<6,>=4.2.5 in c:\miniconda\lib\site-packages (from pylint) (5.10.1)
-2021-12-12T04:56:46.5009610Z Requirement already satisfied: astroid<2.9,>=2.8.0 in c:\miniconda\lib\site-packages (from pylint) (2.8.5)
-2021-12-12T04:56:46.5020014Z Requirement already satisfied: toml>=0.7.1 in c:\miniconda\lib\site-packages (from pylint) (0.10.2)
-2021-12-12T04:56:46.5093138Z Requirement already satisfied: setuptools>=20.0 in c:\miniconda\lib\site-packages (from astroid<2.9,>=2.8.0->pylint) (58.0.4)
-2021-12-12T04:56:46.5101831Z Requirement already satisfied: wrapt<1.14,>=1.11 in c:\miniconda\lib\site-packages (from astroid<2.9,>=2.8.0->pylint) (1.13.3)
-2021-12-12T04:56:46.5118121Z Requirement already satisfied: lazy-object-proxy>=1.4.0 in c:\miniconda\lib\site-packages (from astroid<2.9,>=2.8.0->pylint) (1.6.0)
-2021-12-12T04:56:59.2340025Z ************* Module CS4156_TeamAkea
-2021-12-12T04:56:59.2341220Z __init__.py:1:0: C0103: Module name "CS4156_TeamAkea" doesn't conform to snake_case naming style (invalid-name)
-2021-12-12T04:56:59.2342041Z ************* Module authcheck
-2021-12-12T04:56:59.2342788Z authcheck.py:51:4: R1720: Unnecessary "elif" after "raise" (no-else-raise)
-2021-12-12T04:56:59.2343826Z authcheck.py:76:18: R1732: Consider using 'with' for resource-allocating operations (consider-using-with)
-2021-12-12T04:56:59.2344725Z ************* Module nlp
-2021-12-12T04:56:59.2345545Z nlp.py:109:21: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
-2021-12-12T04:56:59.2346416Z ************* Module test_nlp
-2021-12-12T04:56:59.2347267Z test_nlp.py:6:5: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
-2021-12-12T04:56:59.2348153Z ************* Module web_scraper
-2021-12-12T04:56:59.2348813Z web_scraper.py:64:4: R0913: Too many arguments (6/5) (too-many-arguments)
-2021-12-12T04:56:59.2349619Z web_scraper.py:1:0: R0801: Similar lines in 2 files
-2021-12-12T04:56:59.2350133Z ==db:[25:33]
-2021-12-12T04:56:59.2350582Z ==test_db:[29:36]
-2021-12-12T04:56:59.2351093Z     except Error as err:
-2021-12-12T04:56:59.2351567Z         print(err)
-2021-12-12T04:56:59.2351915Z 
-2021-12-12T04:56:59.2352360Z     finally:
-2021-12-12T04:56:59.2352784Z         if conn:
-2021-12-12T04:56:59.2353294Z             conn.close()
-2021-12-12T04:56:59.2353659Z 
-2021-12-12T04:56:59.2354105Z  (duplicate-code)
-2021-12-12T04:56:59.2354486Z 
-2021-12-12T04:56:59.2354979Z -----------------------------------
-2021-12-12T04:56:59.2355365Z 
-2021-12-12T04:56:59.2355816Z Your code has been rated at 9.91/10
-2021-12-12T04:56:59.2359276Z 
-2021-12-12T04:56:59.2359697Z 
-2021-12-12T04:56:59.2359987Z 
-2021-12-12T04:57:07.2677651Z 
-2021-12-12T04:57:07.2679589Z ------------------------------------
-2021-12-12T04:57:07.2680056Z 
-2021-12-12T04:57:07.2680596Z Your code has been rated at 10.00/10
-2021-12-12T04:57:07.2682219Z 
-2021-12-12T04:57:07.2682534Z 
-2021-12-12T04:57:07.2682808Z 
+2021-12-14T21:13:40.0021708Z ##[group]Run pip3 install pylint
+2021-12-14T21:13:40.0022305Z [36;1mpip3 install pylint[0m
+2021-12-14T21:13:40.0022783Z [36;1mpylint CS4156_TeamAkea --fail-under=9.9[0m
+2021-12-14T21:13:40.0023405Z [36;1mpylint frontend --fail-under=9.9[0m
+2021-12-14T21:13:40.0075031Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2021-12-14T21:13:40.0076746Z env:
+2021-12-14T21:13:40.0077369Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.9.9\x64
+2021-12-14T21:13:40.0077974Z ##[endgroup]
+2021-12-14T21:13:42.0989360Z Requirement already satisfied: pylint in c:\miniconda\lib\site-packages (2.11.1)
+2021-12-14T21:13:42.1115759Z Requirement already satisfied: astroid<2.9,>=2.8.0 in c:\miniconda\lib\site-packages (from pylint) (2.8.5)
+2021-12-14T21:13:42.1126698Z Requirement already satisfied: colorama in c:\miniconda\lib\site-packages (from pylint) (0.4.4)
+2021-12-14T21:13:42.1139704Z Requirement already satisfied: platformdirs>=2.2.0 in c:\miniconda\lib\site-packages (from pylint) (2.4.0)
+2021-12-14T21:13:42.1149857Z Requirement already satisfied: toml>=0.7.1 in c:\miniconda\lib\site-packages (from pylint) (0.10.2)
+2021-12-14T21:13:42.1164391Z Requirement already satisfied: mccabe<0.7,>=0.6 in c:\miniconda\lib\site-packages (from pylint) (0.6.1)
+2021-12-14T21:13:42.1175909Z Requirement already satisfied: isort<6,>=4.2.5 in c:\miniconda\lib\site-packages (from pylint) (5.10.1)
+2021-12-14T21:13:42.1191098Z Requirement already satisfied: typing-extensions>=3.10.0 in c:\miniconda\lib\site-packages (from pylint) (3.10.0.2)
+2021-12-14T21:13:42.1279173Z Requirement already satisfied: wrapt<1.14,>=1.11 in c:\miniconda\lib\site-packages (from astroid<2.9,>=2.8.0->pylint) (1.13.3)
+2021-12-14T21:13:42.1291094Z Requirement already satisfied: lazy-object-proxy>=1.4.0 in c:\miniconda\lib\site-packages (from astroid<2.9,>=2.8.0->pylint) (1.6.0)
+2021-12-14T21:13:42.1304364Z Requirement already satisfied: setuptools>=20.0 in c:\miniconda\lib\site-packages (from astroid<2.9,>=2.8.0->pylint) (58.0.4)
+2021-12-14T21:13:57.8726830Z ************* Module CS4156_TeamAkea
+2021-12-14T21:13:57.8728472Z __init__.py:1:0: C0103: Module name "CS4156_TeamAkea" doesn't conform to snake_case naming style (invalid-name)
+2021-12-14T21:13:57.8729371Z ************* Module authcheck
+2021-12-14T21:13:57.8730157Z authcheck.py:51:4: R1720: Unnecessary "elif" after "raise" (no-else-raise)
+2021-12-14T21:13:57.8731630Z authcheck.py:76:18: R1732: Consider using 'with' for resource-allocating operations (consider-using-with)
+2021-12-14T21:13:57.8732443Z ************* Module main
+2021-12-14T21:13:57.8733047Z main.py:319:0: R0914: Too many local variables (17/15) (too-many-locals)
+2021-12-14T21:13:57.8733623Z ************* Module nlp
+2021-12-14T21:13:57.8734388Z nlp.py:109:21: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+2021-12-14T21:13:57.8735150Z ************* Module test_nlp
+2021-12-14T21:13:57.8735923Z test_nlp.py:6:5: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+2021-12-14T21:13:57.8736728Z ************* Module web_scraper
+2021-12-14T21:13:57.8737712Z web_scraper.py:64:4: R0913: Too many arguments (6/5) (too-many-arguments)
+2021-12-14T21:13:57.8738565Z web_scraper.py:1:0: R0801: Similar lines in 2 files
+2021-12-14T21:13:57.8739117Z ==db:[25:33]
+2021-12-14T21:13:57.8739534Z ==test_db:[29:36]
+2021-12-14T21:13:57.8740042Z         except Error as err:
+2021-12-14T21:13:57.8740668Z             print(err)
+2021-12-14T21:13:57.8741084Z 
+2021-12-14T21:13:57.8741481Z         finally:
+2021-12-14T21:13:57.8741903Z             if conn:
+2021-12-14T21:13:57.8742334Z                 conn.close()
+2021-12-14T21:13:57.8742820Z  (duplicate-code)
+2021-12-14T21:13:57.8743175Z 
+2021-12-14T21:13:57.8743590Z -----------------------------------
+2021-12-14T21:13:57.8743947Z 
+2021-12-14T21:13:57.8744385Z Your code has been rated at 9.90/10
+2021-12-14T21:13:57.8744756Z 
+2021-12-14T21:13:57.8745032Z 
+2021-12-14T21:13:57.8745293Z 
+2021-12-14T21:14:07.1910694Z 
+2021-12-14T21:14:07.1913441Z ------------------------------------
+2021-12-14T21:14:07.1914150Z 
+2021-12-14T21:14:07.1914701Z Your code has been rated at 10.00/10
+2021-12-14T21:14:07.1915122Z 
+2021-12-14T21:14:07.1915551Z 
+2021-12-14T21:14:07.1915938Z 

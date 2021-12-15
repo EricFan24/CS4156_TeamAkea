@@ -1,9 +1,9 @@
-2021-12-12T04:57:13.1849659Z Post job cleanup.
-2021-12-12T04:57:17.1961808Z [command]"C:\Program Files\Git\bin\git.exe" version
-2021-12-12T04:57:17.2147636Z git version 2.34.1.windows.1
-2021-12-12T04:57:17.2213937Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
-2021-12-12T04:57:17.2433728Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
-2021-12-12T04:57:17.6712350Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
-2021-12-12T04:57:17.6886654Z http.https://github.com/.extraheader
-2021-12-12T04:57:17.6931557Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all http.https://github.com/.extraheader
-2021-12-12T04:57:17.7149320Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2021-12-14T21:14:15.7856909Z Post job cleanup.
+2021-12-14T21:14:20.9662271Z [command]"C:\Program Files\Git\bin\git.exe" version
+2021-12-14T21:14:20.9894737Z git version 2.34.1.windows.1
+2021-12-14T21:14:20.9971212Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2021-12-14T21:14:21.0244908Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2021-12-14T21:14:21.5456894Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2021-12-14T21:14:21.5669694Z http.https://github.com/.extraheader
+2021-12-14T21:14:21.5722833Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all http.https://github.com/.extraheader
+2021-12-14T21:14:21.5995288Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"

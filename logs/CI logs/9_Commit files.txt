@@ -1,12 +1,13 @@
-2021-12-12T04:57:07.7384852Z ##[group]Run git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-2021-12-12T04:57:07.7385715Z [36;1m[0m
-2021-12-12T04:57:07.7386348Z [36;1mgit config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"[0m
-2021-12-12T04:57:07.7387159Z [36;1mgit config --global user.name "github-actions[bot]"[0m
-2021-12-12T04:57:07.7387818Z [36;1mgit add .\Artifacts-Auto-Generated[0m
-2021-12-12T04:57:07.7388383Z [36;1mgit commit -m "Automated reports" -a[0m
-2021-12-12T04:57:07.7431486Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
-2021-12-12T04:57:07.7432043Z env:
-2021-12-12T04:57:07.7432589Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.9.9\x64
-2021-12-12T04:57:07.7433137Z ##[endgroup]
-2021-12-12T04:57:08.7576330Z [main 4016571] Automated reports
-2021-12-12T04:57:08.7577456Z  1 file changed, 0 insertions(+), 0 deletions(-)
+2021-12-14T21:14:07.7396606Z ##[group]Run git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+2021-12-14T21:14:07.7397545Z [36;1m[0m
+2021-12-14T21:14:07.7398352Z [36;1mgit config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"[0m
+2021-12-14T21:14:07.7399255Z [36;1mgit config --global user.name "github-actions[bot]"[0m
+2021-12-14T21:14:07.7399975Z [36;1mgit add .\Artifacts-Auto-Generated[0m
+2021-12-14T21:14:07.7400979Z [36;1mgit commit -m "Automated reports" -a[0m
+2021-12-14T21:14:07.7450223Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2021-12-14T21:14:07.7450941Z env:
+2021-12-14T21:14:07.7451678Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.9.9\x64
+2021-12-14T21:14:07.7452283Z ##[endgroup]
+2021-12-14T21:14:08.7594760Z fatal: pathspec '.\Artifacts-Auto-Generated' did not match any files
+2021-12-14T21:14:08.9905080Z [main 72dee93] Automated reports
+2021-12-14T21:14:08.9911705Z  2 files changed, 2 insertions(+), 2 deletions(-)

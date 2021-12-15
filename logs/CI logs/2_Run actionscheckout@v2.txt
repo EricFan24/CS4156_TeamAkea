@@ -1,185 +1,214 @@
-2021-12-12T04:52:19.6553565Z ##[group]Run actions/checkout@v2
-2021-12-12T04:52:19.6554397Z with:
-2021-12-12T04:52:19.6554879Z   repository: EricFan24/CS4156_TeamAkea
-2021-12-12T04:52:19.6555874Z   token: ***
-2021-12-12T04:52:19.6556282Z   ssh-strict: true
-2021-12-12T04:52:19.6556778Z   persist-credentials: true
-2021-12-12T04:52:19.6557239Z   clean: true
-2021-12-12T04:52:19.6557633Z   fetch-depth: 1
-2021-12-12T04:52:19.6558015Z   lfs: false
-2021-12-12T04:52:19.6558413Z   submodules: false
-2021-12-12T04:52:19.6558809Z ##[endgroup]
-2021-12-12T04:52:22.1200099Z Syncing repository: EricFan24/CS4156_TeamAkea
-2021-12-12T04:52:22.1415788Z ##[group]Getting Git version info
-2021-12-12T04:52:22.1416918Z Working directory is 'D:\a\CS4156_TeamAkea\CS4156_TeamAkea'
-2021-12-12T04:52:22.1708902Z [command]"C:\Program Files\Git\bin\git.exe" version
-2021-12-12T04:52:22.1908136Z git version 2.34.1.windows.1
-2021-12-12T04:52:22.1957648Z ##[endgroup]
-2021-12-12T04:52:22.1962988Z Deleting the contents of 'D:\a\CS4156_TeamAkea\CS4156_TeamAkea'
-2021-12-12T04:52:22.1968277Z ##[group]Initializing the repository
-2021-12-12T04:52:22.1978351Z [command]"C:\Program Files\Git\bin\git.exe" init D:\a\CS4156_TeamAkea\CS4156_TeamAkea
-2021-12-12T04:52:22.3119384Z Initialized empty Git repository in D:/a/CS4156_TeamAkea/CS4156_TeamAkea/.git/
-2021-12-12T04:52:22.3173780Z [command]"C:\Program Files\Git\bin\git.exe" remote add origin https://github.com/EricFan24/CS4156_TeamAkea
-2021-12-12T04:52:22.3590852Z ##[endgroup]
-2021-12-12T04:52:22.3594476Z ##[group]Disabling automatic garbage collection
-2021-12-12T04:52:22.3599169Z [command]"C:\Program Files\Git\bin\git.exe" config --local gc.auto 0
-2021-12-12T04:52:22.4082045Z ##[endgroup]
-2021-12-12T04:52:22.4088295Z ##[group]Setting up auth
-2021-12-12T04:52:22.4102246Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
-2021-12-12T04:52:22.4319285Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
-2021-12-12T04:52:24.1358568Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
-2021-12-12T04:52:24.1591815Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
-2021-12-12T04:52:24.5901675Z [command]"C:\Program Files\Git\bin\git.exe" config --local http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
-2021-12-12T04:52:24.6138528Z ##[endgroup]
-2021-12-12T04:52:24.6143420Z ##[group]Fetching the repository
-2021-12-12T04:52:24.6169894Z [command]"C:\Program Files\Git\bin\git.exe" -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +12f9756b2c554266fa3d6f351b81d68089afe881:refs/remotes/origin/main
-2021-12-12T04:52:26.0917754Z remote: Enumerating objects: 70, done.        
-2021-12-12T04:52:26.0920221Z remote: Counting objects:   1% (1/70)        
-2021-12-12T04:52:26.0921817Z remote: Counting objects:   2% (2/70)        
-2021-12-12T04:52:26.0923229Z remote: Counting objects:   4% (3/70)        
-2021-12-12T04:52:26.0924610Z remote: Counting objects:   5% (4/70)        
-2021-12-12T04:52:26.0926003Z remote: Counting objects:   7% (5/70)        
-2021-12-12T04:52:26.0927326Z remote: Counting objects:   8% (6/70)        
-2021-12-12T04:52:26.0928457Z remote: Counting objects:  10% (7/70)        
-2021-12-12T04:52:26.0929388Z remote: Counting objects:  11% (8/70)        
-2021-12-12T04:52:26.0930376Z remote: Counting objects:  12% (9/70)        
-2021-12-12T04:52:26.0931500Z remote: Counting objects:  14% (10/70)        
-2021-12-12T04:52:26.0932482Z remote: Counting objects:  15% (11/70)        
-2021-12-12T04:52:26.0933759Z remote: Counting objects:  17% (12/70)        
-2021-12-12T04:52:26.0936620Z remote: Counting objects:  18% (13/70)        
-2021-12-12T04:52:26.0939110Z remote: Counting objects:  20% (14/70)        
-2021-12-12T04:52:26.0939751Z remote: Counting objects:  21% (15/70)        
-2021-12-12T04:52:26.0940383Z remote: Counting objects:  22% (16/70)        
-2021-12-12T04:52:26.0940933Z remote: Counting objects:  24% (17/70)        
-2021-12-12T04:52:26.0941544Z remote: Counting objects:  25% (18/70)        
-2021-12-12T04:52:26.0942084Z remote: Counting objects:  27% (19/70)        
-2021-12-12T04:52:26.0942553Z remote: Counting objects:  28% (20/70)        
-2021-12-12T04:52:26.0945168Z remote: Counting objects:  30% (21/70)        
-2021-12-12T04:52:26.0945796Z remote: Counting objects:  31% (22/70)        
-2021-12-12T04:52:26.0946294Z remote: Counting objects:  32% (23/70)        
-2021-12-12T04:52:26.0946844Z remote: Counting objects:  34% (24/70)        
-2021-12-12T04:52:26.0947302Z remote: Counting objects:  35% (25/70)        
-2021-12-12T04:52:26.0947744Z remote: Counting objects:  37% (26/70)        
-2021-12-12T04:52:26.0948278Z remote: Counting objects:  38% (27/70)        
-2021-12-12T04:52:26.0948760Z remote: Counting objects:  40% (28/70)        
-2021-12-12T04:52:26.0949216Z remote: Counting objects:  41% (29/70)        
-2021-12-12T04:52:26.0949665Z remote: Counting objects:  42% (30/70)        
-2021-12-12T04:52:26.0950104Z remote: Counting objects:  44% (31/70)        
-2021-12-12T04:52:26.0950847Z remote: Counting objects:  45% (32/70)        
-2021-12-12T04:52:26.0951526Z remote: Counting objects:  47% (33/70)        
-2021-12-12T04:52:26.0951985Z remote: Counting objects:  48% (34/70)        
-2021-12-12T04:52:26.0952441Z remote: Counting objects:  50% (35/70)        
-2021-12-12T04:52:26.0952911Z remote: Counting objects:  51% (36/70)        
-2021-12-12T04:52:26.0954060Z remote: Counting objects:  52% (37/70)        
-2021-12-12T04:52:26.0954515Z remote: Counting objects:  54% (38/70)        
-2021-12-12T04:52:26.0954977Z remote: Counting objects:  55% (39/70)        
-2021-12-12T04:52:26.0955490Z remote: Counting objects:  57% (40/70)        
-2021-12-12T04:52:26.0955947Z remote: Counting objects:  58% (41/70)        
-2021-12-12T04:52:26.0956396Z remote: Counting objects:  60% (42/70)        
-2021-12-12T04:52:26.0956838Z remote: Counting objects:  61% (43/70)        
-2021-12-12T04:52:26.0957293Z remote: Counting objects:  62% (44/70)        
-2021-12-12T04:52:26.0958051Z remote: Counting objects:  64% (45/70)        
-2021-12-12T04:52:26.0958711Z remote: Counting objects:  65% (46/70)        
-2021-12-12T04:52:26.0959258Z remote: Counting objects:  67% (47/70)        
-2021-12-12T04:52:26.0959990Z remote: Counting objects:  68% (48/70)        
-2021-12-12T04:52:26.0960483Z remote: Counting objects:  70% (49/70)        
-2021-12-12T04:52:26.0961018Z remote: Counting objects:  71% (50/70)        
-2021-12-12T04:52:26.0961469Z remote: Counting objects:  72% (51/70)        
-2021-12-12T04:52:26.0961906Z remote: Counting objects:  74% (52/70)        
-2021-12-12T04:52:26.0962360Z remote: Counting objects:  75% (53/70)        
-2021-12-12T04:52:26.0962886Z remote: Counting objects:  77% (54/70)        
-2021-12-12T04:52:26.0963328Z remote: Counting objects:  78% (55/70)        
-2021-12-12T04:52:26.0963776Z remote: Counting objects:  80% (56/70)        
-2021-12-12T04:52:26.0964217Z remote: Counting objects:  81% (57/70)        
-2021-12-12T04:52:26.0964673Z remote: Counting objects:  82% (58/70)        
-2021-12-12T04:52:26.0965129Z remote: Counting objects:  84% (59/70)        
-2021-12-12T04:52:26.0965566Z remote: Counting objects:  85% (60/70)        
-2021-12-12T04:52:26.0966012Z remote: Counting objects:  87% (61/70)        
-2021-12-12T04:52:26.0966451Z remote: Counting objects:  88% (62/70)        
-2021-12-12T04:52:26.0966906Z remote: Counting objects:  90% (63/70)        
-2021-12-12T04:52:26.0967411Z remote: Counting objects:  91% (64/70)        
-2021-12-12T04:52:26.0968052Z remote: Counting objects:  92% (65/70)        
-2021-12-12T04:52:26.0968537Z remote: Counting objects:  94% (66/70)        
-2021-12-12T04:52:26.0969596Z remote: Counting objects:  95% (67/70)        
-2021-12-12T04:52:26.0970039Z remote: Counting objects:  97% (68/70)        
-2021-12-12T04:52:26.0970500Z remote: Counting objects:  98% (69/70)        
-2021-12-12T04:52:26.0970944Z remote: Counting objects: 100% (70/70)        
-2021-12-12T04:52:26.0971774Z remote: Counting objects: 100% (70/70), done.        
-2021-12-12T04:52:26.0972291Z remote: Compressing objects:   1% (1/64)        
-2021-12-12T04:52:26.0972810Z remote: Compressing objects:   3% (2/64)        
-2021-12-12T04:52:26.0973312Z remote: Compressing objects:   4% (3/64)        
-2021-12-12T04:52:26.0973799Z remote: Compressing objects:   6% (4/64)        
-2021-12-12T04:52:26.0974291Z remote: Compressing objects:   7% (5/64)        
-2021-12-12T04:52:26.0974873Z remote: Compressing objects:   9% (6/64)        
-2021-12-12T04:52:26.0975378Z remote: Compressing objects:  10% (7/64)        
-2021-12-12T04:52:26.0975874Z remote: Compressing objects:  12% (8/64)        
-2021-12-12T04:52:26.0976471Z remote: Compressing objects:  14% (9/64)        
-2021-12-12T04:52:26.0976965Z remote: Compressing objects:  15% (10/64)        
-2021-12-12T04:52:26.0977451Z remote: Compressing objects:  17% (11/64)        
-2021-12-12T04:52:26.0977955Z remote: Compressing objects:  18% (12/64)        
-2021-12-12T04:52:26.0978471Z remote: Compressing objects:  20% (13/64)        
-2021-12-12T04:52:26.0978970Z remote: Compressing objects:  21% (14/64)        
-2021-12-12T04:52:26.0979466Z remote: Compressing objects:  23% (15/64)        
-2021-12-12T04:52:26.0979946Z remote: Compressing objects:  25% (16/64)        
-2021-12-12T04:52:26.0980446Z remote: Compressing objects:  26% (17/64)        
-2021-12-12T04:52:26.0981376Z remote: Compressing objects:  28% (18/64)        
-2021-12-12T04:52:26.0982321Z remote: Compressing objects:  29% (19/64)        
-2021-12-12T04:52:26.0983038Z remote: Compressing objects:  31% (20/64)        
-2021-12-12T04:52:26.0983699Z remote: Compressing objects:  32% (21/64)        
-2021-12-12T04:52:26.0984441Z remote: Compressing objects:  34% (22/64)        
-2021-12-12T04:52:26.0985103Z remote: Compressing objects:  35% (23/64)        
-2021-12-12T04:52:26.0985691Z remote: Compressing objects:  37% (24/64)        
-2021-12-12T04:52:26.0986294Z remote: Compressing objects:  39% (25/64)        
-2021-12-12T04:52:27.1437591Z remote: Compressing objects:  40% (26/64)        
-2021-12-12T04:52:27.1438594Z remote: Compressing objects:  42% (27/64)        
-2021-12-12T04:52:27.1468075Z remote: Compressing objects:  43% (28/64)        
-2021-12-12T04:52:27.1468863Z remote: Compressing objects:  45% (29/64)        
-2021-12-12T04:52:27.1469554Z remote: Compressing objects:  46% (30/64)        
-2021-12-12T04:52:27.1470303Z remote: Compressing objects:  48% (31/64)        
-2021-12-12T04:52:27.1470965Z remote: Compressing objects:  50% (32/64)        
-2021-12-12T04:52:27.1471634Z remote: Compressing objects:  51% (33/64)        
-2021-12-12T04:52:27.1472301Z remote: Compressing objects:  53% (34/64)        
-2021-12-12T04:52:27.1473396Z remote: Compressing objects:  54% (35/64)        
-2021-12-12T04:52:27.1474075Z remote: Compressing objects:  56% (36/64)        
-2021-12-12T04:52:27.1474753Z remote: Compressing objects:  57% (37/64)        
-2021-12-12T04:52:27.1475526Z remote: Compressing objects:  59% (38/64)        
-2021-12-12T04:52:27.1476188Z remote: Compressing objects:  60% (39/64)        
-2021-12-12T04:52:27.1476844Z remote: Compressing objects:  62% (40/64)        
-2021-12-12T04:52:27.1477511Z remote: Compressing objects:  64% (41/64)        
-2021-12-12T04:52:27.1478173Z remote: Compressing objects:  65% (42/64)        
-2021-12-12T04:52:27.1478823Z remote: Compressing objects:  67% (43/64)        
-2021-12-12T04:52:27.1479497Z remote: Compressing objects:  68% (44/64)        
-2021-12-12T04:52:27.1480141Z remote: Compressing objects:  70% (45/64)        
-2021-12-12T04:52:27.1480804Z remote: Compressing objects:  71% (46/64)        
-2021-12-12T04:52:27.1481792Z remote: Compressing objects:  73% (47/64)        
-2021-12-12T04:52:27.1482437Z remote: Compressing objects:  75% (48/64)        
-2021-12-12T04:52:27.1483104Z remote: Compressing objects:  76% (49/64)        
-2021-12-12T04:52:27.1483766Z remote: Compressing objects:  78% (50/64)        
-2021-12-12T04:52:27.1484412Z remote: Compressing objects:  79% (51/64)        
-2021-12-12T04:52:27.1485074Z remote: Compressing objects:  81% (52/64)        
-2021-12-12T04:52:27.1485805Z remote: Compressing objects:  82% (53/64)        
-2021-12-12T04:52:27.1486512Z remote: Compressing objects:  84% (54/64)        
-2021-12-12T04:52:27.1487175Z remote: Compressing objects:  85% (55/64)        
-2021-12-12T04:52:27.1487823Z remote: Compressing objects:  87% (56/64)        
-2021-12-12T04:52:27.1488499Z remote: Compressing objects:  89% (57/64)        
-2021-12-12T04:52:27.1489162Z remote: Compressing objects:  90% (58/64)        
-2021-12-12T04:52:27.1489801Z remote: Compressing objects:  92% (59/64)        
-2021-12-12T04:52:27.1490471Z remote: Compressing objects:  93% (60/64)        
-2021-12-12T04:52:27.1491129Z remote: Compressing objects:  95% (61/64)        
-2021-12-12T04:52:27.1491774Z remote: Compressing objects:  96% (62/64)        
-2021-12-12T04:52:27.1492433Z remote: Compressing objects:  98% (63/64)        
-2021-12-12T04:52:27.1493088Z remote: Compressing objects: 100% (64/64)        
-2021-12-12T04:52:27.1493762Z remote: Compressing objects: 100% (64/64), done.        
-2021-12-12T04:52:27.5147470Z remote: Total 70 (delta 5), reused 33 (delta 0), pack-reused 0        
-2021-12-12T04:52:27.5916439Z From https://github.com/EricFan24/CS4156_TeamAkea
-2021-12-12T04:52:27.5917732Z  * [new ref]         12f9756b2c554266fa3d6f351b81d68089afe881 -> origin/main
-2021-12-12T04:52:27.6350574Z ##[endgroup]
-2021-12-12T04:52:27.6367852Z ##[group]Determining the checkout info
-2021-12-12T04:52:27.6376140Z ##[endgroup]
-2021-12-12T04:52:27.6378304Z ##[group]Checking out the ref
-2021-12-12T04:52:27.6382026Z [command]"C:\Program Files\Git\bin\git.exe" checkout --progress --force -B main refs/remotes/origin/main
-2021-12-12T04:52:27.9119962Z Branch 'main' set up to track remote branch 'main' from 'origin'.
-2021-12-12T04:52:27.9126072Z Switched to a new branch 'main'
-2021-12-12T04:52:27.9180841Z ##[endgroup]
-2021-12-12T04:52:27.9428333Z [command]"C:\Program Files\Git\bin\git.exe" log -1 --format='%H'
-2021-12-12T04:52:27.9611683Z '12f9756b2c554266fa3d6f351b81d68089afe881'
+2021-12-14T21:07:45.5423264Z ##[group]Run actions/checkout@v2
+2021-12-14T21:07:45.5423948Z with:
+2021-12-14T21:07:45.5424485Z   repository: EricFan24/CS4156_TeamAkea
+2021-12-14T21:07:45.5425566Z   token: ***
+2021-12-14T21:07:45.5425952Z   ssh-strict: true
+2021-12-14T21:07:45.5426460Z   persist-credentials: true
+2021-12-14T21:07:45.5426940Z   clean: true
+2021-12-14T21:07:45.5427311Z   fetch-depth: 1
+2021-12-14T21:07:45.5427803Z   lfs: false
+2021-12-14T21:07:45.5428125Z   submodules: false
+2021-12-14T21:07:45.5428479Z ##[endgroup]
+2021-12-14T21:07:48.9699118Z Syncing repository: EricFan24/CS4156_TeamAkea
+2021-12-14T21:07:49.0067684Z ##[group]Getting Git version info
+2021-12-14T21:07:49.0068880Z Working directory is 'D:\a\CS4156_TeamAkea\CS4156_TeamAkea'
+2021-12-14T21:07:49.0592035Z [command]"C:\Program Files\Git\bin\git.exe" version
+2021-12-14T21:07:49.0849155Z git version 2.34.1.windows.1
+2021-12-14T21:07:49.0906640Z ##[endgroup]
+2021-12-14T21:07:49.0914322Z Deleting the contents of 'D:\a\CS4156_TeamAkea\CS4156_TeamAkea'
+2021-12-14T21:07:49.0918922Z ##[group]Initializing the repository
+2021-12-14T21:07:49.0932347Z [command]"C:\Program Files\Git\bin\git.exe" init D:\a\CS4156_TeamAkea\CS4156_TeamAkea
+2021-12-14T21:07:49.2574687Z Initialized empty Git repository in D:/a/CS4156_TeamAkea/CS4156_TeamAkea/.git/
+2021-12-14T21:07:49.2640694Z [command]"C:\Program Files\Git\bin\git.exe" remote add origin https://github.com/EricFan24/CS4156_TeamAkea
+2021-12-14T21:07:49.3155961Z ##[endgroup]
+2021-12-14T21:07:49.3157789Z ##[group]Disabling automatic garbage collection
+2021-12-14T21:07:49.3171168Z [command]"C:\Program Files\Git\bin\git.exe" config --local gc.auto 0
+2021-12-14T21:07:49.3753541Z ##[endgroup]
+2021-12-14T21:07:49.3759607Z ##[group]Setting up auth
+2021-12-14T21:07:49.3778357Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2021-12-14T21:07:49.4071013Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2021-12-14T21:07:51.4706121Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2021-12-14T21:07:51.5018675Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2021-12-14T21:07:52.0707862Z [command]"C:\Program Files\Git\bin\git.exe" config --local http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
+2021-12-14T21:07:53.0031996Z ##[endgroup]
+2021-12-14T21:07:53.0034022Z ##[group]Fetching the repository
+2021-12-14T21:07:53.0036078Z [command]"C:\Program Files\Git\bin\git.exe" -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +485e9a14ecff85146b2e5532a9db89947b8cac85:refs/remotes/origin/main
+2021-12-14T21:07:53.7909558Z remote: Enumerating objects: 85, done.        
+2021-12-14T21:07:53.7914531Z remote: Counting objects:   1% (1/85)        
+2021-12-14T21:07:53.7917697Z remote: Counting objects:   2% (2/85)        
+2021-12-14T21:07:53.7918764Z remote: Counting objects:   3% (3/85)        
+2021-12-14T21:07:53.7920018Z remote: Counting objects:   4% (4/85)        
+2021-12-14T21:07:53.7920835Z remote: Counting objects:   5% (5/85)        
+2021-12-14T21:07:53.7921440Z remote: Counting objects:   7% (6/85)        
+2021-12-14T21:07:53.7922364Z remote: Counting objects:   8% (7/85)        
+2021-12-14T21:07:53.7923539Z remote: Counting objects:   9% (8/85)        
+2021-12-14T21:07:53.7924383Z remote: Counting objects:  10% (9/85)        
+2021-12-14T21:07:53.7926217Z remote: Counting objects:  11% (10/85)        
+2021-12-14T21:07:53.7929814Z remote: Counting objects:  12% (11/85)        
+2021-12-14T21:07:53.7930456Z remote: Counting objects:  14% (12/85)        
+2021-12-14T21:07:53.7931076Z remote: Counting objects:  15% (13/85)        
+2021-12-14T21:07:53.7933979Z remote: Counting objects:  16% (14/85)        
+2021-12-14T21:07:53.7934561Z remote: Counting objects:  17% (15/85)        
+2021-12-14T21:07:53.7935226Z remote: Counting objects:  18% (16/85)        
+2021-12-14T21:07:53.7935756Z remote: Counting objects:  20% (17/85)        
+2021-12-14T21:07:53.7936398Z remote: Counting objects:  21% (18/85)        
+2021-12-14T21:07:53.7936908Z remote: Counting objects:  22% (19/85)        
+2021-12-14T21:07:53.7937546Z remote: Counting objects:  23% (20/85)        
+2021-12-14T21:07:53.7938039Z remote: Counting objects:  24% (21/85)        
+2021-12-14T21:07:53.7938510Z remote: Counting objects:  25% (22/85)        
+2021-12-14T21:07:53.7938981Z remote: Counting objects:  27% (23/85)        
+2021-12-14T21:07:53.7939550Z remote: Counting objects:  28% (24/85)        
+2021-12-14T21:07:53.7939986Z remote: Counting objects:  29% (25/85)        
+2021-12-14T21:07:53.7940434Z remote: Counting objects:  30% (26/85)        
+2021-12-14T21:07:53.7940932Z remote: Counting objects:  31% (27/85)        
+2021-12-14T21:07:53.7941377Z remote: Counting objects:  32% (28/85)        
+2021-12-14T21:07:53.7942059Z remote: Counting objects:  34% (29/85)        
+2021-12-14T21:07:53.7942541Z remote: Counting objects:  35% (30/85)        
+2021-12-14T21:07:53.7943313Z remote: Counting objects:  36% (31/85)        
+2021-12-14T21:07:53.7943820Z remote: Counting objects:  37% (32/85)        
+2021-12-14T21:07:53.7944305Z remote: Counting objects:  38% (33/85)        
+2021-12-14T21:07:53.7944882Z remote: Counting objects:  40% (34/85)        
+2021-12-14T21:07:53.7945351Z remote: Counting objects:  41% (35/85)        
+2021-12-14T21:07:53.7945828Z remote: Counting objects:  42% (36/85)        
+2021-12-14T21:07:53.7947060Z remote: Counting objects:  43% (37/85)        
+2021-12-14T21:07:53.7947515Z remote: Counting objects:  44% (38/85)        
+2021-12-14T21:07:53.7948000Z remote: Counting objects:  45% (39/85)        
+2021-12-14T21:07:53.7948677Z remote: Counting objects:  47% (40/85)        
+2021-12-14T21:07:53.7949133Z remote: Counting objects:  48% (41/85)        
+2021-12-14T21:07:53.7950180Z remote: Counting objects:  49% (42/85)        
+2021-12-14T21:07:53.7953884Z remote: Counting objects:  50% (43/85)        
+2021-12-14T21:07:53.7954426Z remote: Counting objects:  51% (44/85)        
+2021-12-14T21:07:53.7954922Z remote: Counting objects:  52% (45/85)        
+2021-12-14T21:07:53.7955415Z remote: Counting objects:  54% (46/85)        
+2021-12-14T21:07:53.7955891Z remote: Counting objects:  55% (47/85)        
+2021-12-14T21:07:53.7956578Z remote: Counting objects:  56% (48/85)        
+2021-12-14T21:07:53.7957149Z remote: Counting objects:  57% (49/85)        
+2021-12-14T21:07:53.7958065Z remote: Counting objects:  58% (50/85)        
+2021-12-14T21:07:53.7958762Z remote: Counting objects:  60% (51/85)        
+2021-12-14T21:07:53.7959238Z remote: Counting objects:  61% (52/85)        
+2021-12-14T21:07:53.7959714Z remote: Counting objects:  62% (53/85)        
+2021-12-14T21:07:53.7960387Z remote: Counting objects:  63% (54/85)        
+2021-12-14T21:07:53.7962175Z remote: Counting objects:  64% (55/85)        
+2021-12-14T21:07:53.7963183Z remote: Counting objects:  65% (56/85)        
+2021-12-14T21:07:53.7966413Z remote: Counting objects:  67% (57/85)        
+2021-12-14T21:07:53.7967024Z remote: Counting objects:  68% (58/85)        
+2021-12-14T21:07:53.7967495Z remote: Counting objects:  69% (59/85)        
+2021-12-14T21:07:53.7967971Z remote: Counting objects:  70% (60/85)        
+2021-12-14T21:07:53.7968431Z remote: Counting objects:  71% (61/85)        
+2021-12-14T21:07:53.7968918Z remote: Counting objects:  72% (62/85)        
+2021-12-14T21:07:53.7969396Z remote: Counting objects:  74% (63/85)        
+2021-12-14T21:07:53.7969995Z remote: Counting objects:  75% (64/85)        
+2021-12-14T21:07:53.7970738Z remote: Counting objects:  76% (65/85)        
+2021-12-14T21:07:53.7971198Z remote: Counting objects:  77% (66/85)        
+2021-12-14T21:07:53.7972567Z remote: Counting objects:  78% (67/85)        
+2021-12-14T21:07:53.7973421Z remote: Counting objects:  80% (68/85)        
+2021-12-14T21:07:53.7973951Z remote: Counting objects:  81% (69/85)        
+2021-12-14T21:07:53.7974465Z remote: Counting objects:  82% (70/85)        
+2021-12-14T21:07:53.7974976Z remote: Counting objects:  83% (71/85)        
+2021-12-14T21:07:53.7975471Z remote: Counting objects:  84% (72/85)        
+2021-12-14T21:07:53.7975977Z remote: Counting objects:  85% (73/85)        
+2021-12-14T21:07:53.7976918Z remote: Counting objects:  87% (74/85)        
+2021-12-14T21:07:53.7977394Z remote: Counting objects:  88% (75/85)        
+2021-12-14T21:07:53.7978231Z remote: Counting objects:  89% (76/85)        
+2021-12-14T21:07:53.7978943Z remote: Counting objects:  90% (77/85)        
+2021-12-14T21:07:53.7979422Z remote: Counting objects:  91% (78/85)        
+2021-12-14T21:07:53.7979875Z remote: Counting objects:  92% (79/85)        
+2021-12-14T21:07:53.7981044Z remote: Counting objects:  94% (80/85)        
+2021-12-14T21:07:53.7981643Z remote: Counting objects:  95% (81/85)        
+2021-12-14T21:07:53.7982134Z remote: Counting objects:  96% (82/85)        
+2021-12-14T21:07:53.7982615Z remote: Counting objects:  97% (83/85)        
+2021-12-14T21:07:53.7983395Z remote: Counting objects:  98% (84/85)        
+2021-12-14T21:07:53.7983927Z remote: Counting objects: 100% (85/85)        
+2021-12-14T21:07:53.7984442Z remote: Counting objects: 100% (85/85), done.        
+2021-12-14T21:07:53.7985005Z remote: Compressing objects:   1% (1/78)        
+2021-12-14T21:07:53.7985551Z remote: Compressing objects:   2% (2/78)        
+2021-12-14T21:07:53.7986114Z remote: Compressing objects:   3% (3/78)        
+2021-12-14T21:07:53.7987143Z remote: Compressing objects:   5% (4/78)        
+2021-12-14T21:07:53.7987622Z remote: Compressing objects:   6% (5/78)        
+2021-12-14T21:07:53.7988108Z remote: Compressing objects:   7% (6/78)        
+2021-12-14T21:07:53.7988609Z remote: Compressing objects:   8% (7/78)        
+2021-12-14T21:07:53.7989098Z remote: Compressing objects:  10% (8/78)        
+2021-12-14T21:07:53.7989589Z remote: Compressing objects:  11% (9/78)        
+2021-12-14T21:07:53.7990069Z remote: Compressing objects:  12% (10/78)        
+2021-12-14T21:07:53.7990566Z remote: Compressing objects:  14% (11/78)        
+2021-12-14T21:07:53.7991040Z remote: Compressing objects:  15% (12/78)        
+2021-12-14T21:07:53.7991740Z remote: Compressing objects:  16% (13/78)        
+2021-12-14T21:07:53.7992263Z remote: Compressing objects:  17% (14/78)        
+2021-12-14T21:07:53.7993405Z remote: Compressing objects:  19% (15/78)        
+2021-12-14T21:07:53.7994088Z remote: Compressing objects:  20% (16/78)        
+2021-12-14T21:07:53.7994691Z remote: Compressing objects:  21% (17/78)        
+2021-12-14T21:07:53.7995249Z remote: Compressing objects:  23% (18/78)        
+2021-12-14T21:07:53.7995789Z remote: Compressing objects:  24% (19/78)        
+2021-12-14T21:07:53.7996478Z remote: Compressing objects:  25% (20/78)        
+2021-12-14T21:07:53.7996999Z remote: Compressing objects:  26% (21/78)        
+2021-12-14T21:07:53.7998196Z remote: Compressing objects:  28% (22/78)        
+2021-12-14T21:07:53.7998937Z remote: Compressing objects:  29% (23/78)        
+2021-12-14T21:07:53.7999448Z remote: Compressing objects:  30% (24/78)        
+2021-12-14T21:07:53.7999972Z remote: Compressing objects:  32% (25/78)        
+2021-12-14T21:07:53.8000850Z remote: Compressing objects:  33% (26/78)        
+2021-12-14T21:07:53.8001845Z remote: Compressing objects:  34% (27/78)        
+2021-12-14T21:07:53.8002403Z remote: Compressing objects:  35% (28/78)        
+2021-12-14T21:07:53.8002908Z remote: Compressing objects:  37% (29/78)        
+2021-12-14T21:07:53.8003936Z remote: Compressing objects:  38% (30/78)        
+2021-12-14T21:07:53.8004495Z remote: Compressing objects:  39% (31/78)        
+2021-12-14T21:07:53.8005794Z remote: Compressing objects:  41% (32/78)        
+2021-12-14T21:07:53.8006826Z remote: Compressing objects:  42% (33/78)        
+2021-12-14T21:07:53.8008301Z remote: Compressing objects:  43% (34/78)        
+2021-12-14T21:07:53.8013520Z remote: Compressing objects:  44% (35/78)        
+2021-12-14T21:07:53.8018363Z remote: Compressing objects:  46% (36/78)        
+2021-12-14T21:07:53.8040398Z remote: Compressing objects:  47% (37/78)        
+2021-12-14T21:07:53.8044436Z remote: Compressing objects:  48% (38/78)        
+2021-12-14T21:07:53.8136730Z remote: Compressing objects:  50% (39/78)        
+2021-12-14T21:07:53.8138039Z remote: Compressing objects:  51% (40/78)        
+2021-12-14T21:07:53.8139395Z remote: Compressing objects:  52% (41/78)        
+2021-12-14T21:07:53.8140009Z remote: Compressing objects:  53% (42/78)        
+2021-12-14T21:07:53.8140558Z remote: Compressing objects:  55% (43/78)        
+2021-12-14T21:07:53.8141140Z remote: Compressing objects:  56% (44/78)        
+2021-12-14T21:07:53.8141800Z remote: Compressing objects:  57% (45/78)        
+2021-12-14T21:07:53.8142323Z remote: Compressing objects:  58% (46/78)        
+2021-12-14T21:07:53.8142839Z remote: Compressing objects:  60% (47/78)        
+2021-12-14T21:07:53.8143468Z remote: Compressing objects:  61% (48/78)        
+2021-12-14T21:07:53.8144021Z remote: Compressing objects:  62% (49/78)        
+2021-12-14T21:07:53.8144674Z remote: Compressing objects:  64% (50/78)        
+2021-12-14T21:07:53.8145209Z remote: Compressing objects:  65% (51/78)        
+2021-12-14T21:07:53.8145786Z remote: Compressing objects:  66% (52/78)        
+2021-12-14T21:07:53.8146523Z remote: Compressing objects:  67% (53/78)        
+2021-12-14T21:07:53.8147004Z remote: Compressing objects:  69% (54/78)        
+2021-12-14T21:07:53.8147791Z remote: Compressing objects:  70% (55/78)        
+2021-12-14T21:07:53.8148275Z remote: Compressing objects:  71% (56/78)        
+2021-12-14T21:07:53.8148759Z remote: Compressing objects:  73% (57/78)        
+2021-12-14T21:07:53.8149227Z remote: Compressing objects:  74% (58/78)        
+2021-12-14T21:07:53.8149714Z remote: Compressing objects:  75% (59/78)        
+2021-12-14T21:07:53.8150308Z remote: Compressing objects:  76% (60/78)        
+2021-12-14T21:07:53.8150821Z remote: Compressing objects:  78% (61/78)        
+2021-12-14T21:07:53.8275183Z remote: Compressing objects:  79% (62/78)        
+2021-12-14T21:07:53.8275850Z remote: Compressing objects:  80% (63/78)        
+2021-12-14T21:07:53.8276414Z remote: Compressing objects:  82% (64/78)        
+2021-12-14T21:07:53.8284869Z remote: Compressing objects:  83% (65/78)        
+2021-12-14T21:07:53.8301190Z remote: Compressing objects:  84% (66/78)        
+2021-12-14T21:07:53.8301898Z remote: Compressing objects:  85% (67/78)        
+2021-12-14T21:07:53.8302436Z remote: Compressing objects:  87% (68/78)        
+2021-12-14T21:07:53.8302959Z remote: Compressing objects:  88% (69/78)        
+2021-12-14T21:07:53.8303713Z remote: Compressing objects:  89% (70/78)        
+2021-12-14T21:07:53.8304320Z remote: Compressing objects:  91% (71/78)        
+2021-12-14T21:07:53.8304878Z remote: Compressing objects:  92% (72/78)        
+2021-12-14T21:07:53.8305416Z remote: Compressing objects:  93% (73/78)        
+2021-12-14T21:07:53.8306028Z remote: Compressing objects:  94% (74/78)        
+2021-12-14T21:07:53.8306722Z remote: Compressing objects:  96% (75/78)        
+2021-12-14T21:07:53.8307269Z remote: Compressing objects:  97% (76/78)        
+2021-12-14T21:07:53.8307858Z remote: Compressing objects:  98% (77/78)        
+2021-12-14T21:07:53.8308408Z remote: Compressing objects: 100% (78/78)        
+2021-12-14T21:07:53.8308934Z remote: Compressing objects: 100% (78/78), done.        
+2021-12-14T21:07:55.7977467Z remote: Total 85 (delta 7), reused 31 (delta 1), pack-reused 0        
+2021-12-14T21:07:55.8717432Z From https://github.com/EricFan24/CS4156_TeamAkea
+2021-12-14T21:07:55.8719188Z  * [new ref]         485e9a14ecff85146b2e5532a9db89947b8cac85 -> origin/main
+2021-12-14T21:07:55.9186987Z ##[endgroup]
+2021-12-14T21:07:55.9189877Z ##[group]Determining the checkout info
+2021-12-14T21:07:55.9191270Z ##[endgroup]
+2021-12-14T21:07:55.9192454Z ##[group]Checking out the ref
+2021-12-14T21:07:55.9204144Z [command]"C:\Program Files\Git\bin\git.exe" checkout --progress --force -B main refs/remotes/origin/main
+2021-12-14T21:07:56.2320526Z Branch 'main' set up to track remote branch 'main' from 'origin'.
+2021-12-14T21:07:56.2327217Z Switched to a new branch 'main'
+2021-12-14T21:07:56.2425152Z ##[endgroup]
+2021-12-14T21:07:56.2734016Z [command]"C:\Program Files\Git\bin\git.exe" log -1 --format='%H'
+2021-12-14T21:07:56.2975991Z '485e9a14ecff85146b2e5532a9db89947b8cac85'
