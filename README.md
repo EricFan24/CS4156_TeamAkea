@@ -162,4 +162,6 @@ For coverage teport, refer to coverage-report.txt. This file is auto-generated d
 
 For style checks and static analysis, refer to style-checks.txt for detailed analysis. 
 
+For API documentation, generated using Postman, refer to akea-api-documentation file.
+
 
