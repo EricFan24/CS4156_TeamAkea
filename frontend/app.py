@@ -6,7 +6,7 @@ import requests
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmpl_dir)
 
-SERVERURI =  "http://127.0.0.1:5000/"
+SERVERURI =  "https://akea.herokuapp.com/"
 dicty={'access_token':"hello"}
 
 @app.route('/')
@@ -161,15 +161,6 @@ def show_tags():
     context=dict(stream=message, data=results)
     return render_template("results.html", **context)
 
-    #returned_tags = []
-    #tag_dict = response.json()['tags']
-
-    #for url in tag_dict:
-    #    returned_tags.append(url+ ": ")
-    #    returned_tags.append(tag_dict[url])
-    #context=dict(stream="Tags", data=returned_tags)
-    #return render_template("results.html", **context)
-
 @app.route('/redirect')
 def redirect():
 
@@ -233,4 +224,4 @@ def user_sign_up():
     return render_template("index.html")
 
 if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1', port=8111)
+    app.run(host='127.0.0.1', port=8111)
