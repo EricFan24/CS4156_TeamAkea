@@ -156,4 +156,10 @@ Post the running of the above checks, a commit of the reports is made to the rep
 
 The generated CI logs can be found in thelogs directory.
 
-For unit-test reports, one can see that no failures were observed in the unit-test-report.txt
+For unit-test reports, one can see that no failures were observed in the unit-test-report.txt. Only logs generated during testing were recorded in this file. In the CI logs that have been generated, one can see for 'Run Unit Test Cases', 'OK' is returned. This file is auto-generated during CIs.
+
+For coverage teport, refer to coverage-report.txt. This file is auto-generated during CIs.
+
+For style checks and static analysis, refer to style-checks.txt for detailed analysis. 
+
+
