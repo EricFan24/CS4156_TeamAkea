@@ -70,6 +70,24 @@ The API has the following endpoints:  We use JSON for input and output.
 
         pip install beautifulsoup4
 
+All dependencies:
+
+* Flask-2.0.2 
+* Flask-RESTful-0.3.9 
+* beautifulsoup4-4.10.0 
+* click-8.0.3 
+* cryptography-36.0.1 
+* en-core-web-sm-3.2.0 
+* flask-cors-3.0.10 
+* joblib-1.1.0 
+* numpy-1.21.4
+* python-dotenv-0.19.2 
+* python-jose-3.3.0 
+* scikit-learn-1.0.1 
+* six-1.16.0 
+* soupsieve-2.3 
+* spacy-3.2.1 
+
 ## Logistic model for topic prediction
 
 We trained a logistic model using tf-idf vectors and sklearn to predict the top 5 most likely topics for each input article. When the user post a url for automatic parsing, we save as tags the predicted topics together with keywords extracted from the article itself.
